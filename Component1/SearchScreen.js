@@ -11,7 +11,7 @@ let WIDTH_MIN = Dimensions.get('window').width;
 const TEXTSIZE = Dimensions.get('window').width ;
 const ACCESS_TOKEN = 'Access_Token'
 import debounce from 'lodash/debounce';
-
+import {BannerView} from 'react-native-fbads'
 
 class SearchScreen extends Component {
   constructor(){
@@ -76,7 +76,7 @@ class SearchScreen extends Component {
     let profileItem;
    
     if(this.state.searchInput == '' || null || undefined){
-      profileItem = ( <View><Text>Search to find collegue...</Text></View> )
+      profileItem = ( <View><Text>Your search result will appear here</Text></View> )
     } 
      else {
 
@@ -132,10 +132,7 @@ class SearchScreen extends Component {
                  
                
                   <Item>
-                    <Animatable.View animation={this.state.searchBarFocused ? 'fadeInLeft': 'fadeInRight'} duration={200}>
-                    {this.state.searchBarFocused ? ( <Icon name={this.state.searchBarFocused ? "arrow-left" : ""} size={24} style={{paddingLeft:5, paddingRight:3}} />):(<View></View>)}
-                   
-                    </Animatable.View>
+                  <Icon name={"search"} size={24} style={{paddingLeft:5, paddingRight:3}} />
                  
                     <Input
                      placeholder="Search" 
@@ -157,6 +154,13 @@ class SearchScreen extends Component {
                 {profileItem}
         </View>
 	   	</ScrollView>
+       <View style={{position:'absolute', bottom:0}}>
+       <BannerView
+        placementId="1911005745652403_1926372790782365"
+        type="standard"
+       
+      />
+       </View>
     </View>
       </View>
     )

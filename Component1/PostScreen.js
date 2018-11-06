@@ -124,7 +124,7 @@ class PostScreen extends Component {
              
 
               }>
-              <Text style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/23,fontFamily:'Quicksand-Medium'}}>Save</Text>
+              <Text style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/23,fontFamily:'Quicksand-Medium'}}>Post</Text>
             </TouchableOpacity>
        
         </View>

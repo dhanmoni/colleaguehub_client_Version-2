@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image } from 'react-native'
-import {createMaterialTopTabNavigator,createTabNavigator, createSwitchNavigator, createStackNavigator} from 'react-navigation'
+import {createMaterialTopTabNavigator,createTabNavigator,createBottomTabNavigator, createSwitchNavigator, createStackNavigator} from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -105,7 +105,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
 };
 
 
- export const Tabs = createTabNavigator(
+ export const Tabs = createBottomTabNavigator(
      {
         Home: { 
             screen: HomeStack,

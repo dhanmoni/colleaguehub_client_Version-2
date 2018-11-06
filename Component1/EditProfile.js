@@ -12,6 +12,7 @@ import { Hideo } from 'react-native-textinput-effects';
 const HEIGHT = Dimensions.get('window').height
 const TEXTSIZE = Dimensions.get('window').width ;
 const WIDTH = Dimensions.get('window').width ;
+import { InterstitialAdManager } from 'react-native-fbads';
 
 class EditProfile extends Component {
 
@@ -168,17 +169,19 @@ class EditProfile extends Component {
 
             <TouchableOpacity activeOpacity={0.8} style={{borderRadius:12, backgroundColor:'transparent', padding:10, borderRadius:10, flex:1}} onPress={
               ()=>{ 
-                console.log('state is ',this.state)
+               
                 this.props.updateUserProfile(this.state);
                if(this.state.token == null || undefined) {
-                 console.log('No Token')
+                
                  alert('Something went wrong!')
                  
                } else {
-                 console.log('token is ', this.state.token)
+                
                 this.props.navigation.navigate('User')
                ToastAndroid.show('Profile updating...', ToastAndroid.LONG)
                ToastAndroid.show('Profile is updated', ToastAndroid.SHORT)
+                InterstitialAdManager.showAd('1911005745652403_1926087667477544')
+            
 
 
                }
@@ -219,6 +222,7 @@ const styles = StyleSheet.create({
     marginLeft:5
   }
 })
+
 
 
 

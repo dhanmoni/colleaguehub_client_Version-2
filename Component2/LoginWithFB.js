@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ActivityIndicator, TextInput,ImageBackground, AsyncStorage, Image } from 'react-native'
+import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ActivityIndicator, TextInput,ImageBackground, AsyncStorage, Image, ToastAndroid } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import {  LoginManager,LoginButton,AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk';
 //import { LoginManager,AccessToken  } from 'react-native-fbsdk';
 //import PropTypes from 'prop-types'
 
 import {loggInUserWithFb} from '../redux/actions/authAction'
+
 const ACCESS_TOKEN = 'Access_Token'
 
 const HEIGHT = Dimensions.get('window').height
@@ -31,17 +32,12 @@ class LoginWithFB extends Component {
    
  setdata = async() => {
   try{       
-    console.log('token is being set...')
+   
     await AsyncStorage.setItem(ACCESS_TOKEN, this.state.token)
     const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-    if(token){
-    
-    console.log(token)
-    } else {
-     console.log('Unable to fetch token')
-    }
+   
   } catch(error){
-     console.log('Opps!!!')
+    ToastAndroid.show('Something is wrong...', ToastAndroid.LONG)
     }
 }
  
@@ -52,7 +48,8 @@ class LoginWithFB extends Component {
     const {user, loggedIn} = this.props.auth;
     return (
       <View style={styles.container}>
-       <ImageBackground resizeMode='cover' blurRadius={0}  source={require('../images/Background_Login_3-min.jpg')} style={{flex:1, position:'absolute', top:0, left:0, right:0, bottom:0, }}> 
+       <ImageBackground resizeMode='cover' blurRadius={0}  source={require('../images/Background_Login_3-min.jpg')}
+        style={{flex:1, position:'absolute', top:0, left:0, right:0, bottom:0, }}> 
            </ImageBackground>
            <View style={{flex: 1,
                 backgroundColor: 'transparent',
@@ -79,10 +76,10 @@ class LoginWithFB extends Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    console.log(data)
+                    
                     this.setState({token: data.accessToken.toString()})
 
-                    console.log(data.accessToken.toString()) 
+                   
                     _responseInfoCallback  = (error, result) => {
                        if (error) {
                         alert('Error fetching data: ' + error.toString());

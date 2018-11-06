@@ -37,11 +37,11 @@ class StoryScreen extends Component {
      
     const token = await AsyncStorage.getItem(ACCESS_TOKEN)
     if(token){
-      this.setState({
-        token
-      })
+      this.setState({token: token}, ()=> {
+        this.props.getposts(this.state, this.props.auth.userInfo)
+      });
      
-       this.props.getposts(this.state, this.props.auth.userInfo)
+     
      
        
      
@@ -115,8 +115,9 @@ class StoryScreen extends Component {
                        <TouchableOpacity onPress={()=> {
                        
                         this.props.addlike(item._id, this.state.token)
+                        setTimeout(()=> this.props.getposts(this.state, this.props.auth.userInfo), 1200 )
                         setTimeout(()=> this.props.getposts(this.state, this.props.auth.userInfo), 2000 )
-                        setTimeout(()=> this.props.getposts(this.state, this.props.auth.userInfo), 2500 ) 
+                         
 
                          }}
                         

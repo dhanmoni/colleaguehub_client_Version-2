@@ -46,13 +46,13 @@ class UserScreen extends Component {
 //  }
 
   deletebutton(token) {
-    console.log(token)
+   
     Alert.alert(
       'Are you sure?',
       'This will delete your account and profile permanently!',
       [
         
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
+        {text: 'Cancel', onPress: () =>{}},
         {text: 'Delete', onPress: () => this.props.deleteAuthUser(token)},
       ],
       { cancelable: true }
@@ -267,7 +267,7 @@ class UserScreen extends Component {
         
         </View>
         {/*************ads*************/}
-        <View>
+        <View >
         <BannerView
         placementId="1911005745652403_1911143952305249"
         type="rectangle"

@@ -138,6 +138,10 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-spinkit')
+    compile project(':react-native-linear-gradient')
+    compile project(':react-native-fbsdk')
     compile project(':react-native-fbads')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-spinkit')

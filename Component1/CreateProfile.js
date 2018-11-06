@@ -40,9 +40,7 @@ class CreateProfile extends Component {
         this.setState({
           token
         })
-      } else {
-        console.log('No Token found')
-      }
+      } 
     }
 
   render() {
