@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage, TextInput, Keyboard, Animated } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
+
 import {  Card, CardItem, Left, Item, Input  } from 'native-base';
 import {connect} from 'react-redux'
 import {getAllUsers, getSingleUser, getAllCollegues, getposts, addpost, addlike} from '../redux/actions/authAction'
@@ -29,7 +31,8 @@ class StoryScreen extends Component {
       refreshing:false,
       text:'',
       isLoading:false,
-      color:'#fff'
+      color:'#fff',
+      connection: true
     
     }
   }
@@ -41,12 +44,38 @@ class StoryScreen extends Component {
         this.props.getposts(this.state, this.props.auth.userInfo)
       });
      
-     
-     
-       
-     
     }
     
+  }
+  async componentDidMount() {
+    NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
+  }
+  
+  componentWillUnmount() {
+      NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+  }
+  
+  
+  
+  handleConnectionChange = (isConnected) => {
+          if(isConnected){
+            this.setState({connection: true})
+           
+          } else if(isConnected == false ){
+            this.setState({
+              connection: false
+            })
+            
+          } else {
+            this.setState({connection: false}, ()=> {
+              return(
+                <View>
+                  <Text>Opps!</Text>
+                </View>
+              )
+            })
+           
+          } 
   }
  
  
@@ -189,6 +218,12 @@ class StoryScreen extends Component {
         )
 
       } 
+      else if(this.state.connection == false){
+        <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
+        <FontAwesomeIcon name='frown' size={44}/>
+       <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No Internet</Text>
+     </View>
+      }
 
     return (
       <View style={{flex:1,backgroundColor:'#ffffff' }}> 

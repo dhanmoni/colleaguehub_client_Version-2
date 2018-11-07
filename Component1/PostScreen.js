@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList,Animated, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage, TextInput, Keyboard, ToastAndroid, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View ,Image,Dimensions,TouchableOpacity,StatusBar, AsyncStorage, TextInput, Keyboard, ToastAndroid, NetInfo } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import {  Card, CardItem, Left, Item, Input  } from 'native-base';
 import {connect} from 'react-redux'
 import {getAllUsers, getSingleUser, getAllCollegues, getposts, addpost, deletepost} from '../redux/actions/authAction'
-import Spinner from 'react-native-spinkit'
 let HEIGHT_MIN = Dimensions.get('window').height;
-let WIDTH_MIN = Dimensions.get('window').width;
 const TEXTSIZE = Dimensions.get('window').width ;
 const ACCESS_TOKEN = 'Access_Token'
 
@@ -28,18 +24,15 @@ class PostScreen extends Component {
     }
   }
   async componentDidMount() {
-     
-    const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-    if(token){
-      this.setState({
-        token
-      })
-     
-      
-     
-       
-     
-    }
+   
+        const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+        if(token){
+          this.setState({
+            token
+          })
+        }  
+   
+    
     
   }
 

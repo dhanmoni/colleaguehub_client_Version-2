@@ -200,8 +200,8 @@ HomeStack.navigationOptions = ({ navigation }) => {
        showIcon: true,
        style:{
         backgroundColor: '#fff',
-       
-        padding: 5, margin:0, 
+       height:55,
+        padding: 0, margin:0, 
         
        },
        tabStyle: {

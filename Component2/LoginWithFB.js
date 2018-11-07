@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ActivityIndicator, TextInput,ImageBackground, AsyncStorage, Image, ToastAndroid } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
 import {  LoginManager,LoginButton,AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk';
-//import { LoginManager,AccessToken  } from 'react-native-fbsdk';
-//import PropTypes from 'prop-types'
+
 
 import {loggInUserWithFb} from '../redux/actions/authAction'
 

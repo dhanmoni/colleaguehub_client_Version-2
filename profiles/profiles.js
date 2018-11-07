@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage, NetInfo } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {  Card, CardItem, Left,  } from 'native-base';
@@ -28,8 +28,8 @@ class Profiles extends Component {
     }
   }
   async componentDidMount() {
-     
-    const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+
+        const token = await AsyncStorage.getItem(ACCESS_TOKEN)
     if(token){
       this.setState({
         token
@@ -40,6 +40,9 @@ class Profiles extends Component {
        
      
     }
+      
+     
+   
     
   }
 
@@ -90,18 +93,6 @@ class Profiles extends Component {
 
       
  
-      // endreached = (allCollegues, allUsers)=> {
-      //   if(allCollegues.length <6  ){
-      //      this._renderItem
-      //   } 
-      //   else{
-          
-      //       this.setState({page: this.state.page+ 1}, ()=> this.props.getAllCollegues(this.state, this.props.auth.userInfo))
-          
-      //   }
-        
-         
-      // }
 
       handleRefresh = ()=> {
         this.setState({

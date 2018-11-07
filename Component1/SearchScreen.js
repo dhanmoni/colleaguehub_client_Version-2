@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Container, Content, Item, Input, Button, Card, CardItem, Left,  } from 'native-base';
 import {connect} from 'react-redux'
 import {getAllUsers, getSingleUser, getSearchedUser} from '../redux/actions/authAction'
-import * as Animatable from 'react-native-animatable';
+
 let HEIGHT_MIN = Dimensions.get('window').height;
 let WIDTH_MIN = Dimensions.get('window').width;
 const TEXTSIZE = Dimensions.get('window').width ;

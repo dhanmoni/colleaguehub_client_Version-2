@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ActivityIndicator, TextInput,ImageBackground, AsyncStorage, Image } from 'react-native'
-import {  Container, Content, Input, Item} from 'native-base';
+import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ActivityIndicator, TextInput,ImageBackground, AsyncStorage, Image, NetInfo } from 'react-native'
 import Spinner from 'react-native-spinkit'
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -34,13 +33,15 @@ class CreateProfile extends Component {
     
    
     async componentDidMount() {
-      
+     
       const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-      if (token) {
-        this.setState({
-          token
-        })
-      } 
+        if(token){
+          this.setState({
+            token
+          })
+        }  
+    
+     
     }
 
   render() {

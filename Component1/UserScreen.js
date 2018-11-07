@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity,ActivityIndicator,ToastAndroid, Image, Dimensions,ImageBackground,StatusBar, ScrollView, Button, Alert, AsyncStorage, FlatList, Animated } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,ActivityIndicator,ToastAndroid, Image, Dimensions,ImageBackground,StatusBar, ScrollView, Button, Alert, AsyncStorage, FlatList, Animated, NetInfo } from 'react-native';
 import {connect} from 'react-redux'
 import { Container, Header, Content, Card, CardItem, Right, Item, Input } from 'native-base';
 
@@ -9,7 +9,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import {deleteAuthUser, deletepost, getposts, addlike} from '../redux/actions/authAction'
 import LinearGradient from 'react-native-linear-gradient';
 import Spinner from 'react-native-spinkit'
-import PostScreen from './PostScreen';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const TEXTSIZE = Dimensions.get('window').width ;
@@ -23,27 +22,58 @@ class UserScreen extends Component {
 
   }
   async componentDidMount() {
-      
-    const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-    if(token){
-      this.setState({
-        token
-      })
-    }
-    
+   
+        const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+        if(token){
+          this.setState({
+            token
+          })
+        }
+     
+
+  
   }
   constructor(){
     super();
     this.state={
       token:'',
-      text:''
+      text:'', 
+      connection: true
     }
   }
 
  
-//  componentWillMount(){
-//    this.animatedRotation = new Animated.Value(0.001)
-//  }
+  
+async componentDidMount() {
+  NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
+}
+
+componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+}
+
+
+
+handleConnectionChange = (isConnected) => {
+        if(isConnected){
+          this.setState({connection: true})
+         
+        } else if(isConnected == false ){
+          this.setState({
+            connection: false
+          })
+          
+        } else {
+          this.setState({connection: false}, ()=> {
+            return(
+              <View>
+                <Text>Opps!</Text>
+              </View>
+            )
+          })
+         
+        } 
+}
 
   deletebutton(token) {
    
@@ -161,6 +191,12 @@ class UserScreen extends Component {
          <Spinner color={'#3972e9'} size={50} type={"Wave"}/>
         </View>
       )
+    } 
+    else if(this.state.connection == false){
+      <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
+      <Icon name='frown' size={44}/>
+     <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No Internet</Text>
+   </View>
     }
 
     let myPost = posts.filter(post=> post.facebookId === user.facebookId);
@@ -283,6 +319,14 @@ class UserScreen extends Component {
               <Text style={{color:'red',  fontSize: TEXTSIZE/23.5,marginLeft:20,paddingBottom:5, fontFamily:'Quicksand-Medium'}}>Delete Account</Text>
           </TouchableOpacity>
         </View>
+        <View style={{borderTopWidth:0.4, borderBottomWidth:0.4, marginBottom:20, marginTop:20}}>
+          
+        
+          <Text  style={{color:'black',  fontSize: TEXTSIZE/22,marginLeft:20,paddingBottom:5,paddingTop:6}}>About</Text>
+          
+              <Text style={{  fontSize: TEXTSIZE/25,marginLeft:20,paddingBottom:5, marginRight:10}}>Colleaguehub was made by Dhanmoni Nath. You can follow me on instagram @dhanmoni_19 and if you find any bug or issue in the app please mention it in the review section on google play or message me directly. I would appreciate it.</Text>
+        </View>
+
        
 
 

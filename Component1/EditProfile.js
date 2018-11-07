@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ToastAndroid, TextInput,Image, ImageBackground, AsyncStorage } from 'react-native'
-import {  Container, Content, Input, Item, Textarea, } from 'native-base';
+import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ToastAndroid, TextInput,Image, ImageBackground, AsyncStorage, NetInfo } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 const ACCESS_TOKEN = 'Access_Token'
@@ -9,9 +8,7 @@ import Spinner from 'react-native-spinkit'
 import {connect} from 'react-redux'
 import {getCurrentProfile, updateUserProfile, getAllCollegues} from '../redux/actions/authAction'
 import { Hideo } from 'react-native-textinput-effects';
-const HEIGHT = Dimensions.get('window').height
 const TEXTSIZE = Dimensions.get('window').width ;
-const WIDTH = Dimensions.get('window').width ;
 import { InterstitialAdManager } from 'react-native-fbads';
 
 class EditProfile extends Component {
@@ -33,21 +30,24 @@ class EditProfile extends Component {
     }
     async componentDidMount() {
       
-      const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-      if(token){
-        this.setState({
-          token
-        })
-      }
-      this.props.getCurrentProfile(this.state.token)
-       this.setState({
-         institution:this.props.auth.userInfo.institution,
-         status:this.props.auth.userInfo.status,
-        ig_username:this.props.auth.userInfo.ig_username,
-         residence:this.props.auth.userInfo.residence,
-         bio:this.props.auth.userInfo.bio,
-
-       })
+          const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+          if(token){
+            this.setState({
+              token
+            })
+          }
+          this.props.getCurrentProfile(this.state.token)
+           this.setState({
+             institution:this.props.auth.userInfo.institution,
+             status:this.props.auth.userInfo.status,
+            ig_username:this.props.auth.userInfo.ig_username,
+             residence:this.props.auth.userInfo.residence,
+             bio:this.props.auth.userInfo.bio,
+    
+           })
+       
+      
+     
       
     }
     
