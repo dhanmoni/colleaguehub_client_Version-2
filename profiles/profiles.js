@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage, NetInfo } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import {  Card, CardItem, Left,  } from 'native-base';
 import {connect} from 'react-redux'
@@ -23,7 +24,7 @@ class Profiles extends Component {
     super();
     this.state={
       token:'',
-     
+     status:false,
       refreshing:false
     }
   }
@@ -43,6 +44,50 @@ class Profiles extends Component {
       
      
    
+    
+  }
+
+  async componentDidMount() {
+    NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
+  }
+  
+  componentWillUnmount() {
+      NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+  }
+  
+  
+  
+  handleConnectionChange = (isConnected) => {
+          if(isConnected){
+            this.setState({status: true}, ()=> {
+              return(
+                <View>
+                  <Text>You are online</Text>
+                </View>
+              )
+            })
+           
+          } else if(isConnected == false ){
+            this.setState({
+              status: false
+            }, ()=> {
+              return (
+                <View><Text>You are offline</Text></View>
+              )
+            })
+            
+          } else {
+            this.setState({status: false}, ()=> {
+              return(
+                <View>
+                  <Text>Opps!</Text>
+                </View>
+              )
+            })
+           
+          }
+        
+      
     
   }
 
@@ -121,6 +166,12 @@ class Profiles extends Component {
           </View>
         )
       } 
+      else if(this.state.status == false){
+        <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
+        <Icon name='frown' size={44}/>
+       <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No Internet</Text>
+     </View>
+      }
 
     return (
       <View style={{flex:1,backgroundColor:'#ffffff' }}> 

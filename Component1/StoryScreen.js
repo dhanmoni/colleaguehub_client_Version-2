@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage, TextInput, Keyboard, Animated } from 'react-native';
+import { StyleSheet, Text, View ,Image,Dimensions,FlatList,TouchableOpacity, AsyncStorage, NetInfo } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
@@ -185,7 +185,7 @@ class StoryScreen extends Component {
      handleRefresh = ()=> {
         this.setState({
           refreshing: true,
-          page:1
+         
         },()=> {
 
           this.props.getposts(this.state, this.props.auth.userInfo)
