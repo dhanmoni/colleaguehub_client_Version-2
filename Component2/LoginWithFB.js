@@ -4,7 +4,8 @@ import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,Activit
 import {  LoginManager,LoginButton,AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk';
 
 
-import {loggInUserWithFb} from '../redux/actions/authAction'
+import {loggInUserWithFb, getAllUsers} from '../redux/actions/authAction'
+import Spinner from 'react-native-spinkit'
 
 const ACCESS_TOKEN = 'Access_Token'
 
@@ -27,24 +28,48 @@ class LoginWithFB extends Component {
     //this.logintoFacebook = this.logintoFacebook.bind(this)
   }
 
+  async componentDidMount(){
+    this.props.getAllUsers()
+  }
    
  setdata = async() => {
-  try{       
+         
    
     await AsyncStorage.setItem(ACCESS_TOKEN, this.state.token)
     const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-   
-  } catch(error){
-    ToastAndroid.show('Something is wrong...', ToastAndroid.LONG)
-    }
+    
+  
 }
- 
-
- 
-
   render() {
-    const {user, loggedIn} = this.props.auth;
+    const {user, loggedIn, loading} = this.props.auth;
+    if(loading){
+      return (
+     
+        <View style={styles.container}>
+         <ImageBackground resizeMode='cover' blurRadius={0}  source={require('../images/Background_Login_3-min.jpg')}
+          style={{flex:1, position:'absolute', top:0, left:0, right:0, bottom:0, }}> 
+             </ImageBackground>
+             <View style={{flex: 1,
+                  backgroundColor: 'transparent',
+                  paddingHorizontal:10,
+                  alignItems:'center',
+                  justifyContent:'center',
+                }}>
+        
+           <View style={{padding:10}}>
+          
+             <View style={{flex: 1,alignItems:'center',justifyContent:'center' }}>
+             <Text style={styles.welcomeText}>Welcome To ColleagueHub</Text>
+            <Spinner color={'#fff'} size={44} type={"Circle"}/>
+
+          </View>
+            </View>
+            </View>
+        </View>
+      )
+    }
     return (
+     
       <View style={styles.container}>
        <ImageBackground resizeMode='cover' blurRadius={0}  source={require('../images/Background_Login_3-min.jpg')}
         style={{flex:1, position:'absolute', top:0, left:0, right:0, bottom:0, }}> 
@@ -54,11 +79,8 @@ class LoginWithFB extends Component {
                 paddingHorizontal:10,
                 alignItems:'center',
                 justifyContent:'center',
-              
-               
-               }}>
-
-         <Text style={styles.welcomeText}>Welcome To ColleagueHub</Text>
+              }}>
+        <Text style={styles.welcomeText}>Welcome To ColleagueHub</Text>
          <Text style={styles.descText}>The best way to connect with your collegues online!</Text>
          <Text  style={styles.para}>Please Sign in with Facebook to continue</Text>
          <View style={{padding:10}}>
@@ -119,7 +141,7 @@ const mapStateToProps = (state)=> {
   }
 }
 
-export default connect(mapStateToProps, {loggInUserWithFb})(LoginWithFB)
+export default connect(mapStateToProps, {loggInUserWithFb, getAllUsers})(LoginWithFB)
 
 
 const styles = StyleSheet.create({

@@ -109,7 +109,7 @@ class PostScreen extends Component {
                 this.props.addpost(this.state, userInfo)
                 this.props.navigation.navigate('StoryScreen')
                
-                setTimeout(()=> this.props.getposts(this.state, userInfo), 2000)
+                setTimeout(()=> this.props.getposts(this.state.token, userInfo.institution), 2000)
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
               }

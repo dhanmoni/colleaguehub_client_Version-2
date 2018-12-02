@@ -1,13 +1,12 @@
 import { LOGIN_WITH_FB, SET_PROFILE_WITHDATA, DELETE_AUTH_USER, GET_ALL_USERS,SET_LOADING ,GET_CURRENT_PROFILE, UPDATE_USER_PROFILE, GET_SINGLE_USER, GET_SEARCHED_USER, GET_ALL_COLLEGUES, GET_POSTS, ADD_POST, DELETE_POST} from './types'
 import axios from 'axios'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, ToastAndroid} from 'react-native'
 const ACCEES_TOKEN = 'Access_Token'
 
 export const loggInUserWithFb = (userData) => dispatch  => {
   
     
-       dispatch(setLoading());
-        axios.post(`https://colleaguehub.info/api/fblogin?access_token=${userData.token}`,
+        axios.post(`http://192.168.43.76:3001/api/fblogin?access_token=${userData.token}`,
             userData)
             .then(res=> {
              
@@ -16,13 +15,14 @@ export const loggInUserWithFb = (userData) => dispatch  => {
                 payload: res.data
         })})
          
-        .catch(err=>alert('Something went wrong...'))
+        .catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
+        dispatch(setLoading());
 }
 
 export const setCurrentUserWithProfile = (userData)=> dispatch=> {
     
   
-    axios.post(`https://colleaguehub.info/api/createprofile?access_token=${userData.token}`,
+    axios.post(`http://192.168.43.76:3001/api/createprofile?access_token=${userData.token}`,
     userData)
     .then(res=> 
        {  
@@ -33,13 +33,13 @@ export const setCurrentUserWithProfile = (userData)=> dispatch=> {
         })}
          )
         
-        .catch(err=> alert('Something went wrong...'))
+        .catch(err=>ToastAndroid.show('Something is wrong, check your internet connection', ToastAndroid.SHORT))
 }
 
-export const getAllUsers = (userData)=> dispatch=> {
+export const getAllUsers = ()=> dispatch=> {
     
    
-    axios.get(`https://colleaguehub.info/api/allusers?access_token=${userData}`
+    axios.get(`http://192.168.43.76:3001/api/allusers`
     )
     .then(res=> 
         dispatch({
@@ -48,13 +48,12 @@ export const getAllUsers = (userData)=> dispatch=> {
         })
          )
         
-        .catch(err=> alert('Something went wrong...'))
+        .catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
 }
 export const getAllCollegues = (userData, userinfo)=> dispatch=> {
     
     
-     axios.get(`https://colleaguehub.info/api/allcollegues?access_token=${userData.token}&institution=${userinfo.institution}`,
-     userData)
+     axios.get(`http://192.168.43.76:3001/api/allcollegues?access_token=${userData}&institution=${userinfo}`)
      .then(res=> 
          dispatch({
              type: GET_ALL_COLLEGUES,
@@ -62,14 +61,14 @@ export const getAllCollegues = (userData, userinfo)=> dispatch=> {
          })
           )
          
-         .catch(err=> alert('Something went wrong...'))
+         .catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
  }
 
 
 export const getSingleUser = (userData, token)=> dispatch=> {
     
     dispatch(setLoading())
-     axios.get(`https://colleaguehub.info/api/allusers/${userData.facebookId}?access_token=${token.token}`,
+     axios.get(`http://192.168.43.76:3001/api/allusers/${userData.facebookId}?access_token=${token.token}`,
      userData)
      .then(res=> 
          dispatch({
@@ -78,14 +77,14 @@ export const getSingleUser = (userData, token)=> dispatch=> {
          })
           )
          
-         .catch(err=> alert('Something went wrong...'))
+         .catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
  }
 
 
  export const getSearchedUser = (userData)=> dispatch=> {
     
     
-     axios.get(`https://colleaguehub.info/api/allusers?name=${userData.searchInput}&access_token=${userData.token}`,
+     axios.get(`http://192.168.43.76:3001/api/allusers?name=${userData.searchInput}&access_token=${userData.token}`,
      userData)
      .then(res=> 
          dispatch({
@@ -94,7 +93,7 @@ export const getSingleUser = (userData, token)=> dispatch=> {
          })
           )
          
-         .catch(err=> alert('Something went wrong...'))
+         .catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
  }
 
 
@@ -102,7 +101,7 @@ export const getSingleUser = (userData, token)=> dispatch=> {
 export const updateUserProfile = (userData)=> dispatch=> {
     
     
-     axios.post(`https://colleaguehub.info/api/updateProfile?access_token=${userData.token}`,
+     axios.post(`http://192.168.43.76:3001/api/updateProfile?access_token=${userData.token}`,
      userData)
      .then(res=> 
          dispatch({
@@ -111,7 +110,7 @@ export const updateUserProfile = (userData)=> dispatch=> {
          })
           )
          
-         .catch(err=>alert('Something went wrong...'))
+         .catch(err=>ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
  }
 
 
@@ -119,7 +118,7 @@ export const updateUserProfile = (userData)=> dispatch=> {
 export const getCurrentProfile = (userData)=> dispatch=> {
     
     
-     axios.get(`https://colleaguehub.info/api/currentProfile?access_token=${userData}`,
+     axios.get(`http://192.168.43.76:3001/api/currentProfile?access_token=${userData}`,
      userData)
      .then(res=> 
          dispatch({
@@ -128,7 +127,7 @@ export const getCurrentProfile = (userData)=> dispatch=> {
          })
           )
          
-         .catch(err=>alert('Something went wrong...'))
+         .catch(err=>ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
  }
 
 export const setLoading = () =>{
@@ -142,67 +141,67 @@ export const setLoading = () =>{
 export const deleteAuthUser = (userData)=> dispatch=> {
    
     
-    axios.delete(`https://colleaguehub.info/api/user?access_token=${userData}`)
+    axios.delete(`http://192.168.43.76:3001/api/user?access_token=${userData}`)
     .then(res=> {
        
         dispatch({
             type: DELETE_AUTH_USER,
-            payload: {}
+            payload: null
         })}
     )
-        .catch(err=> alert('Something went wrong...'))
+        .catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.LONG))
 }
 
 //post
 export const getposts = (userdata, userinfo)=>dispatch=> {
-  
-    axios.get(`https://colleaguehub.info/api/allposts?access_token=${userdata.token}&institution=${userinfo.institution}`)
+  console.log('userdata is ', userdata)
+  console.log('userinfo is ', userinfo)
+    axios.get(`http://192.168.43.76:3001/api/allposts?access_token=${userdata}&institution=${userinfo}`)
     .then(res=> {
         dispatch({
             type: GET_POSTS,
             payload: res.data
         })
-    }).catch(res=> {
-        dispatch({
-            type: GET_POSTS,
-            payload: null
-        })
+    }).catch(err=> {
+        ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT)
     })
 }
 
 export const addpost = (userdata, userinfo)=>dispatch=> {
     
-    axios.post(`https://colleaguehub.info/api/addpost?access_token=${userdata.token}&institution=${userinfo.institution}`, userdata)
+    axios.post(`http://192.168.43.76:3001/api/addpost?access_token=${userdata.token}&institution=${userinfo.institution}`, userdata)
     .then(res=> {
         
         dispatch({
             type: ADD_POST,
             payload: res.data
         })
-        dispatch(setLoading())
-    }).catch(err=> alert('Opps! Something went wrong...'))
+        
+    }).catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.LONG))
 }
 
 export const addlike = (postdata, token)=>dispatch=> {
    
-    axios.post(`https://colleaguehub.info/api/like/${postdata}?access_token=${token}`)
+    axios.post(`http://192.168.43.76:3001/api/like/${postdata._id}?access_token=${token}`)
     .then(()=> {
-        dispatch(getposts())
+        dispatch(getposts(token, postdata.institution ))
     }).catch(()=> {
-        dispatch(getposts())
+        ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT)
     })
 }
  
 
 export const deletepost = (postData, token)=> dispatch=> {
    
-    axios.delete(`https://colleaguehub.info/api/deletepost/${postData}?access_token=${token}`)
+    axios.delete(`http://192.168.43.76:3001/api/deletepost/${postData}?access_token=${token}`)
     .then(res=> {
        
         dispatch({
             type: DELETE_POST,
             payload: {}
         })}
-    )
-        .catch(err=> alert('Opps! Something went wrong...'))
+    ).then(()=> {
+        ToastAndroid.show('Post deleted', ToastAndroid.SHORT)
+    })
+        .catch(err=> ToastAndroid.show('Something is wrong...', ToastAndroid.SHORT))
 }

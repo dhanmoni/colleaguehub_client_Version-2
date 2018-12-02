@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Nov 07 20:44:45 IST 2018
+#Sat Dec 01 17:11:37 IST 2018
 5.base=E\:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\release\\0
 42.base=E\:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\assets\\release
 22.path=lib/arm64-v8a/libimagepipeline.so

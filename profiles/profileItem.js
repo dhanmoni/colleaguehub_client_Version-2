@@ -1,33 +1,166 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity,ActivityIndicator, Image, Dimensions,Linking, ImageBackground,StatusBar, ScrollView, Button, Alert, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,ActivityIndicator, Image, Dimensions,Linking, ImageBackground,StatusBar, ScrollView, Button, Alert, AsyncStorage, FlatList } from 'react-native';
 import {connect} from 'react-redux'
 import { Container, Header, Content, Card, CardItem, Right } from 'native-base';
 
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import LinearGradient from 'react-native-linear-gradient';
-import {getAllUsers, getSingleUser} from '../redux/actions/authAction'
+import {getAllUsers, getSingleUser,getposts, addlike} from '../redux/actions/authAction'
 import Spinner from 'react-native-spinkit'
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const TEXTSIZE = Dimensions.get('window').width ;
 const ACCESS_TOKEN = 'Access_Token'
-import {BannerView} from 'react-native-fbads'
+import { withNavigation } from 'react-navigation';
+
+import {BannerView, InterstitialAdManager} from 'react-native-fbads'
+import moment from 'moment'
 
 class ProfileItem extends Component {
 
+  constructor(){
+    super();
+    this.state={
+      token:'',
+      text:'', 
+      connection: true
+    }
+  }
+  async componentDidMount() {
    
+    const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+    if(token){
+      this.setState({
+        token
+      })
+
+    }
+
+ 
+
+
+}
+
+  findUserLike(likes){
+    
+    if (likes.filter(like => like.facebookId ===this.props.auth.user.facebookId).length >0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  
+ 
+  
+
+  _renderItem = ({item})=> {
+    const postdate = moment(item.date).format('MMM Do, h:mm a');
+
+  
+    return (
+    <View
+    style={{height:undefined,width: undefined,marginBottom:HEIGHT/50,paddingHorizontal:10}} >
+      <Card style={{borderRadius:10,  }}>    
+                    <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:'rgba(212, 19, 160,1)', alignItems:'center' }}> 
+                    <View style={{flexDirection:'row'}}>
+                    <View style={{ }}>
+                       <Image source={{uri: item.profileImage}}  resizeMode="cover"
+                    style={{height:  (HEIGHT/14) ,width: (HEIGHT/ 14), borderRadius:(HEIGHT/5), marginLeft:4, marginTop:4, marginBottom:2, borderColor:'#fff', borderWidth:2}}/> 
+                    </View>
+                    <View style={{ width:65+'%', }}> 
+                    <View style={{flexDirection:'column', width:100+'%'}}>
+                      <View style={{}}> 
+                        <Text numberOfLines={1} style={{  marginLeft:10,
+                        color:'#fff',
+                        fontFamily:'Quicksand-Bold',
+                        fontSize:TEXTSIZE/24,
+                      }}>{item.name}</Text>
+                      </View>
+                      <View style={{}}>
+                      <Text style={{fontSize:TEXTSIZE/30, color:'#fff', marginLeft:10}}>{postdate}</Text>
+                      </View>
+                      </View>
+                     </View>
+                      </View>
+                       <View style={{position:'absolute',flexDirection:'row', right:27, alignItems:'center'}}>
+                       <View style={{borderRadius:120,marginRight:7, borderWidth:0.4, borderColor:'#fff'}}>
+                       <Text style={{borderRadius:120,color:'#fff',textAlign:'center', backgroundColor:'rgba(0, 0, 0, 0.4)', paddingLeft:5, paddingRight:5}}>{item.likes ? (item.likes.length):(0)}</Text>
+                       </View>
+                       <View>
+                         <TouchableOpacity 
+                         activeOpacity={0.7}
+                          onPress={()=> {
+                            this.rotateIcon
+                            this.props.addlike(item, this.state.token)
+                             setTimeout(()=>this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 2000)
+                          }} 
+                         >
+                       <FontAwesome
+                       
+                        name="heart" size={23} color={this.findUserLike(item.likes) ? '#f50002':'#fff'}/>
+                      </TouchableOpacity>
+                       </View>
+                       
+                       </View>
+
+                    </CardItem>
+                    <CardItem cardBody style={{height:undefined, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, marginLeft:4}}>
+                       <Text style={styles.posttext}>{item.text}</Text>
+                    </CardItem>                   
+        </Card> 
+     </View>
+    
+  )}
 
 
   render() {
-    const {user, loggedIn, allUsers, loading, profile}= this.props.auth
+    const {user, loggedIn, allUsers, loading, profile, posts}= this.props.auth
 
     if(loading){
         return(
           <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:'#fff'}}>
             <Spinner color={'#E239FC'} size={50} type={"Wave"}/>
+            <View style={{position:'absolute', bottom:5, justifyContent:'center', flex:1}}><Text style={{textAlign:'center'}}>If you recently changed your internet connection, it may take 1-2 minute to load data. We are sorry</Text></View>
           </View>
         )
       }
+      else if (profile == undefined || null){
+        return (
+          <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
+         
+         <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No profile found</Text>
+       </View>
+        )
+      }
+
+
+      let hisPost;
+   if(posts && posts.length !== undefined){
+    hisPost= posts.filter(post=> post.facebookId === profile.facebookId);
+   }  else {
+     return hisPost = null
+   }
+
+      let hisposts;
+      if(hisPost == null || 0){
+        hisposts = null
+      } else {
+        if(hisPost.length>0){
+         hisposts = (
+           <FlatList
+              data={hisPost}
+              keyExtractor={post=> post.date}
+              renderItem={this._renderItem}
+           />
+         )
+        }  else{
+          <Text>No post</Text>
+        }
+      }
+
+
       return (
      
         <ScrollView style={{flex:1, backgroundColor:'#ffffff'}} showsVerticalScrollIndicator={false}>
@@ -42,7 +175,10 @@ class ProfileItem extends Component {
           
             <ImageBackground blurRadius={2.3} resizeMode='cover' source={{uri:profile.profileImage}} style={{flex:1, overflow:'hidden', borderBottomLeftRadius:20, borderBottomRightRadius:20}}>
                 <Icon
-                onPress={()=> this.props.navigation.navigate('HomeScreen')}
+                onPress={() =>{ 
+                  this.props.navigation.goBack()
+                  InterstitialAdManager.showAd('1911005745652403_1935495603203417')
+                }}
                 name='arrow-left' size={30} color="#fff" style={{position:'absolute', top:20, left:20, padding:10,zIndex:1000 }}/>
                 <LinearGradient 
                    colors={[ 'rgba(212, 19, 190,0.5)','rgba(212,146, 255, 0.7)', 'rgba(150, 180, 245, 0.2)']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.9}}
@@ -151,9 +287,15 @@ class ProfileItem extends Component {
                   <BannerView
                 placementId="1911005745652403_1918573884895589"
                 type="rectangle"
-              
+              onPress={()=> console.log('clicked')}
+              onError={(err)=> console.log(err)}
               />
                 </View>
+
+                 <View style={{paddingTop:10, paddingBottom:30}}>
+             {hisposts}
+        
+              </View>
   
           
           </View>
@@ -168,7 +310,7 @@ const mapStateToProps = (state)=> {
     }
   }
 
-export default connect(mapStateToProps, {getSingleUser})(ProfileItem)
+export default connect(mapStateToProps, {getSingleUser, addlike, getposts})(withNavigation(ProfileItem)) 
 
 const styles = StyleSheet.create({
   image:{
@@ -205,5 +347,13 @@ const styles = StyleSheet.create({
     paddingLeft:5,
     fontFamily:'Quicksand-Medium'
   },
+  posttext: {
+    color:'#333333',
+    fontSize: TEXTSIZE/24,
+    marginLeft:10,
+     padding:15,
+    fontFamily:'Quicksand-Medium'
+  
+  }
   
 })

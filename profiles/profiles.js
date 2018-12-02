@@ -35,21 +35,16 @@ class Profiles extends Component {
       this.setState({
         token
       })
-     
-       this.props.getAllCollegues(this.state, this.props.auth.userInfo)
-       this.props.getAllUsers(this.state.token)
-       
+      NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
+
+       this.props.getAllCollegues(this.state.token, this.props.auth.userInfo.institution)
+       this.props.getAllUsers()    
      
     }
-      
-     
-   
+  
     
-  }
+ }
 
-  async componentDidMount() {
-    NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
-  }
   
   componentWillUnmount() {
       NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
@@ -105,7 +100,7 @@ class Profiles extends Component {
     onPress={
      async ()=>{
        await this.props.getSingleUser(item, this.state)
-       if(this.state == null || undefined || ''){
+       if(this.state.token == null || undefined || ''){
          alert('Opps! Something went wrong!')
        } else {
        await this.props.navigation.navigate('ProfileItem')
@@ -145,7 +140,7 @@ class Profiles extends Component {
          
         },()=> {
 
-          this.props.getAllCollegues(this.state, this.props.auth.userInfo)
+          this.props.getAllCollegues(this.state.token, this.props.auth.userInfo.institution)
          return (
            this.setState({
              refreshing:false
@@ -156,17 +151,11 @@ class Profiles extends Component {
       }
     
     render() {
-      const {user, loggedIn,allCollegues, loading, userInfo}= this.props.auth
+      const {user, loggedIn,allCollegues, userInfo}= this.props.auth
 
 
-      if(loading){
-        return(
-          <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:'#fff'}}>
-            <Spinner color={'#E239FC'} size={50} type={"ThreeBounce"}/>
-          </View>
-        )
-      } 
-      else if(this.state.status == false){
+     
+       if(this.state.status == false){
         <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
         <Icon name='frown' size={44}/>
        <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No Internet</Text>
@@ -195,37 +184,19 @@ class Profiles extends Component {
              fontSize: TEXTSIZE/28,
              flex:1,
              textAlign:'center',
-             fontFamily:'Quicksand-Regular'}}>No Profile</Text>
+             fontFamily:'Quicksand-Regular'}}>No Profile!</Text>
              </View>}
               renderItem={(item, index)=> this._renderItem(item, index)}
               ListFooterComponent={()=>{
-                if(allCollegues.length <=0){
+                if(allCollegues.length <=1){
                   return(
                     
                     <View style={{flexDirection:'row', marginTop:7, justifyContent:'center', paddingBottom:20, width:WIDTH_MIN}}>
                     <View
-                     style={{marginTop:10,marginBottom:10,width:'65%', margin:'auto', justifyContent:'center' }}>
-                       <LinearGradient
-                           colors={[ '#3972e9', 'rgba(25, 181, 254, 1)']} style={{borderRadius:30, elevation:7, margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
-                        >
-                      <TouchableOpacity  activeOpacity={0.7}
-                      style={{ padding:9, flex:1, borderRadius:10}}
-                      onPress={()=> {
-                        this.setState({
-                          page:1
-                        },()=> {
-                          this.props.getAllCollegues(this.state, this.props.auth.userInfo)
-                        
-                        }
-                        )
-                      }}
-                           >
-                        <Text 
-                        style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/24, fontFamily:'Quicksand-Bold'}}>
-                       Refresh
-                        </Text>
-                      </TouchableOpacity>
-                      </LinearGradient>
+                     style={{marginTop:10,marginBottom:10, justifyContent:'center' }}>
+                      
+                     <Text style={{fontFamily:'Quicksand-Medium', fontSize:16, paddingHorizontal:10}}>No more colleagues found. Share this app with your friends to find more colleagues from your workplace</Text>
+                     
                     </View>
                     </View>
                   )
@@ -233,24 +204,7 @@ class Profiles extends Component {
                
                   return(
                     <View style={{flexDirection:'row', marginTop:7, justifyContent:'center', paddingBottom:20, width:WIDTH_MIN}}>
-                    <View
-                     style={{marginTop:10,marginBottom:10,width:'65%', margin:'auto', justifyContent:'center' }}>
-                       <LinearGradient
-                           colors={[ '#3972e9', 'rgba(25, 181, 254, 1)']} style={{borderRadius:30, elevation:7, margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
-                        >
-                      <TouchableOpacity  activeOpacity={0.7}
-                      style={{ padding:9, flex:1, borderRadius:10}}
-                      onPress={()=> {
-                        this.setState({page: this.state.page+ 1}, ()=> this.props.getAllCollegues(this.state, this.props.auth.userInfo))
-                      }}
-                           >
-                        <Text 
-                        style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/24, fontFamily:'Quicksand-Bold'}}>
-                       Load More
-                        </Text>
-                      </TouchableOpacity>
-                      </LinearGradient>
-                    </View>
+                   
                     </View>
 
                   )

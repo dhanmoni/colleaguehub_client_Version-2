@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Nov 06 22:06:02 IST 2018
+#Sun Dec 02 12:40:03 IST 2018
 5.base=E\:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0
 42.base=E\:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\assets\\debug
 22.path=fonts/Ionicons.ttf

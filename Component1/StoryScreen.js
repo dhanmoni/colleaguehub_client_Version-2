@@ -32,7 +32,7 @@ class StoryScreen extends Component {
       text:'',
       isLoading:false,
       color:'#fff',
-      connection: true
+      connection: false
     
     }
   }
@@ -40,16 +40,17 @@ class StoryScreen extends Component {
      
     const token = await AsyncStorage.getItem(ACCESS_TOKEN)
     if(token){
+      console.log( 'token is ', token)
       this.setState({token: token}, ()=> {
-        this.props.getposts(this.state, this.props.auth.userInfo)
+        this.props.getposts(this.state.token, this.props.auth.userInfo.institution)
       });
-     
+
     }
+    NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
+
     
   }
-  async componentDidMount() {
-    NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
-  }
+ 
   
   componentWillUnmount() {
       NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
@@ -90,23 +91,16 @@ class StoryScreen extends Component {
     } else {
       return false
     }
-   
   }
- 
   _renderItem = (item, index)=> {
-   
     const postdate = moment(item.date).format('MMM Do, h:mm a');
-   
-   
-    return (
-     
+    return (  
     <View>
     <View 
     style={{height:undefined,width: undefined,marginBottom:HEIGHT_MIN/40,paddingHorizontal:10}}
     >
       <Card style={{borderRadius:10,  }}>
-                    
-                    <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:'#4776e6' }}> 
+              <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:'#4776e6' }}> 
                     <View style={{flexDirection:'row'}}>
                       <View style={{ }}>
                        <Image source={{uri: item.profileImage}}  resizeMode="cover"
@@ -143,9 +137,9 @@ class StoryScreen extends Component {
                        <View >
                        <TouchableOpacity onPress={()=> {
                        
-                        this.props.addlike(item._id, this.state.token)
-                        setTimeout(()=> this.props.getposts(this.state, this.props.auth.userInfo), 1200 )
-                        setTimeout(()=> this.props.getposts(this.state, this.props.auth.userInfo), 2000 )
+                        this.props.addlike(item, this.state.token)
+                        setTimeout(()=> this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 1200 )
+                        setTimeout(()=> this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 2000 )
                          
 
                          }}
@@ -188,7 +182,7 @@ class StoryScreen extends Component {
          
         },()=> {
 
-          this.props.getposts(this.state, this.props.auth.userInfo)
+          this.props.getposts(this.state.token, this.props.auth.userInfo.institution)
          return (
            this.setState({
              refreshing:false
@@ -214,6 +208,8 @@ class StoryScreen extends Component {
         return(
           <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:'#fff'}}>
             <Spinner color={'#4776e6'} size={50} type={"ThreeBounce"}/>
+            <View style={{position:'absolute', bottom:5, justifyContent:'center', flex:1}}><Text style={{textAlign:'center'}}>If you recently changed your internet connection, it may take 1-2 minute to load data. We are sorry</Text></View>
+
           </View>
         )
 
@@ -255,65 +251,71 @@ class StoryScreen extends Component {
              </View>}
               renderItem={({item, index}) => this._renderItem(item, index)}
               
-              ListFooterComponent={()=>{
-                if(posts.length <=0){
-                  return(
-                    
-                    <View style={{flexDirection:'row', marginTop:7, justifyContent:'center', paddingBottom:20, width:WIDTH_MIN}}>
-                    <View
-                     style={{marginTop:10,marginBottom:10,width:'50%', margin:'auto', justifyContent:'center' }}>
-                       <LinearGradient
-                           colors={[ '#8e54e9', '#4776e6']} style={{borderRadius:30, elevation:7, margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
-                        >
-                      <TouchableOpacity  activeOpacity={0.7}
-                      style={{ padding:9, flex:1, borderRadius:10}}
-                      onPress={()=> {
-                        this.setState({
-                          page:1
-                        },()=> {
-                          this.props.getposts(this.state, this.props.auth.userInfo)
-                        
-                        }
-                        )
-                      }}
-                           >
-                        <Text 
-                        style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/24, fontFamily:'Quicksand-Bold'}}>
-                       Refresh
-                        </Text>
-                      </TouchableOpacity>
-                      </LinearGradient>
-                    </View>
-                    </View>
-                  )
-                }
-               
-                  return(
-                    <View style={{flexDirection:'row', marginTop:7, justifyContent:'center', paddingBottom:20, width:WIDTH_MIN}}>
-                    <View
-                     style={{marginTop:10,marginBottom:10,width:'50%', margin:'auto', justifyContent:'center' }}>
-                       <LinearGradient
-                           colors={[ '#8e54e9', '#4776e6']} style={{borderRadius:30, elevation:7, margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
-                        >
-                      <TouchableOpacity  activeOpacity={0.7}
-                      style={{ padding:9, flex:1, borderRadius:10}}
-                      onPress={()=> {
-                        this.setState({page: this.state.page+ 1}, ()=> this.props.getposts(this.state, this.props.auth.userInfo))
-                      }}
-                           >
-                        <Text 
-                        style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/24, fontFamily:'Quicksand-Bold'}}>
-                       Load More
-                        </Text>
-                      </TouchableOpacity>
-                      </LinearGradient>
-                    </View>
-                    </View>
-
-                  )
+              // ListFooterComponent={()=>{
+              //   if(posts && posts.length !== undefined){
 
                 
-                } }
+              //   if(posts.length == 0){
+              //     return(
+                    
+              //       <View style={{flexDirection:'row', marginTop:7, justifyContent:'center', paddingBottom:20, width:WIDTH_MIN}}>
+              //       <View
+              //        style={{marginTop:10,marginBottom:10,width:'50%', margin:'auto', justifyContent:'center' }}>
+              //          <LinearGradient
+              //              colors={[ '#8e54e9', '#4776e6']} style={{borderRadius:30, elevation:7, margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+              //           >
+              //         <TouchableOpacity  activeOpacity={0.7}
+              //         style={{ padding:9, flex:1, borderRadius:10}}
+              //         onPress={()=> {
+              //           this.setState({
+              //             page:1
+              //           },()=> {
+              //             this.props.getposts(this.state.token, this.props.auth.userInfo.institution)
+                        
+              //           }
+              //           )
+              //         }}
+              //              >
+              //           <Text 
+              //           style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/24, fontFamily:'Quicksand-Bold'}}>
+              //          Refresh
+              //           </Text>
+              //         </TouchableOpacity>
+              //         </LinearGradient>
+              //       </View>
+              //       </View>
+              //     )
+              //   }
+               
+              //     // return(
+              //     //   <View style={{flexDirection:'row', marginTop:7, justifyContent:'center', paddingBottom:20, width:WIDTH_MIN}}>
+              //     //   <View
+              //     //    style={{marginTop:10,marginBottom:10,width:'50%', margin:'auto', justifyContent:'center' }}>
+              //     //      <LinearGradient
+              //     //          colors={[ '#8e54e9', '#4776e6']} style={{borderRadius:30, elevation:7, margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+              //     //       >
+              //     //     <TouchableOpacity  activeOpacity={0.7}
+              //     //     style={{ padding:9, flex:1, borderRadius:10}}
+              //     //     onPress={()=> {
+              //     //       this.setState({page: this.state.page+ 1}, ()=> this.props.getposts(this.state.token, this.props.auth.userInfo.institution))
+              //     //     }}
+              //     //          >
+              //     //       <Text 
+              //     //       style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/24, fontFamily:'Quicksand-Bold'}}>
+              //     //      Load More
+              //     //       </Text>
+              //     //     </TouchableOpacity>
+              //     //     </LinearGradient>
+              //     //   </View>
+              //     //   </View>
+
+              //     // )
+              //       }
+              //        else{
+              //         return null
+              //       }
+                
+              //   } }
               keyExtractor={(item, index)=> index.toString()}
              
             

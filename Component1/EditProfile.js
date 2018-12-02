@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ToastAndroid, TextInput,Image, ImageBackground, AsyncStorage, NetInfo } from 'react-native'
+import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ToastAndroid, TextInput,Image, ImageBackground, AsyncStorage, NetInfo, FlatList, TouchableWithoutFeedback } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 const ACCESS_TOKEN = 'Access_Token'
@@ -25,15 +25,24 @@ class EditProfile extends Component {
         residence:'',
         bio:'',
         ig_username:'',
-        token:''
+        token:'',
+        suggestions:[],
+        insname:[],
+        hideModel:true
       }
     }
     async componentDidMount() {
+
+      const institutionnames = this.props.auth.allUsers.map(name=> {
+        return name.institution
+      })
+      const unique = [ ...new Set(institutionnames) ]
       
           const token = await AsyncStorage.getItem(ACCESS_TOKEN)
           if(token){
             this.setState({
-              token
+              token,
+              suggestions: unique
             })
           }
           this.props.getCurrentProfile(this.state.token)
@@ -50,8 +59,41 @@ class EditProfile extends Component {
      
       
     }
-    
 
+    onTextChanged=(text)=>
+    { 
+      this.setState({institution:text, hideModel:false})
+      let insname = []
+      if(text.length > 0){
+        insname = this.state.suggestions.sort().filter((item)=>{
+          return item.toLowerCase().indexOf(text.toLowerCase()) !== -1
+      })
+      }
+    this.setState(()=> ({insname}))
+    }
+    
+    renderSuggestions = (suggestions)=> {
+      if(this.state.insname && this.state.insname.length ==0) {
+        return null
+      }
+      else if(this.state.hideModel==false){
+        return(
+          <View style={{flex:1}}>
+            <Text style={{textAlign:'center', fontSize:13, fontFamily:'Quicksand-Regular'}}>Recommendations are based on other user inputs</Text>
+          <FlatList
+          style={{zIndex:10000}}
+          data={suggestions}
+         keyExtractor={(item)=> item.toString()}
+          renderItem={({item}) => <View>{item}</View>}
+      /> 
+      </View>
+      
+        )
+        
+      } else {
+        return null
+      }
+    }
     
         
   render() {
@@ -63,14 +105,33 @@ class EditProfile extends Component {
       </View>
     )
   }
+
+  let suggestions =  this.state.insname.map(item=> {
+    return(
+    <TouchableOpacity activeOpacity={0.9} style={{flex:1}} onPress={()=> {
+      this.setState({
+        institution:item,
+        insname:[]
+      })
+    }}>
+       <Text style={styles.suggestions}>{item}</Text>
+    </TouchableOpacity>
+     
+    )
+   
+  })
+
     return (
+      <TouchableWithoutFeedback onPress={()=> {
+        this.setState({hideModel:true})
+      }}>
       
       <View style={{position:'relative', flex:1}}>
       
-      <ImageBackground resizeMode='cover'  source={require('../images/Background_Login_3-min.jpg')} style={{flex:1, position:'absolute', top:0, left:0, right:0, bottom:0}}> 
+      <ImageBackground resizeMode='cover'  source={require('../images/Background_Login_3-min.jpg')} style={{ position:'absolute', top:0, left:0, right:0, bottom:0}}> 
       </ImageBackground>
-      <ScrollView style={{flex:1, backgroundColor: 'transparent',}}>
-      <View style={{ flex:1,}}>
+      <ScrollView  nestedScrollEnabled={true} style={{ backgroundColor: 'transparent',}}>
+      <View >
      
         
         <LinearGradient 
@@ -79,6 +140,8 @@ class EditProfile extends Component {
 
           <Text style={{fontSize:TEXTSIZE/16, color:'white', marginTop:20, marginBottom:20,marginLeft:7, fontFamily:'Quicksand-Bold'}}>Edit Profile:</Text>
           <Text style={styles.label}>Institution/Workplace</Text>
+          <View  style={{position:'relative'}}>
+          
           <Hideo
         iconClass={Icon}
         iconName={'user-graduate'}
@@ -87,10 +150,18 @@ class EditProfile extends Component {
         // this is used as backgroundColor of icon container view.
         iconBackgroundColor={'#128EFE'}
         inputStyle={{ color: '#464949',fontFamily:'Quicksand-Medium', }}
-        value={this.state.institution}
-    onChangeText={(text=> this.setState({institution: text}))}
+        onChangeText={this.onTextChanged}
+             value={this.state.institution}
       style={{marginBottom:5, borderRadius:10}}
       />
+       <View style={{position:'absolute', top:48,left:0, right:0, backgroundColor:'#fff', borderBottomLeftRadius:10,
+            borderBottomRightRadius:10, elevation:5, zIndex:10000, flex:1}}>
+             
+           {this.renderSuggestions(suggestions)}
+          
+          
+            </View>
+            </View>
       <Text style={styles.label}>Status</Text>
         <Hideo
     iconClass={Icon}
@@ -116,7 +187,7 @@ class EditProfile extends Component {
     style={{marginBottom:5,}}
   />
 
-      <Text style={styles.label}>Instagram Handle</Text>
+      <Text style={styles.label}>Instagram Username</Text>
     <Hideo
     iconClass={Icon}
     iconName={'instagram'}
@@ -152,17 +223,20 @@ class EditProfile extends Component {
  
           
           <View style={{flexDirection:'row', marginTop:40, justifyContent:'space-around', paddingBottom:50}}>
-          <View style={{width:'45%',}}>
+          <View style={{width:'45%',zIndex:100}}>
           <LinearGradient 
                  colors={['rgba(255,95, 155, 1)','rgba(255, 136, 140, 1)', 'rgba(255, 174, 104, 1)']} style={{borderRadius:12, elevation:9}} start={{x: 0.2, y: 0.5}} end={{x: 1, y: 0.5}}
               >
         <TouchableOpacity activeOpacity={0.9} style={{borderRadius:12, backgroundColor:'transparent',padding:10, borderRadius:10}} 
-        onPress={()=> this.props.navigation.navigate('User')}>
+        onPress={()=>{ 
+          this.props.navigation.navigate('User')
+          InterstitialAdManager.showAd('1911005745652403_1935493166536994')
+          }}>
           <Text style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/21,fontFamily:'Quicksand-Bold'}}>Cancel</Text>
         </TouchableOpacity>
         </LinearGradient>
         </View>
-           <View style={{width:'45%',}}>
+           <View style={{width:'45%',zIndex:100}}>
             <LinearGradient 
                  colors={[ 'rgba(212, 19, 190,1)','rgba(212,146, 255, 1)', 'rgba(150, 180, 245, 1)']} style={{borderRadius:12, elevation:9}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
               >
@@ -175,14 +249,18 @@ class EditProfile extends Component {
                 
                  alert('Something went wrong!')
                  
-               } else {
+               }
+               else if (this.state.institution == '' && this.state.status == ''  ){
+                alert('Institution and Status is required!')
+               }
+              
+               else {
                 
                 this.props.navigation.navigate('User')
                ToastAndroid.show('Profile updating...', ToastAndroid.LONG)
                ToastAndroid.show('Profile is updated', ToastAndroid.SHORT)
                 InterstitialAdManager.showAd('1911005745652403_1926087667477544')
             
-
 
                }
               }
@@ -200,6 +278,7 @@ class EditProfile extends Component {
        </View>
        </ScrollView>
        </View>
+       </TouchableWithoutFeedback>
       
     )
   }
@@ -220,7 +299,13 @@ const styles = StyleSheet.create({
     marginTop:8,
    
     marginLeft:5
-  }
+  },
+  suggestions:{
+    color:'black',
+    fontSize:17,
+    marginBottom:3,
+    padding:10,
+    fontFamily:'Quicksand-Meduim'}
 })
 
 

@@ -20,19 +20,9 @@ class UserScreen extends Component {
   static navigationOptions = {
     header: null, 
 
-  }
-  async componentDidMount() {
-   
-        const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-        if(token){
-          this.setState({
-            token
-          })
-        }
-     
 
-  
   }
+
   constructor(){
     super();
     this.state={
@@ -41,12 +31,24 @@ class UserScreen extends Component {
       connection: true
     }
   }
+  async componentDidMount() {
+   
+        const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+        if(token){
+          this.setState({
+            token
+          })
 
- 
+        }
+        NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
+
+     
+
   
-async componentDidMount() {
-  NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
-}
+  }
+
+
+
 
 componentWillUnmount() {
     NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
@@ -98,23 +100,8 @@ handleConnectionChange = (isConnected) => {
     }
   }
 
-  
- 
-  
-
   _renderItem = ({item})=> {
     const postdate = moment(item.date).format('MMM Do, h:mm a');
-
-  
-  
-   
-
-
-    //var a = moment([2007, 0, 29]);
-    //var b = moment([2007, 0, 28]);
-    //a.diff(b) // 86400000
-    
-
     return (
     <View
     style={{height:undefined,width: undefined,marginBottom:HEIGHT/50,paddingHorizontal:10}} >
@@ -125,7 +112,7 @@ handleConnectionChange = (isConnected) => {
                        <Image source={{uri: item.profileImage}}  resizeMode="cover"
                     style={{height:  (HEIGHT/14) ,width: (HEIGHT/ 14), borderRadius:(HEIGHT/5), marginLeft:4, marginTop:4, marginBottom:2, borderColor:'#fff', borderWidth:2}}/> 
                     </View>
-                    <View style={{ width:65+'%', }}> 
+                    <View style={{ width:65+'%', }}>  
                     <View style={{flexDirection:'column', width:100+'%'}}>
                       <View style={{}}> 
                         <Text numberOfLines={1} style={{  marginLeft:10,
@@ -149,8 +136,8 @@ handleConnectionChange = (isConnected) => {
                          activeOpacity={0.7}
                           onPress={()=> {
                             this.rotateIcon
-                            this.props.addlike(item._id, this.state.token)
-                             setTimeout(()=>this.props.getposts(this.state, this.props.auth.userInfo), 2000)
+                            this.props.addlike(item, this.state.token)
+                             setTimeout(()=>this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 2000)
                           }} 
                          >
                        <FontAwesome
@@ -166,8 +153,8 @@ handleConnectionChange = (isConnected) => {
                         onPress={()=> {
                           this.props.deletepost(item._id,this.state.token)
                           ToastAndroid.show('Deleting post...', ToastAndroid.LONG);
-                          setTimeout(()=>this.props.getposts(this.state, this.props.auth.userInfo), 2000)
-                          ToastAndroid.show('Post deleted', ToastAndroid.SHORT);
+                          setTimeout(()=>this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 2000)
+                         
                         }}
                        >
                        <Icon  name="trash-alt" size={22} color='#fff'/>
@@ -183,27 +170,27 @@ handleConnectionChange = (isConnected) => {
   )}
 
   render() {
+
+    
   
-    const {user, loggedIn, userInfo, loading, getposts, posts}= this.props.auth
-    if(loading){
-      return(
-        <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:'#fff'}}>
-         <Spinner color={'#3972e9'} size={50} type={"Wave"}/>
-        </View>
-      )
-    } 
-    else if(this.state.connection == false){
+    const {user, loggedIn, userInfo, getposts, posts}= this.props.auth;
+     if(this.state.connection == false){
       <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
       <Icon name='frown' size={44}/>
      <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No Internet</Text>
    </View>
     }
 
-    let myPost = posts.filter(post=> post.facebookId === user.facebookId);
+    let myPost;
+   if(posts && posts.length !== undefined){
+    myPost= posts.filter(post=> post.facebookId === user.facebookId);
+   }  else {
+     return myPost = null
+   }
 
       let myposts;
-      if(myPost <= 0){
-        myposts = (<View></View>)
+      if(myPost == null || 0){
+        myposts = null
       } else {
         if(myPost.length>0){
          myposts = (
@@ -299,7 +286,7 @@ handleConnectionChange = (isConnected) => {
            
           
           <View style={{paddingTop:10}}>
-     {myposts}
+    {myposts}
         
         </View>
         {/*************ads*************/}
@@ -319,13 +306,7 @@ handleConnectionChange = (isConnected) => {
               <Text style={{color:'red',  fontSize: TEXTSIZE/23.5,marginLeft:20,paddingBottom:5, fontFamily:'Quicksand-Medium'}}>Delete Account</Text>
           </TouchableOpacity>
         </View>
-        <View style={{borderTopWidth:0.4, borderBottomWidth:0.4, marginBottom:20, marginTop:20}}>
-          
-        
-          <Text  style={{color:'black',  fontSize: TEXTSIZE/22,marginLeft:20,paddingBottom:5,paddingTop:6}}>About</Text>
-          
-              <Text style={{  fontSize: TEXTSIZE/25,marginLeft:20,paddingBottom:5, marginRight:10}}>Colleaguehub was made by Dhanmoni Nath. You can follow me on instagram @dhanmoni_19 and if you find any bug or issue in the app please mention it in the review section on google play or message me directly. I would appreciate it.</Text>
-        </View>
+       
 
        
 
@@ -381,8 +362,8 @@ const styles = StyleSheet.create({
     fontSize: TEXTSIZE/22,
     paddingLeft:5,
     paddingRight:5,
-    marginRight:10,
-    width:90+'%',
+    marginRight:20,
+   
     flexWrap:'wrap',
     fontFamily:'Quicksand-Medium'
   },

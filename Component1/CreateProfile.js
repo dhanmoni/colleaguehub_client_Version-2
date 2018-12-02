@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ActivityIndicator, TextInput,ImageBackground, AsyncStorage, Image, NetInfo } from 'react-native'
+import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,FlatList, TextInput,ImageBackground, AsyncStorage, Image, NetInfo, TouchableWithoutFeedback } from 'react-native'
 import Spinner from 'react-native-spinkit'
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { Sae } from 'react-native-textinput-effects';
+import { Sae, Hoshi } from 'react-native-textinput-effects';
 import { withNavigation } from 'react-navigation';
+import {BannerView} from 'react-native-fbads'
 
 
 import {connect} from 'react-redux'
@@ -27,33 +28,93 @@ class CreateProfile extends Component {
         residence:'',
         bio:'',
         ig_username:'',
-        token: ''
+        token: '',
+       suggestions:[],
+       insname:[],
+       hideModel:true
       }
     }
     
+  
    
     async componentDidMount() {
+      
+      const institutionnames = this.props.auth.allUsers.map(name=> {
+        return name.institution
+      })
+      const unique = [ ...new Set(institutionnames) ]
      
       const token = await AsyncStorage.getItem(ACCESS_TOKEN)
         if(token){
           this.setState({
-            token
+            token,
+            suggestions: unique
           })
-        }  
-    
-     
+         
+        }
+       
     }
 
-  render() {
-   const {user, loggedIn, loading} = this.props.auth
-   if(loading){
-    return(
-      <View style={{flex: 1, justifyContent:'center',alignItems:'center'}}>
-        <Spinner color={'#E239FC'} size={50} type={"Wave"}/>
-      </View>
-    )
-  }
+    onTextChanged=(text)=>
+        { 
+          this.setState({institution:text, hideModel:false})
+          let insname = []
+          if(text.length > 0){
+            insname = this.state.suggestions.sort().filter((item)=>{
+              return item.toLowerCase().indexOf(text.toLowerCase()) !== -1
+          })
+          }
+        this.setState(()=> ({insname}))
+        }
+     
+    renderSuggestions = (suggestions)=> {
+      if(this.state.insname && this.state.insname.length ==0) {
+        return null
+      }
+      else if(this.state.hideModel==false){
+        return(
+          <FlatList
+          
+          data={suggestions}
+         keyExtractor={(item)=> item.toString()}
+          renderItem={({item}) => <View>{item}</View>}
+      /> 
+        )
+        
+      } else {
+        return null
+      }
+    }
+    render() {
+      const {user, loading, } = this.props.auth
+      if(loading){
+       return(
+         <View style={{flex: 1, justifyContent:'center',alignItems:'center'}}>
+           <Spinner color={'#E239FC'} size={50} type={"Wave"}/>
+         </View>
+       )
+     }
+   
+    
+     let suggestions =  this.state.insname.map(item=> {
+       return(
+       <TouchableOpacity activeOpacity={0.9} style={{flex:1}} onPress={()=> {
+         this.setState({
+           institution:item,
+           insname:[]
+         })
+       }}>
+          <Text style={styles.suggestions}>{item}</Text>
+       </TouchableOpacity>
+        
+       )
+      
+     })
+
     return (
+      <TouchableWithoutFeedback onPress={()=> {
+        this.setState({hideModel:true})
+      }}>
       <View  style={{position:'relative', flex:1}}>
       
       <ImageBackground resizeMode='cover' blurRadius={3}  source={require('../images/bg_image.jpg')} style={{flex:1, position:'absolute', top:0, left:0, right:0, bottom:0, }}> 
@@ -79,49 +140,62 @@ class CreateProfile extends Component {
                 Create Your Profile:
           </Text>
 
-          <View style={{marginBottom:8}}>
-          <Sae
-             onChangeText={(text) => this.setState({institution: text})}
+
+
+          <View style={{marginBottom:10}}>
+          <Hoshi
+             onChangeText={this.onTextChanged}
+             value={this.state.institution}
               label={'Institution/Workplace'}
-              iconClass={FontAwesomeIcon}
-              iconName={'pencil'}
-              iconColor={'white'}
-              // TextInput props
-              autoCapitalize={'none'}
+              borderColor={'#5472F0'}
               autoCorrect={false}
               
             />
+            <View style={{position:'relative'}}>
             <Text   style={{marginTop:4,fontFamily:'Quicksand-Medium' , fontSize: 14, color:'white'}}>
                *Name of your school/college or work-place (required).
             </Text>
+            <View style={{position:'absolute', top:0,left:0, right:0, backgroundColor:'#fff', borderBottomLeftRadius:10,
+            borderBottomRightRadius:10, elevation:5}}>
+             
+           {this.renderSuggestions(suggestions)}
+       
+          
+            </View>
+            </View>
+            
           </View>
-          <View style={{marginBottom:8}}>
+
+
+
+          <View style={{marginBottom:10}}>
            
-          <Sae
+          <Hoshi
              onChangeText={(text) => this.setState({status: text})}
-              label={'Status'}
-              iconClass={FontAwesomeIcon}
-              iconName={'pencil'}
-              iconColor={'white'}
-              // TextInput props
+             label={'Status'}
+             // this is used as active border color
+             borderColor={'#5472F0'}
+             
               autoCapitalize={'none'}
               autoCorrect={false}
               
             />
+     
           
             <Text  style={{marginTop:4,fontFamily:'Quicksand-Medium' , fontSize: 14, color:'white'}}>
             *What do you do there? e.g, student, teacher, manager etc. (required)
              </Text>
           </View>
-          <View style={{marginBottom:8}}>
-          <Sae
+          {/* <BannerView
+                placementId="1003442513171119_1003443479837689"
+                type="rectangle"
+              
+              /> */}
+          <View style={{marginBottom:10}}>
+          <Hoshi
              onChangeText={(text) => this.setState({residence: text})}
               label={'Residence'}
-              iconClass={FontAwesomeIcon}
-              iconName={'pencil'}
-              iconColor={'white'}
-              // TextInput props
-              autoCapitalize={'none'}
+              borderColor={'#5472F0'}
               autoCorrect={false}
             />
             <Text  style={{marginTop:4,fontFamily:'Quicksand-Medium' , fontSize: 14, color:'white'}}>
@@ -130,16 +204,12 @@ class CreateProfile extends Component {
          
             
           </View>
-          <View style={{marginBottom:8}}>
+          <View style={{marginBottom:10}}>
            
-          <Sae
+          <Hoshi
              onChangeText={(text) => this.setState({ig_username: text})}
               label={'Instagram username'}
-              iconClass={FontAwesomeIcon}
-              iconName={'pencil'}
-              iconColor={'white'}
-              // TextInput props
-              autoCapitalize={'none'}
+              borderColor={'#5472F0'}
               autoCorrect={false}
               
             />
@@ -148,7 +218,7 @@ class CreateProfile extends Component {
             *Add your IG account if you have any.(Optional)
              </Text>
           </View>
-          <View style={{marginBottom:8, marginTop:10}}>
+          <View style={{marginBottom:10, marginTop:10}}>
             <Text style={styles.text}>Your Bio:</Text>
             <TextInput
               onChangeText={(text)=>{this.setState({bio:text})}}
@@ -193,7 +263,7 @@ class CreateProfile extends Component {
                        
                       
                        this.props.setCurrentUserWithProfile(this.state)
-                       this.props.getAllUsers(this.state.token)
+                       this.props.getAllUsers()
                      
                        }}>
                   <Text 
@@ -211,6 +281,8 @@ class CreateProfile extends Component {
      
       </ScrollView>
       </View>
+      </TouchableWithoutFeedback>
+      
     )
   }
 }
@@ -228,6 +300,13 @@ const styles = StyleSheet.create({
     fontSize:20,
     marginBottom:5,
     fontFamily:'Quicksand-Bold'
-  }
+  },
+  suggestions:{
+      color:'black',
+      fontSize:17,
+      marginBottom:3,
+    padding:10,
+   
+      fontFamily:'Quicksand-Meduim'}
 })
 

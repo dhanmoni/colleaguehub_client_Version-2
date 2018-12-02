@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.colleaguehub_client"
-    android:versionCode="1048577"
-    android:versionName="1.0" >
+    android:versionCode="1048583"
+    android:versionName="6.0.1" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -31,6 +31,7 @@
             android:name="com.colleaguehub_client.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,14 +42,18 @@
         <activity android:name="com.facebook.ads.InterstitialAdActivity" />
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
         <activity
+            android:name="com.facebook.ads.AudienceNetworkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/com_facebook_activity_theme" />
         <activity android:name="com.facebook.CustomTabMainActivity" />
         <activity android:name="com.facebook.CustomTabActivity" />
-        <activity
-            android:name="com.facebook.ads.AudienceNetworkActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
 
         <provider
             android:name="com.facebook.marketing.internal.MarketingInitProvider"
@@ -74,11 +79,7 @@
             <intent-filter>
                 <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
             </intent-filter>
-        </receiver>
-
-        <meta-data
-            android:name="android.support.VERSION"
-            android:value="26.1.0" /> <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+        </receiver> <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"

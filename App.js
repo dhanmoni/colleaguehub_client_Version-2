@@ -5,6 +5,7 @@ import {Provider} from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './redux/store'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { NativeAdsManager, AdSettings, BannerView } from 'react-native-fbads';
 
 
 export default class App extends React.Component {
@@ -13,12 +14,12 @@ export default class App extends React.Component {
 constructor(){
   super();
   this.state={
-    status: false
+    status: true
   }
 }
 
-async componentDidMount() {
-  NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
+ componentDidMount() {
+  NetInfo.isConnected.addEventListener('connectionChange',  this.handleConnectionChange);
 }
 
 componentWillUnmount() {
@@ -28,6 +29,7 @@ componentWillUnmount() {
 
 
 handleConnectionChange = (isConnected) => {
+  console.log(isConnected)
         if(isConnected){
           this.setState({status: true}, ()=> {
             return(
@@ -73,6 +75,7 @@ render() {
    )
   
  }
+ 
   
 return(
   <PersistGate loading={null} persistor={persistor}>
