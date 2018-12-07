@@ -1,5 +1,5 @@
 import { LOGIN_WITH_FB,SET_PROFILE_WITHDATA, DELETE_AUTH_USER , GET_CURRENT_USER, GET_CURRENT_PROFILE, GET_ALL_USERS, SET_LOADING, UPDATE_USER_PROFILE, GET_SINGLE_USER, GET_SEARCHED_USER, GET_ALL_COLLEGUES,
-GET_POSTS, DELETE_POST, ADD_POST 
+GET_POSTS, DELETE_POST, ADD_POST , SINGLE_POST, UPDATE_FB_PROFILE, NIGHT_MODE_ON, NIGHT_MODE_OFF
 } from '../actions/types'
 //import isEmpty from '../../validation/isEmpty'
 
@@ -12,8 +12,9 @@ const initialState={
     profile:null,
     searchedUser:{},
     allCollegues:[],
-    post:{},
-    posts:[]
+    post:null,
+    posts:[],
+    nightmode: false
 }
 export default function(state= initialState, action){
     switch (action.type) {
@@ -25,6 +26,14 @@ export default function(state= initialState, action){
             user:action.payload,
             loading:false,
             userInfo:null
+        }
+        case UPDATE_FB_PROFILE:
+        return {
+            ...state,
+            loggedIn: true,
+            user:action.payload,
+            loading:false,
+            
         }
         case GET_SEARCHED_USER:
         return {
@@ -54,6 +63,18 @@ export default function(state= initialState, action){
             ...state,
             loading:true     
         }
+        case NIGHT_MODE_ON:
+        return {
+            ...state,
+            nightmode: true    
+        }
+
+        case NIGHT_MODE_OFF:
+        return {
+            ...state,
+            nightmode: false   
+        }
+
 
         case DELETE_AUTH_USER:
         return {
@@ -107,9 +128,16 @@ export default function(state= initialState, action){
               return {
                 ...state,
                 posts: [action.payload, ...state.posts],
-                post: action.payload
+                post: action.payload,
+                loading:false
               }
-             
+        case SINGLE_POST: 
+              return {
+                ...state,
+                post: action.payload,
+                loading:false,
+              }
+                
               
         case DELETE_POST: 
                return {

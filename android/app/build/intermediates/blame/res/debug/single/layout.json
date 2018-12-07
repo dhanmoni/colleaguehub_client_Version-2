@@ -1,246 +1,250 @@
 [
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_big_media_narrow_custom.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_content_include.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_round.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_white_round.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\select_dialog_singlechoice_material.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_select_dialog_material.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_media_cancel_action.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_title_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_alert_dialog_title_material.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_popup_menu_item_layout.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\redbox_item_title.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\b26fc0282d8a98afd8490a89c1f7cd6a\\res\\layout\\redbox_item_title.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_action_tombstone.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_list_menu_item_checkbox.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_lines_media.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_activity_chooser_view.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_search_view.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_bar_up_container.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\select_dialog_multichoice_material.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\redbox_item_frame.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\b26fc0282d8a98afd8490a89c1f7cd6a\\res\\layout\\redbox_item_frame.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_media.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_tooltip.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_tooltip.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\redbox_view.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\b26fc0282d8a98afd8490a89c1f7cd6a\\res\\layout\\redbox_view.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_expanded_menu_layout.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_list_menu_item_radio.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_smart_device_dialog_fragment.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.35.0.aar\\215354e5bb3a420f966d9ac2734d6a6d\\res\\layout\\com_facebook_smart_device_dialog_fragment.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\select_dialog_item_material.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_template_part_chronometer.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_media_custom.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\support_simple_spinner_dropdown_item.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_large.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_white_large.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_activity_layout.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.35.0.aar\\215354e5bb3a420f966d9ac2734d6a6d\\res\\layout\\com_facebook_activity_layout.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_custom.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_big_media_custom.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_alert_dialog_material.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_round.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_blue_round.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_activity_chooser_view_list_item.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dev_loading_view.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\b26fc0282d8a98afd8490a89c1f7cd6a\\res\\layout\\dev_loading_view.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_device_auth_dialog_fragment.xml",
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_device_auth_dialog_fragment.xml",
         "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.35.0.aar\\215354e5bb3a420f966d9ac2734d6a6d\\res\\layout\\com_facebook_device_auth_dialog_fragment.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_mode_close_item_material.xml"
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_alert_dialog_material.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_tooltip_bubble.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.35.0.aar\\8a8db5f738eb5d9b7f5c97acef44b39d\\res\\layout\\com_facebook_tooltip_bubble.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_bar_title_item.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_small.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_blue_small.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_popup_menu_header_item_layout.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fps_view.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\b26fc0282d8a98afd8490a89c1f7cd6a\\res\\layout\\fps_view.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_login_fragment.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.35.0.aar\\215354e5bb3a420f966d9ac2734d6a6d\\res\\layout\\com_facebook_login_fragment.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_big_media_narrow.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_mode_bar.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_large.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_blue_large.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_menu_item_layout.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
         "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_list_menu_item_layout.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_small.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_white_small.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_menu_layout.xml"
-    },
-    {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
         "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_action.xml"
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_simple.xml"
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_mode_bar.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_toolbar.xml"
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dev_loading_view.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\62fd5182060aa006cfceff1327665f38\\res\\layout\\dev_loading_view.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_smart_device_dialog_fragment.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.35.0.aar\\215354e5bb3a420f966d9ac2734d6a6d\\res\\layout\\com_facebook_smart_device_dialog_fragment.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_tooltip.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_tooltip.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\redbox_view.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\62fd5182060aa006cfceff1327665f38\\res\\layout\\redbox_view.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_login_fragment.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.35.0.aar\\215354e5bb3a420f966d9ac2734d6a6d\\res\\layout\\com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_media_action.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_small.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_blue_small.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_small.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_white_small.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_large.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_blue_large.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
         "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_list_menu_item_icon.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fps_view.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\62fd5182060aa006cfceff1327665f38\\res\\layout\\fps_view.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item.xml",
+        "source": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\node_modules\\react-native-image-picker\\android\\build\\intermediates\\packaged_res\\debug\\layout\\list_item.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
         "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_big_media.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
         "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_template_part_time.xml"
     },
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_media_action.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_media_action.xml"
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_round.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_blue_round.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\0071b75ca555814536504d87fbcf0ef9\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_title_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\redbox_item_title.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\62fd5182060aa006cfceff1327665f38\\res\\layout\\redbox_item_title.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_round.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_white_round.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_large.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.35.0.aar\\61c355fe19a63f6e1012d0ee17230b84\\res\\layout\\messenger_button_send_white_large.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_tooltip_bubble.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.35.0.aar\\8a8db5f738eb5d9b7f5c97acef44b39d\\res\\layout\\com_facebook_tooltip_bubble.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.0.2.aar\\4d9caf7176205b3c71e133f50c7bd135\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\redbox_item_frame.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\62fd5182060aa006cfceff1327665f38\\res\\layout\\redbox_item_frame.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_activity_layout.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.35.0.aar\\215354e5bb3a420f966d9ac2734d6a6d\\res\\layout\\com_facebook_activity_layout.xml"
     }
 ]

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage, NetInfo } from 'react-native';
+import { StyleSheet, Text, View ,Image,Dimensions,ScrollView,FlatList, ActivityIndicator,TouchableOpacity,StatusBar, AsyncStorage, NetInfo , } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -165,8 +165,11 @@ class Profiles extends Component {
     return (
       <View style={{flex:1,backgroundColor:'#ffffff' }}> 
        <View style={{flex:1,backgroundColor:'transparent',flexDirection: 'row'}}>
-          
-          <LinearGradient  colors={['#E239FC', '#6BBAFC']} style={{width: 100 + '%', height: 100 +'%',}} start={{x: 0, y: 0.6}} end={{x: 1, y: 0.5}}>
+       <StatusBar
+          backgroundColor='#002463'
+          barStyle="light-content"
+        />
+          <LinearGradient  colors={['#000', '#0b61bd']} style={{width: 100 + '%', height: 100 +'%',}} start={{x: 0, y: 0.6}} end={{x: 1, y: 0.5}}>
            <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',alignSelf: 'center'}}>
                
                <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 32 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>

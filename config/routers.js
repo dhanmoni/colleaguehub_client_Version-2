@@ -3,6 +3,8 @@ import { Text, View, Image } from 'react-native'
 import {createMaterialTopTabNavigator,createTabNavigator,createBottomTabNavigator, createSwitchNavigator, createStackNavigator} from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 
 import HomeScreen from '../Component1/HomeScreen';
 import SearchScreen from '../Component1/SearchScreen';
@@ -13,6 +15,11 @@ import CreateProfile from '../Component1/CreateProfile'
 import ProfileItem from '../profiles/profileItem'
 import StoryScreen from '../Component1/StoryScreen'
 import PostScreen from '../Component1/PostScreen'
+import CommentPage from '../Component1/CommentPage'
+import LikesPage from '../Component1/LikesPage'
+
+
+
 
 export const UserStack = createStackNavigator(
   {
@@ -46,6 +53,12 @@ export const StoryStack = createStackNavigator(
     screen: PostScreen
     
   },
+  CommentPage:{
+    screen:CommentPage
+  },
+  LikesPage: {
+    screen: LikesPage
+  }
   
 }
 )
@@ -107,34 +120,36 @@ HomeStack.navigationOptions = ({ navigation }) => {
 
  export const Tabs = createBottomTabNavigator(
      {
+
+      Story: { 
+        screen: StoryStack,
+        navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarIcon:
+          ({ focused }) => (
+            focused ?
+             <View style={{alignItems:'center',borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor:'#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
+                <Icon name="home"  size={32} style={{}} color='#fff' />
+            </View>:
+            <Icon name="home"  size={27} style={{}} color="#808080" />
+          )
+      },
+      },
         Home: { 
             screen: HomeStack,
             navigationOptions: {
-            tabBarLabel: 'Home',
+            tabBarLabel: 'User',
             tabBarIcon:
               ({ focused }) => (
                 focused ?
-                 <View style={{alignItems:'center', justifyContent:'center',backgroundColor:'#e239fc', borderRadius:25, height:50, width:50,position:'absolute'}}>
-                    <Icon name="home"  size={33} style={{}} color='#fff' />
+                 <View style={{alignItems:'center',borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor:'#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
+                    <FontAwesome5 name="user-friends"  size={30} style={{}} color='#fff' />
                 </View>:
-                <Icon name="home"  size={27} style={{}} color="#808080" />
+                (<FontAwesome5 name="user-friends"  size={27} style={{}} color="#808080" />)
               )
           },
           },
-          Story: { 
-            screen: StoryStack,
-            navigationOptions: {
-            tabBarLabel: 'Feed',
-            tabBarIcon:
-              ({ focused }) => (
-                focused ?
-                 <View style={{alignItems:'center', justifyContent:'center',backgroundColor:'#4776e6', borderRadius:25, height:50, width:50,position:'absolute'}}>
-                    <Icon name="list-alt"  size={33} style={{}} color='#fff' />
-                </View>:
-                <Icon name="list-alt"  size={27} style={{}} color="#808080" />
-              )
-          },
-          },
+         
         
         Search:{
             screen: SearchScreen,
@@ -144,8 +159,8 @@ HomeStack.navigationOptions = ({ navigation }) => {
               tabBarIcon:
               ({ focused }) => (
                 focused ?
-                <View style={{alignItems:'center', justifyContent:'center',backgroundColor:'#931FFF', borderRadius:25, height:50, width:50,position:'absolute'}}>
-                <Icon name="search"  size={33} style={{}} color='#fff' />
+                <View style={{alignItems:'center',borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor:'#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
+                <Icon name="search"  size={30} style={{}} color='#fff' />
             </View>:  <Icon name="search"  size={25} style={{}} color="#808080" />
               )
                
@@ -162,8 +177,8 @@ HomeStack.navigationOptions = ({ navigation }) => {
             tabBarIcon:
             ({ focused }) => (
               focused ?
-              <View style={{alignItems:'center',elevation:1, justifyContent:'center',backgroundColor: 'rgba(212, 19, 160,1)', borderRadius:25, height:50, width:50,position:'absolute'}}>
-              <Icon name="user"  size={33} style={{}} color='#fff' />
+              <View style={{alignItems:'center',elevation:1,borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor: '#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
+              <Icon name="user"  size={30} style={{}} color='#fff' />
           </View>:
               <Icon name="user"  size={26} style={{}} color="#808080" />
             )
@@ -172,6 +187,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
           },
           
  },
+ //#002463
 
 //one #E239FC;
 //two #6BBAFC

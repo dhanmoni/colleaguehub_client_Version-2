@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View,TextInput, TouchableOpacity,ActivityIndicator, Image, Dimensions, ScrollView, AsyncStorage, Keyboard} from 'react-native'
+import { StyleSheet, Text, View,TextInput, TouchableOpacity,ActivityIndicator,StatusBar, Image, Dimensions, ScrollView, AsyncStorage, Keyboard} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Container, Content, Item, Input, Button, Card, CardItem, Left,  } from 'native-base';
@@ -124,8 +124,12 @@ class SearchScreen extends Component {
     return (
       <View style={{flex:1,backgroundColor:'#ffffff' }}>
        <View style={{flex:1,backgroundColor:'transparent',flexDirection: 'row'}}>
+       <StatusBar
+          backgroundColor='#002463'
+          barStyle="light-content"
+        />
           
-          <LinearGradient  colors={['#128EFE', '#931FFF']} style={{width: 100 + '%', height: 100 +'%',}} start={{x: 0, y: 0.6}} end={{x: 1, y: 0.5}}>
+          <LinearGradient  colors={['#000', '#0b61bd']} style={{width: 100 + '%', height: 100 +'%',}} start={{x: 0, y: 0.6}} end={{x: 1, y: 0.5}}>
            <View style={{width: 100 + '%', height: 100 +'%',alignItems:'center', justifyContent:'center'}}>
               <View  style={{width:WIDTH_MIN/1.1,backgroundColor:'#fff', margin:'auto',height: 60+'%',borderRadius:30, alignItems:'center',  flexDirection:'row'}}>
                  

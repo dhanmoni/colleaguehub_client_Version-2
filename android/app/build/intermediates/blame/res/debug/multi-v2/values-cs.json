@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-cs\\values-cs.xml",
+            "outputFile": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-cs\\values-cs.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-10.0.1.aar\\c9bd335fe774929c7fdd6f5ad49e5721\\res\\values-cs\\values.xml",
@@ -108,7 +108,7 @@
             ]
         },
         {
-            "outputFile": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\values-cs\\values-cs.xml",
+            "outputFile": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\values-cs\\values-cs.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-10.0.1.aar\\c9bd335fe774929c7fdd6f5ad49e5721\\res\\values-cs\\values.xml",

@@ -9,9 +9,16 @@ export const GET_ERROR = 'GET_ERROR';
 export const GET_POSTS = 'GET_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const SINGLE_POST = 'SINGLE_POST';
+export const NIGHT_MODE_ON = 'NIGHT_MODE_ON';
+export const NIGHT_MODE_OFF = 'NIGHT_MODE_OFF';
+
+
+
 //
 export const SET_LOADING = 'SET_LOADING';
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
+export const UPDATE_FB_PROFILE = 'UPDATE_FB_PROFILE';
 export const GET_SINGLE_USER = 'GET_SINGLE_USER';
 export const GET_SEARCHED_USER = 'GET_SEARCHED_USER';
 export const GET_ALL_COLLEGUES = 'GET_ALL_COLLEGUES';

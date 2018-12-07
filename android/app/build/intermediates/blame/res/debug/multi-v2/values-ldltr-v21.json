@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\values-ldltr-v21\\values-ldltr-v21.xml",
+            "outputFile": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\values-ldltr-v21\\values-ldltr-v21.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
@@ -16,7 +16,7 @@
             ]
         },
         {
-            "outputFile": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
+            "outputFile": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\4bf8516afa90ce1dc0abf3237b145e43\\res\\values-ldltr-v21\\values-ldltr-v21.xml",

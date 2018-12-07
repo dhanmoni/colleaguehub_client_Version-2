@@ -136,6 +136,7 @@ android/support/v7/widget/RecyclerView$ItemAnimator$AdapterChanges.class
 android/support/v7/widget/RecyclerView$State$LayoutState.class
 android/support/v7/widget/ViewBoundsCheck$ViewBounds.class
 com/BV/LinearGradient/LinearGradientPackage.class
+com/RNFetchBlob/RNFetchBlobPackage.class
 com/colleaguehub_client/BuildConfig.class
 com/colleaguehub_client/MainApplication$1.class
 com/colleaguehub_client/MainApplication.class
@@ -248,8 +249,11 @@ com/google/android/gms/common/SignInButton$ColorScheme.class
 com/google/android/gms/common/annotation/KeepName.class
 com/google/android/gms/common/util/DynamiteApi.class
 com/google/android/gms/internal/zzmb.class
+com/imagepicker/ImagePickerPackage.class
 com/oblador/vectoricons/VectorIconsPackage.class
 com/react/rnspinkit/RNSpinkitPackage.class
+com/rnfs/RNFSPackage.class
+fr/snapp/imagebase64/RNImgToBase64Package.class
 javax/annotation/CheckForNull.class
 javax/annotation/CheckForSigned.class
 javax/annotation/CheckReturnValue.class

@@ -1,6 +1,10 @@
 [
     {
-        "merged": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml\\preferences.xml",
-        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\b26fc0282d8a98afd8490a89c1f7cd6a\\res\\xml\\preferences.xml"
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml\\preferences.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\react-native-0.55.4.aar\\62fd5182060aa006cfceff1327665f38\\res\\xml\\preferences.xml"
+    },
+    {
+        "merged": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml\\provider_paths.xml",
+        "source": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\node_modules\\react-native-image-picker\\android\\build\\intermediates\\packaged_res\\debug\\xml\\provider_paths.xml"
     }
 ]

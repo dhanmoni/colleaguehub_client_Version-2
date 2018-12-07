@@ -55,64 +55,64 @@ class ProfileItem extends Component {
  
   
 
-  _renderItem = ({item})=> {
-    const postdate = moment(item.date).format('MMM Do, h:mm a');
+  // _renderItem = ({item})=> {
+  //   const postdate = moment(item.date).format('MMM Do, h:mm a');
 
   
-    return (
-    <View
-    style={{height:undefined,width: undefined,marginBottom:HEIGHT/50,paddingHorizontal:10}} >
-      <Card style={{borderRadius:10,  }}>    
-                    <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:'rgba(212, 19, 160,1)', alignItems:'center' }}> 
-                    <View style={{flexDirection:'row'}}>
-                    <View style={{ }}>
-                       <Image source={{uri: item.profileImage}}  resizeMode="cover"
-                    style={{height:  (HEIGHT/14) ,width: (HEIGHT/ 14), borderRadius:(HEIGHT/5), marginLeft:4, marginTop:4, marginBottom:2, borderColor:'#fff', borderWidth:2}}/> 
-                    </View>
-                    <View style={{ width:65+'%', }}> 
-                    <View style={{flexDirection:'column', width:100+'%'}}>
-                      <View style={{}}> 
-                        <Text numberOfLines={1} style={{  marginLeft:10,
-                        color:'#fff',
-                        fontFamily:'Quicksand-Bold',
-                        fontSize:TEXTSIZE/24,
-                      }}>{item.name}</Text>
-                      </View>
-                      <View style={{}}>
-                      <Text style={{fontSize:TEXTSIZE/30, color:'#fff', marginLeft:10}}>{postdate}</Text>
-                      </View>
-                      </View>
-                     </View>
-                      </View>
-                       <View style={{position:'absolute',flexDirection:'row', right:27, alignItems:'center'}}>
-                       <View style={{borderRadius:120,marginRight:7, borderWidth:0.4, borderColor:'#fff'}}>
-                       <Text style={{borderRadius:120,color:'#fff',textAlign:'center', backgroundColor:'rgba(0, 0, 0, 0.4)', paddingLeft:5, paddingRight:5}}>{item.likes ? (item.likes.length):(0)}</Text>
-                       </View>
-                       <View>
-                         <TouchableOpacity 
-                         activeOpacity={0.7}
-                          onPress={()=> {
-                            this.rotateIcon
-                            this.props.addlike(item, this.state.token)
-                             setTimeout(()=>this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 2000)
-                          }} 
-                         >
-                       <FontAwesome
+  //   return (
+  //   <View
+  //   style={{height:undefined,width: undefined,marginBottom:HEIGHT/50,paddingHorizontal:10}} >
+  //     <Card style={{borderRadius:10,  }}>    
+  //                   <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:'rgba(212, 19, 160,1)', alignItems:'center' }}> 
+  //                   <View style={{flexDirection:'row'}}>
+  //                   <View style={{ }}>
+  //                      <Image source={{uri: item.profileImage}}  resizeMode="cover"
+  //                   style={{height:  (HEIGHT/14) ,width: (HEIGHT/ 14), borderRadius:(HEIGHT/5), marginLeft:4, marginTop:4, marginBottom:2, borderColor:'#fff', borderWidth:2}}/> 
+  //                   </View>
+  //                   <View style={{ width:65+'%', }}> 
+  //                   <View style={{flexDirection:'column', width:100+'%'}}>
+  //                     <View style={{}}> 
+  //                       <Text numberOfLines={1} style={{  marginLeft:10,
+  //                       color:'#fff',
+  //                       fontFamily:'Quicksand-Bold',
+  //                       fontSize:TEXTSIZE/24,
+  //                     }}>{item.name}</Text>
+  //                     </View>
+  //                     <View style={{}}>
+  //                     <Text style={{fontSize:TEXTSIZE/30, color:'#fff', marginLeft:10}}>{postdate}</Text>
+  //                     </View>
+  //                     </View>
+  //                    </View>
+  //                     </View>
+  //                      <View style={{position:'absolute',flexDirection:'row', right:27, alignItems:'center'}}>
+  //                      <View style={{borderRadius:120,marginRight:7, borderWidth:0.4, borderColor:'#fff'}}>
+  //                      <Text style={{borderRadius:120,color:'#fff',textAlign:'center', backgroundColor:'rgba(0, 0, 0, 0.4)', paddingLeft:5, paddingRight:5}}>{item.likes ? (item.likes.length):(0)}</Text>
+  //                      </View>
+  //                      <View>
+  //                        <TouchableOpacity 
+  //                        activeOpacity={0.7}
+  //                         onPress={()=> {
+  //                           this.rotateIcon
+  //                           this.props.addlike(item, this.state.token)
+  //                            setTimeout(()=>this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 2000)
+  //                         }} 
+  //                        >
+  //                      <FontAwesome
                        
-                        name="heart" size={23} color={this.findUserLike(item.likes) ? '#f50002':'#fff'}/>
-                      </TouchableOpacity>
-                       </View>
+  //                       name="heart" size={23} color={this.findUserLike(item.likes) ? '#f50002':'#fff'}/>
+  //                     </TouchableOpacity>
+  //                      </View>
                        
-                       </View>
+  //                      </View>
 
-                    </CardItem>
-                    <CardItem cardBody style={{height:undefined, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, marginLeft:4}}>
-                       <Text style={styles.posttext}>{item.text}</Text>
-                    </CardItem>                   
-        </Card> 
-     </View>
+  //                   </CardItem>
+  //                   <CardItem cardBody style={{height:undefined, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, marginLeft:4}}>
+  //                      <Text style={styles.posttext}>{item.text}</Text>
+  //                   </CardItem>                   
+  //       </Card> 
+  //    </View>
     
-  )}
+  // )}
 
 
   render() {
@@ -122,7 +122,7 @@ class ProfileItem extends Component {
         return(
           <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:'#fff'}}>
             <Spinner color={'#E239FC'} size={50} type={"Wave"}/>
-            <View style={{position:'absolute', bottom:5, justifyContent:'center', flex:1}}><Text style={{textAlign:'center'}}>If you recently changed your internet connection, it may take 1-2 minute to load data. We are sorry</Text></View>
+            
           </View>
         )
       }
@@ -136,29 +136,29 @@ class ProfileItem extends Component {
       }
 
 
-      let hisPost;
-   if(posts && posts.length !== undefined){
-    hisPost= posts.filter(post=> post.facebookId === profile.facebookId);
-   }  else {
-     return hisPost = null
-   }
+  //     let hisPost;
+  //  if(posts && posts.length !== undefined){
+  //   hisPost= posts.filter(post=> post.facebookId === profile.facebookId);
+  //  }  else {
+  //    return hisPost = null
+  //  }
 
-      let hisposts;
-      if(hisPost == null || 0){
-        hisposts = null
-      } else {
-        if(hisPost.length>0){
-         hisposts = (
-           <FlatList
-              data={hisPost}
-              keyExtractor={post=> post.date}
-              renderItem={this._renderItem}
-           />
-         )
-        }  else{
-          <Text>No post</Text>
-        }
-      }
+  //     let hisposts;
+  //     if(hisPost == null || 0){
+  //       hisposts = null
+  //     } else {
+  //       if(hisPost.length>0){
+  //        hisposts = (
+  //          <FlatList
+  //             data={hisPost}
+  //             keyExtractor={post=> post.date}
+  //             renderItem={this._renderItem}
+  //          />
+  //        )
+  //       }  else{
+  //         <Text>No post</Text>
+  //       }
+  //     }
 
 
       return (
@@ -283,19 +283,19 @@ class ProfileItem extends Component {
            
          
          
-             <View style={{marginBottom:20}}>
+             {/* <View style={{marginBottom:20}}>
                   <BannerView
                 placementId="1911005745652403_1918573884895589"
                 type="rectangle"
               onPress={()=> console.log('clicked')}
               onError={(err)=> console.log(err)}
               />
-                </View>
+                </View> */}
 
-                 <View style={{paddingTop:10, paddingBottom:30}}>
+                 {/* <View style={{paddingTop:10, paddingBottom:30}}>
              {hisposts}
         
-              </View>
+              </View> */}
   
           
           </View>

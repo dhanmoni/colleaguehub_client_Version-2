@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
+            "outputFile": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\res\\merged\\debug\\values-v23\\values-v23.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\cardview-v7-27.0.2.aar\\2d090b39850a7a9eef9d5a0443d0d852\\res\\values-v23\\values-v23.xml",
@@ -36,7 +36,7 @@
             ]
         },
         {
-            "outputFile": "E:\\MyProjects\\CH_frontend\\ColleagueHub\\Colleaguehub_client\\android\\app\\build\\intermediates\\res\\merged\\debug\\values-v23\\values-v23.xml",
+            "outputFile": "E:\\MyProjects\\CHUB_SERVER_TEST\\Colleaguehub\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-1\\files-1.1\\cardview-v7-27.0.2.aar\\2d090b39850a7a9eef9d5a0443d0d852\\res\\values-v23\\values-v23.xml",

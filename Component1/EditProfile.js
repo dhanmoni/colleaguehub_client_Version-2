@@ -101,7 +101,7 @@ class EditProfile extends Component {
    if(loading){
     return(
       <View style={{flex: 1, justifyContent:'center',alignItems:'center'}}>
-        <Spinner color={'rgba(255,95, 155, 1)'} size={50} type={"ThreeBounce"}/>
+        <Spinner color={'#002463'} size={50} type={"ThreeBounce"}/>
       </View>
     )
   }
@@ -135,7 +135,7 @@ class EditProfile extends Component {
      
         
         <LinearGradient 
-                 colors={['rgba(212,146, 255, 0.5)', 'rgba(150, 180, 245, 0.5)']} style={{width: 100 + '%', height: 100 +'%',paddingHorizontal:6}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.7}}
+                 colors={['#000', '#0b61bd']} style={{width: 100 + '%', height: 100 +'%',paddingHorizontal:6}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.7}}
               >
 
           <Text style={{fontSize:TEXTSIZE/16, color:'white', marginTop:20, marginBottom:20,marginLeft:7, fontFamily:'Quicksand-Bold'}}>Edit Profile:</Text>
@@ -148,7 +148,7 @@ class EditProfile extends Component {
         iconColor={'white'}
         
         // this is used as backgroundColor of icon container view.
-        iconBackgroundColor={'#128EFE'}
+        iconBackgroundColor={'#002463'}
         inputStyle={{ color: '#464949',fontFamily:'Quicksand-Medium', }}
         onChangeText={this.onTextChanged}
              value={this.state.institution}
@@ -168,7 +168,7 @@ class EditProfile extends Component {
     iconName={'briefcase'}
     iconColor={'white'}
     // this is used as backgroundColor of icon container view.
-    iconBackgroundColor={'#128EFE'}
+    iconBackgroundColor={'#002463'}
     inputStyle={{ color: '#464949',fontFamily:'Quicksand-Medium',  }}
     style={{marginBottom:5, borderRadius:10}}
     value={this.state.status}
@@ -180,7 +180,7 @@ class EditProfile extends Component {
     iconName={'map-marker'}
     iconColor={'white'}
     // this is used as backgroundColor of icon container view.
-    iconBackgroundColor={'#128EFE'}
+    iconBackgroundColor={'#002463'}
     value={this.state.residence}
     onChangeText={(text=> this.setState({residence: text}))}
     inputStyle={{ color: '#464949', fontFamily:'Quicksand-Medium', }}
@@ -192,7 +192,7 @@ class EditProfile extends Component {
     iconClass={Icon}
     iconName={'instagram'}
     iconColor={'white'}
-    iconBackgroundColor={'#128EFE'}
+    iconBackgroundColor={'#002463'}
     value={this.state.ig_username}
     onChangeText={(text=> this.setState({ig_username: text}))}
     inputStyle={{ color: '#464949', fontFamily:'Quicksand-Medium', }}
@@ -206,8 +206,8 @@ class EditProfile extends Component {
     marginBottom:6,
     marginLeft:5}}>Bio</Text>
      <View style={{backgroundColor:'#fff',flexDirection:'row', }}>
-      <View style={{justifyContent:'center', alignItems:'center',position:'absolute',top:0, left:0, bottom:0,backgroundColor:'#128efe', width:60, zIndex:100}}>
-         <Icon name="info-circle" size={25} color='white' style={{width:60,  backgroundColor:'#128efe',textAlign:'center', zIndex:1001}}/>
+      <View style={{justifyContent:'center', alignItems:'center',position:'absolute',top:0, left:0, bottom:0,backgroundColor:'#002463', width:60, zIndex:100}}>
+         <Icon name="info-circle" size={25} color='white' style={{width:60,  backgroundColor:'#002463',textAlign:'center', zIndex:1001}}/>
       </View>
       <TextInput
       style={{color: '#464949',fontSize:22,marginLeft:66, fontFamily:'Quicksand-Medium',padding:0, flex:1, textAlignVertical:'top'}}
@@ -223,9 +223,9 @@ class EditProfile extends Component {
  
           
           <View style={{flexDirection:'row', marginTop:40, justifyContent:'space-around', paddingBottom:50}}>
-          <View style={{width:'45%',zIndex:100}}>
+          <View style={{width:'45%',zIndex:100, elevation:7}}>
           <LinearGradient 
-                 colors={['rgba(255,95, 155, 1)','rgba(255, 136, 140, 1)', 'rgba(255, 174, 104, 1)']} style={{borderRadius:12, elevation:9}} start={{x: 0.2, y: 0.5}} end={{x: 1, y: 0.5}}
+                 colors={['#000', '#0b61bd']} style={{borderRadius:12, elevation:9}} start={{x: 0.2, y: 0.5}} end={{x: 1, y: 0.5}}
               >
         <TouchableOpacity activeOpacity={0.9} style={{borderRadius:12, backgroundColor:'transparent',padding:10, borderRadius:10}} 
         onPress={()=>{ 
@@ -236,9 +236,9 @@ class EditProfile extends Component {
         </TouchableOpacity>
         </LinearGradient>
         </View>
-           <View style={{width:'45%',zIndex:100}}>
+           <View style={{width:'45%',zIndex:100, elevation:7}}>
             <LinearGradient 
-                 colors={[ 'rgba(212, 19, 190,1)','rgba(212,146, 255, 1)', 'rgba(150, 180, 245, 1)']} style={{borderRadius:12, elevation:9}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                 colors={[ '#000', '#0b61bd']} style={{borderRadius:12, elevation:9}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
               >
 
             <TouchableOpacity activeOpacity={0.8} style={{borderRadius:12, backgroundColor:'transparent', padding:10, borderRadius:10, flex:1}} onPress={

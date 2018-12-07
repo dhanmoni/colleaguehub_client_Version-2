@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { Text, StyleSheet, View,ScrollView, Dimensions, TouchableOpacity,ActivityIndicator, TextInput,ImageBackground, AsyncStorage, Image, ToastAndroid } from 'react-native'
 import {  LoginManager,LoginButton,AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 import {loggInUserWithFb, getAllUsers} from '../redux/actions/authAction'
@@ -71,9 +72,9 @@ class LoginWithFB extends Component {
     return (
      
       <View style={styles.container}>
-       <ImageBackground resizeMode='cover' blurRadius={0}  source={require('../images/Background_Login_3-min.jpg')}
-        style={{flex:1, position:'absolute', top:0, left:0, right:0, bottom:0, }}> 
-           </ImageBackground>
+        <LinearGradient
+                 colors={[ '#000', '#0b61bd']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.3, y: 0.5}} end={{x: 0.6, y: 0.4}}
+              >
            <View style={{flex: 1,
                 backgroundColor: 'transparent',
                 paddingHorizontal:10,
@@ -129,6 +130,7 @@ class LoginWithFB extends Component {
           }}/>  
           </View>
           </View>
+          </LinearGradient>
       </View>
     )
   }
