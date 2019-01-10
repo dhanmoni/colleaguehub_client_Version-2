@@ -6,7 +6,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
 import base64 from 'react-native-base64'
 import {  Card, CardItem, Left, Item, Input  } from 'native-base';
 import {connect} from 'react-redux'
-import {getAllUsers, getSingleUser, getAllCollegues, getposts, addpost, addlike, addcomment, getSinglePost} from '../redux/actions/authAction'
+import { getposts, addpost, addlike, addcomment, getSinglePost} from '../redux/actions/postAction'
+import {getAllUsers, getSingleUser, } from '../redux/actions/profileAction'
 import Spinner from 'react-native-spinkit'
 let HEIGHT_MIN = Dimensions.get('window').height;
 let WIDTH_MIN = Dimensions.get('window').width;
@@ -17,10 +18,11 @@ import moment from 'moment'
 import {BannerView} from 'react-native-fbads'
 //const WIDTH_LEFT = WIDTH_MIN -((WIDTH_MIN/2.3)*2)
 //const PADDING_WIDTH = WIDTH_LEFT /3.89999
-
+import axios from 'axios';
 class StoryScreen extends Component {
   static navigationOptions={
-    header:null
+    header:null,
+    
 }
 
   constructor(props){
@@ -35,17 +37,17 @@ class StoryScreen extends Component {
       connection: false,
       opvalue: new Animated.Value(0),
       springvalue: new Animated.Value(0),
-      url: 'https://play.google.com/store/apps/details?id=com.colleaguehub_client'
+     
     
     }
   }
   async componentDidMount() {
-     
+   
     const token = await AsyncStorage.getItem(ACCESS_TOKEN)
     if(token){
-      console.log( 'token is ', token)
+      console.log( 'token in storyscreen is ', token)
       this.setState({token: token}, ()=> {
-        this.props.getposts(this.state.token, this.props.auth.userInfo.institution)
+        this.props.getposts(this.state.token,this.props.auth.userInfo.institution)
       });
 
     }
@@ -86,7 +88,7 @@ class StoryScreen extends Component {
   findUserLike(likes){
     if(likes && likes.length !==undefined){
      
-      if (likes.filter(like => like.facebookId == this.props.auth.user.facebookId).length >0) {
+      if (likes.filter(like => like.userdata == this.props.auth.user._id).length >0) {
         return true
       } else {
         return false
@@ -97,31 +99,47 @@ class StoryScreen extends Component {
   }
   _renderItem = (item, index, rot2)=> {
     const postdate = moment(item.date).format('MMM Do, h:mm a');
+    let bgcolor;
+      let textcolor;
+      let cardcolor;
+      let iconcolor;
+      
+      if(this.props.auth.nightmode == true){
+        bgcolor= '#303030'
+        textcolor= '#fff'
+        cardcolor='#424242'
+        iconcolor='#fff'
+      } else {
+        bgcolor= '#fff'
+        textcolor= '#333'
+        cardcolor='#fff'
+        iconcolor='#002463'
+      }
     
     return (  
-    <View>
+    <View style={{backgroundColor:bgcolor}}>
     <View 
-    style={{height:undefined,width: undefined,marginBottom:HEIGHT_MIN/40,paddingHorizontal:10}}
+    style={{height:undefined,width: undefined,marginBottom:HEIGHT_MIN/40,paddingHorizontal:10, backgroundColor:bgcolor}}
     >
-      <Card style={{borderRadius:10, elevation:4  }}>
-              <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:'#fff',borderBottomWidth:0.5, borderBottomColor:'#888' }}> 
+      <Card style={{borderRadius:10, elevation:4 , backgroundColor:cardcolor}}>
+              <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:cardcolor,borderBottomWidth:0.5, borderBottomColor:'#888' }}> 
                     <View style={{flexDirection:'row'}}>
                       <View style={{ }}>
                        <Image source={{uri: item.profileImage}}  resizeMode="cover"
                     style={{height:  (HEIGHT_MIN/14) ,width: (HEIGHT_MIN/ 14), borderRadius:(HEIGHT_MIN/5), marginLeft:4, marginTop:1, marginBottom:1, borderColor:'#999', borderWidth:2}}/> 
                     </View>
-                    <View style={{flexDirection:'row', width:79+'%'}}>
+                    <View style={{flexDirection:'row', width:79+'%',}}>
                    
                         <TouchableOpacity style={{flexDirection:'column', justifyContent:'center'}} activeOpacity={0.99} onPress={()=> {
-                        this.props.getSingleUser(item, this.state)
+                        this.props.getSingleUser(item.userdata, this.state.token)
                         this.props.navigation.navigate('ProfileItem')
                       }}>
                       <View style={{marginRight:20,}}> 
-                        <Text numberOfLines={1} style={styles.name}>{item.name}</Text>
+                        <Text numberOfLines={1} style={[styles.name, {color:textcolor}]}>{item.name}</Text>
                       </View>
                          <View style={{}}>
                          
-                         <Text style={{fontSize:TEXTSIZE/30, color:'#333', marginLeft:10}}>{postdate}</Text>
+                         <Text style={{fontSize:TEXTSIZE/30, color:textcolor, marginLeft:10}}>{postdate}</Text>
                          </View>
                         
                             
@@ -134,8 +152,8 @@ class StoryScreen extends Component {
                     </CardItem>
                     {
                       item.text ? (
-                        <CardItem style={{height:undefined, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, margin:0, padding:0}}>
-                        <Text style={styles.posttext}>{item.text}</Text>
+                        <CardItem style={{height:undefined, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, margin:0, padding:0, backgroundColor:cardcolor}}>
+                        <Text style={[styles.posttext, {color:textcolor}]}>{item.text}</Text>
                      </CardItem> 
                       ) : (
                         <View></View>
@@ -151,8 +169,8 @@ class StoryScreen extends Component {
                         <View></View>
                       )
                     }
-                    <CardItem style={{borderTopWidth:0.5,borderTopColor:'#888',marginTop:3, padding:0,backgroundColor:'#fff',flexDirection:'row',flex:1, justifyContent:'flex-start',borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
-                       <View style={{flexDirection:'row',backgroundColor:'#fff', alignItems:'center', marginRight:15,marginLeft:8 }}>
+                    <CardItem style={{borderTopWidth:0.5,borderTopColor:'#888',marginTop:3, padding:0,backgroundColor:cardcolor,flexDirection:'row',flex:1, justifyContent:'flex-start',borderBottomLeftRadius: 10, borderBottomRightRadius: 10,}}>
+                       <View style={{flexDirection:'row',backgroundColor:cardcolor, alignItems:'center', marginRight:15,marginLeft:8 }}>
                        <TouchableOpacity onPress={()=> {
                          this._rotateLike(item)
                          this.props.addlike(item, this.state.token)
@@ -172,14 +190,14 @@ class StoryScreen extends Component {
                           this.props.navigation.navigate('LikesPage')}} 
                           style={{marginRight:10, borderColor:'#fff',marginLeft:1,padding:5, flex:1}}>
                         <View>
-                        <Text style={{color:'#333',textAlign:'center',flex:1}}>{item.likes ? (item.likes.length):(0)}</Text>
+                        <Text style={{color:textcolor,textAlign:'center',flex:1}}>{item.likes ? (item.likes.length):(0)}</Text>
 
                         </View>
                        </TouchableOpacity>
                        </View>
                        </View>
-                       <View style={{}}>
-                       <TouchableOpacity style={{flexDirection:'row',backgroundColor:'#fff', alignItems:'center', marginRight:15,marginLeft:8, paddingLeft:10,paddingBottom:5,paddingTop:5, paddingRight:10}} activeOpacity={1} onPress={()=>{
+                       <View style={{backgroundColor:cardcolor}}>
+                       <TouchableOpacity style={{flexDirection:'row',backgroundColor:cardcolor, alignItems:'center', marginRight:15,marginLeft:8, paddingLeft:10,paddingBottom:5,paddingTop:5, paddingRight:10}} activeOpacity={1} onPress={()=>{
                         //  alert(item._id)
                          
                          this.props.getSinglePost(item._id, this.state.token)
@@ -187,7 +205,7 @@ class StoryScreen extends Component {
                          }} >
                        <Icon name="comments"  size={18} color='#aaa'/>
                        <View style={{marginRight:11, borderColor:'#fff',marginLeft:10}}>
-                       <Text style={{color:'#333',textAlign:'center',}}>{item.comments ? (item.comments.length):(0)}</Text>
+                       <Text style={{color:textcolor,textAlign:'center',}}>{item.comments ? (item.comments.length):(0)}</Text>
                        </View>
                        </TouchableOpacity>
                       
@@ -231,9 +249,9 @@ class StoryScreen extends Component {
         )
       }
 
-      onClick =()=> {
+      onClick =(url)=> {
         Share.share({
-          message: `Your friend ${this.props.auth.user.name} from ${this.props.auth.userInfo.institution} has invited you to join colleaguehub \n` + this.state.url,
+          message: `Your friend ${this.props.auth.user.name} from ${this.props.auth.userInfo.institution} has invited you to join colleaguehub.Download the app now. \n` + url,
           
           title: 'Join Colleaguehub!'
         })
@@ -278,10 +296,26 @@ class StoryScreen extends Component {
         inputRange:[0,1],
         outputRange:['0deg', '720deg']
       })
+      
+      let bgcolor;
+      let textcolor;
+      let cardcolor;
+      let bordercolor;
+      if(this.props.auth.nightmode == true){
+        bgcolor= '#303030'
+        textcolor= '#fff'
+       cardcolor='#424242'
+       bordercolor='#fff'
+      } else {
+        bgcolor= '#fff'
+        textcolor= '#333'
+       cardcolor='#fff'
+       bordercolor='#333'
+      }
 
       if(loading){
         return(
-          <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:'#fff'}}>
+          <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:bgcolor}}>
             <Spinner color={'#4776e6'} size={50} type={"ThreeBounce"}/>
             
 
@@ -296,20 +330,22 @@ class StoryScreen extends Component {
      </View>
       }
 
+      const  url= 'https://play.google.com/store/apps/details?id=com.colleaguehub_client'
+
     return (
-      <View style={{flex:1,backgroundColor:'#ffffff' }}> 
+      <View style={{flex:1,backgroundColor:bgcolor }}> 
        <View style={{flex:1,backgroundColor:'transparent',flexDirection: 'row'}}>
        <StatusBar
-          backgroundColor='#002463'
+          backgroundColor='#2B32B2'
           barStyle="light-content"
         />
           
-          <LinearGradient  colors={['#000', '#0b61bd']} style={{width: 100 + '%', height: 100 +'%',}} start={{x: 0, y: 0.6}} end={{x: 1, y: 0.5}}>
+          <LinearGradient  colors={['#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',}}  start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
            <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',alignSelf: 'center'}}>
                
                <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 32 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
                <View  style={{position:'absolute', right:20, alignItems:'center',}}>
-             <Icon onPress={()=> this.props.navigation.navigate('PostScreen')} name='plus' size={29} color='white'/>
+             <Icon onPress={()=> this.props.navigation.navigate('Settings')} name='plus' size={29} color='white'/>
            </View>
            </View>
           
@@ -318,12 +354,12 @@ class StoryScreen extends Component {
          </View>
           
        <View style={{ flex:10,}}>
-       <ScrollView>
+       <ScrollView style={{flex:1}}>
          <TouchableOpacity activeOpacity={0.8}  onPress={()=> this.props.navigation.navigate('PostScreen')}
-          style={{alignContent:'center', justifyContent:'center',marginTop:15, borderWidth:0.7, borderRadius:30, height:50, marginBottom:20,
+          style={{alignContent:'center', justifyContent:'center',marginTop:15, borderWidth:0.7, borderRadius:30, height:50, marginBottom:20,backgroundColor:cardcolor,borderColor:bordercolor,
         marginHorizontal:10
         }}>
-         <Text style={{textAlign:'left',paddingLeft:10, color:'#333', fontFamily:'Quicksand-Medium', fontSize:16}}>Hey {user.first_name}, Post something here...</Text>
+         <Text style={{textAlign:'left',paddingLeft:10, color:textcolor, fontFamily:'Quicksand-Medium', fontSize:16}}>Hey {user.first_name}, Post something here...</Text>
          </TouchableOpacity>
          
        
@@ -332,9 +368,9 @@ class StoryScreen extends Component {
               data={posts}
              ListEmptyComponent={()=> {
               return(
-                <View  style={{}}>
+                <View  style={{backgroundColor:bgcolor, flex:1}}>
                     
-                <Text style={{  color:'#333',
+                <Text style={{  color:textcolor,
                 fontSize: TEXTSIZE/28,
                 flex:1,
                 textAlign:'center',
@@ -346,19 +382,19 @@ class StoryScreen extends Component {
               
               initialNumToRender={2}
               keyExtractor={(item, index)=> index.toString()}
-             
+              refreshing={this.state.refreshing}
+              onRefresh={this.handleRefresh}
             ListFooterComponent={()=> {
               return(
-                <TouchableOpacity activeOpacity={0.8} onPress={()=> this.onClick()} style={{backgroundColor:'#002463',marginTop:10, marginBottom:10,width: 40+'%',margin:'auto',alignItems:'center', justifyContent:'center', alignSelf:'center', borderRadius:10}}>
+                <TouchableOpacity activeOpacity={0.8} onPress={()=> this.onClick(url)} style={{backgroundColor:'#2b32b2',marginTop:10, marginBottom:10,width: 40+'%',margin:'auto',alignItems:'center', justifyContent:'center', alignSelf:'center', borderRadius:10}}>
                 <Text style={{color:'#fff', padding:10,fontSize:14,textAlign:'center', fontFamily:'Quicksand-Bold'}}>Share the app</Text>
               </TouchableOpacity>
               )
              
             }}
-             refreshing={this.state.refreshing}
-             onRefresh={this.handleRefresh}
-             // onEndReached={()=> this.endreached(allCollegues, this.props.auth.allUsers)}
-             // onEndReachedThreshold={0}
+             
+              onEndReached={this.handleRefresh}
+              onEndReachedThreshold={0}
           />
          </ScrollView>
     </View>
@@ -377,19 +413,19 @@ export default connect(mapStateToProps, {getAllUsers, getSingleUser,getposts, ad
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    
     alignItems: 'center',
     justifyContent: 'center',
   },
   name:{
     marginLeft:10,
-    color:'#222',
+   
     fontFamily:'Quicksand-Bold',
     fontSize:TEXTSIZE/22,
    
   },
   posttext: {
-    color:'#333333',
+   
     fontSize: TEXTSIZE/24,
     marginLeft:3,
      padding:4,

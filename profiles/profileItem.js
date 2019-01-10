@@ -6,7 +6,9 @@ import { Container, Header, Content, Card, CardItem, Right } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import LinearGradient from 'react-native-linear-gradient';
-import {getAllUsers, getSingleUser,getposts, addlike} from '../redux/actions/authAction'
+import {getAllUsers, getSingleUser} from '../redux/actions/profileAction'
+import {getposts, addlike} from '../redux/actions/postAction'
+
 import Spinner from 'react-native-spinkit'
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -44,7 +46,7 @@ class ProfileItem extends Component {
 
   findUserLike(likes){
     
-    if (likes.filter(like => like.facebookId ===this.props.auth.user.facebookId).length >0) {
+    if (likes.filter(like => like.userdata ===this.props.auth.user.id).length >0) {
       return true
     } else {
       return false
@@ -118,19 +120,36 @@ class ProfileItem extends Component {
   render() {
     const {user, loggedIn, allUsers, loading, profile, posts}= this.props.auth
 
+    let bgcolor;
+    let textcolor;
+    let cardcolor;
+    let iconcolor;
+    
+    if(this.props.auth.nightmode == true){
+      bgcolor= '#303030'
+      textcolor= '#fff'
+      cardcolor='#424242'
+      iconcolor='#fff'
+    } else {
+      bgcolor= '#fff'
+      textcolor= '#333'
+      cardcolor='#fff'
+      iconcolor='#002463'
+    }
+
     if(loading){
         return(
-          <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:'#fff'}}>
-            <Spinner color={'#E239FC'} size={50} type={"Wave"}/>
+          <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:bgcolor}}>
+            <Spinner color={'#002463'} size={50} type={"Circle"}/>
             
           </View>
         )
       }
       else if (profile == undefined || null){
         return (
-          <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
+          <View style={{alignItems:'center',backgroundColor:bgcolor, justifyContent:'center',flex:1}}>
          
-         <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No profile found</Text>
+         <Text style={{textAlign:'center',marginTop:6,color:textcolor, fontSize:22, fontFamily:'Quicksand-Medium'}}>No profile found</Text>
        </View>
         )
       }
@@ -163,7 +182,7 @@ class ProfileItem extends Component {
 
       return (
      
-        <ScrollView style={{flex:1, backgroundColor:'#ffffff'}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{flex:1, backgroundColor:bgcolor}} showsVerticalScrollIndicator={false}>
         <View style={{flex:1}}>
         {/******************user profile*****************/}
         
@@ -180,18 +199,14 @@ class ProfileItem extends Component {
                   InterstitialAdManager.showAd('1911005745652403_1935495603203417')
                 }}
                 name='arrow-left' size={30} color="#fff" style={{position:'absolute', top:20, left:20, padding:10,zIndex:1000 }}/>
-                <LinearGradient 
-                   colors={[ 'rgba(212, 19, 190,0.5)','rgba(212,146, 255, 0.7)', 'rgba(150, 180, 245, 0.2)']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.9}}
-                ><View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
+                <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} ><View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
                   <Image source={{uri:profile.profileImage}} style={styles.image}/> 
                   </View>
                   </LinearGradient>
              </ImageBackground>
           </View>
           {/******************* user details*******************/}
-          {/* <LinearGradient 
-                   colors={['rgba(212,146, 255, 1)', 'rgba(150, 180, 245, 1)']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.9}}
-                > */}
+        
                   
   
           
@@ -199,36 +214,36 @@ class ProfileItem extends Component {
                  <View style={{}}>
   
                  
-             <Card style={{ margin:0,elevation:8,borderRadius:20, paddingBottom:0,  }}>
+             <Card style={{ margin:0,elevation:8,borderRadius:20, paddingBottom:0,backgroundColor:cardcolor  }}>
                 
                
   
-               <CardItem style={{borderTopLeftRadius:20, borderTopRightRadius:20}}>
-                 <Text style={styles.name}>{profile.name}</Text> 
+               <CardItem style={{borderTopLeftRadius:20, borderTopRightRadius:20,backgroundColor:cardcolor}}>
+                 <Text style={[styles.name, {color:textcolor}]}>{profile.name}</Text> 
                </CardItem>
               
-              <CardItem>
-              <Icon name="user-graduate" size={22}  color= 'rgba(212, 19, 160,1)' style={{width: WIDTH/10,alignSelf:'center'}}/>
-              <Text style={styles.institute}>{profile.institution}</Text>  
+              <CardItem style={{backgroundColor:cardcolor}}>
+              <Icon name="user-graduate" size={22}   color= {iconcolor} style={{width: WIDTH/10,alignSelf:'center'}}/>
+              <Text style={[styles.institute, {color:textcolor}]}>{profile.institution}</Text>  
                </CardItem>
-               <CardItem>
-               <Icon name="briefcase" size={22}  color= 'rgba(212, 19, 160,1)' style={{width: WIDTH/10,alignSelf:'center'}}/>
-              <Text style={styles.institute}>{profile.status}</Text>
+               <CardItem  style={{backgroundColor:cardcolor}}>
+               <Icon name="briefcase" size={22}   color= {iconcolor} style={{width: WIDTH/10,alignSelf:'center'}}/>
+              <Text style={[styles.institute, {color:textcolor}]}>{profile.status}</Text>
                 
                </CardItem>
                
                {profile.residence == '' || null || undefined ? ( <View></View>) :
-            (<CardItem>
-            <Icon name="map-marker"  color= 'rgba(212, 19, 160,1)' size={25} style={{width: WIDTH/10,alignSelf:'center'}}/>
-            <Text style={styles.institute}>{profile.residence}</Text>
+            (<CardItem  style={{backgroundColor:cardcolor}}>
+            <Icon name="map-marker"   color= {iconcolor} size={25} style={{width: WIDTH/10,alignSelf:'center'}}/>
+            <Text style={[styles.institute, {color:textcolor}]}>{profile.residence}</Text>
             </CardItem>)
             
               }  
 
                  {profile.ig_username == '' || null || undefined ? ( <View></View>) :
-              (<CardItem>
-              <Icon name="instagram"  color= 'rgba(212, 19, 160,1)' size={25} style={{width: WIDTH/10,alignSelf:'center'}}/>
-              <Text style={styles.institute}>{profile.ig_username}</Text>
+              (<CardItem  style={{backgroundColor:cardcolor}}>
+              <Icon name="instagram"   color= {iconcolor} size={25} style={{width: WIDTH/10,alignSelf:'center'}}/>
+              <Text style={[styles.institute, {color:textcolor}]}>{profile.ig_username}</Text>
               </CardItem>)
               
               }
@@ -236,22 +251,22 @@ class ProfileItem extends Component {
                {profile.bio == '' || null ||undefined ? (
                  <View></View>
               ) :
-               (<CardItem >
-                  <Icon name="info-circle" color= 'rgba(212, 19, 160,1)'size={22} style={{width: WIDTH/10,alignSelf:'center'}}/>
-                  <Text style={styles.bio}>{profile.bio}</Text>
+               (<CardItem  style={{backgroundColor:cardcolor}}>
+                  <Icon name="info-circle" color= {iconcolor} size={22} style={{width: WIDTH/10,alignSelf:'center'}}/>
+                  <Text style={[styles.bio, {color:textcolor}]}>{profile.bio}</Text>
                 </CardItem>)
               }
-              <CardItem style={{borderBottomLeftRadius:20, borderBottomRightRadius:20}}>
+              <CardItem style={{borderBottomLeftRadius:20, borderBottomRightRadius:20, backgroundColor:bgcolor}}>
                  
               </CardItem>
              </Card>
              </View>
              </View>
              {
-               profile.ig_username == ''|| null || undefined || profile.facebookId == user.facebookId ? (<View></View>):(
+               profile.ig_username == ''|| profile.ig_username == null || profile.ig_username == undefined || profile.userdata == user.id ? (<View></View>):(
                 <View style={{flexDirection:'row', marginTop:7, justifyContent:'center', paddingBottom:20, width:WIDTH}}>
                 <View
-                 style={{marginTop:10,marginBottom:10,width:'65%', margin:'auto', justifyContent:'center' }}>
+                 style={{marginTop:10,marginBottom:10,width:'65%', margin:'auto', justifyContent:'center', backgroundColor:bgcolor }}>
                    <LinearGradient
                        colors={[ '#833ab4', '#fd1d1d', '#fcb045']} style={{borderRadius:30, elevation:7, margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
                     >

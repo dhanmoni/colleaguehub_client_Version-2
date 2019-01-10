@@ -1,33 +1,61 @@
-import { LOGIN_WITH_FB,SET_PROFILE_WITHDATA, DELETE_AUTH_USER , GET_CURRENT_USER, GET_CURRENT_PROFILE, GET_ALL_USERS, SET_LOADING, UPDATE_USER_PROFILE, GET_SINGLE_USER, GET_SEARCHED_USER, GET_ALL_COLLEGUES,
-GET_POSTS, DELETE_POST, ADD_POST , SINGLE_POST, UPDATE_FB_PROFILE, NIGHT_MODE_ON, NIGHT_MODE_OFF
-} from '../actions/types'
+import { SET_PROFILE_WITHDATA, 
+    DELETE_AUTH_USER , 
+    GET_CURRENT_PROFILE,
+    GET_ALL_USERS,
+    SET_LOADING, 
+    UPDATE_USER_PROFILE, 
+    GET_SINGLE_USER,
+    GET_SEARCHED_USER, 
+    GET_ALL_COLLEGUES, 
+    GET_POSTS, DELETE_POST,
+    ADD_POST ,SINGLE_POST,
+    UPDATE_USER, 
+    NIGHT_MODE_ON, NIGHT_MODE_OFF,
+    LOGIN_USER, 
+    GET_ERRORS, CLEAR_ERRORS,
+    GET_ALL_GROUPS
+    } from '../actions/types'
 //import isEmpty from '../../validation/isEmpty'
 
 const initialState={
     loading:false,
     loggedIn: false,
-    user:{},
-    userInfo: {},
+    user:null,
+    userInfo: null,
     allUsers:null,
     profile:null,
-    searchedUser:{},
+    searchedUser:null,
     allCollegues:[],
     post:null,
     posts:[],
-    nightmode: false
+    nightmode: false,
+    errors:[],
+    allGroups:null
 }
 export default function(state= initialState, action){
     switch (action.type) {
 
-       case LOGIN_WITH_FB:
+        case GET_ERRORS: 
+        return{
+            ...state,
+            errors:action.payload,
+            loading:false
+        }
+        case CLEAR_ERRORS:
+        return{
+            ...state,
+            errors:[],
+            loading:false
+        }
+       case LOGIN_USER:
         return {
             ...state,
             loggedIn: true,
             user:action.payload,
             loading:false,
-            userInfo:null
+            
         }
-        case UPDATE_FB_PROFILE:
+        case UPDATE_USER:
         return {
             ...state,
             loggedIn: true,
@@ -91,6 +119,13 @@ export default function(state= initialState, action){
            loading:false
             
         }
+        case GET_ALL_GROUPS:
+        return {
+            ...state,
+           allGroups:action.payload,
+           loading:false
+            
+        }
         case GET_ALL_COLLEGUES:
         return {
             ...state,
@@ -105,12 +140,7 @@ export default function(state= initialState, action){
            loading:false
             
         }
-        // case GET_CURRENT_USER:
-        //     return {
-        //         ...state,
-        //       user:action.payload,
-              
-        //     } 
+        
         case GET_CURRENT_PROFILE:
             return {
                 ...state,

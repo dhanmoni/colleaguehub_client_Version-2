@@ -1,25 +1,31 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import {connect} from 'react-redux'
-import {Tabs, LoginPage, CreatePropfilePage} from '../config/routers'
+import {Tabs, LoginPageTab, CreatePropfilePage} from '../config/routers'
 class Layout extends Component {
   render() {
     const {user, loggedIn, userInfo, allCollegues} = this.props.auth;
-    if(loggedIn ===true && userInfo === null ){
+    if(loggedIn ===true && userInfo == null  ){
         return(
             <CreatePropfilePage/>
         )
      }
-     else if(loggedIn===true && userInfo !== null ){
+     else if(loggedIn===true && userInfo !== null && user.profileImage == ''){
+        return (
+            <CreatePropfilePage/>
+        )
+     }
+     else if(loggedIn===true && userInfo !== null && user.profileImage !== '' ){
         return (
             <Tabs/>
         )
      }
     else {
         return(
-            <LoginPage/>
+            <LoginPageTab/>
         )
     }
+   
   
    
   }

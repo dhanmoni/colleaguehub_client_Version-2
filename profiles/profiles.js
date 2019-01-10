@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import {  Card, CardItem, Left,  } from 'native-base';
 import {connect} from 'react-redux'
-import {getAllUsers, getSingleUser, getAllCollegues} from '../redux/actions/authAction'
+import {getAllUsers, getSingleUser, getAllCollegues} from '../redux/actions/profileAction'
 import Spinner from 'react-native-spinkit'
 import { withNavigation } from 'react-navigation';
 import {BannerView} from 'react-native-fbads'
@@ -90,6 +90,21 @@ class Profiles extends Component {
  
 
   _renderItem = ({item, index})=> {
+    let bgcolor;
+    let textcolor;
+    let cardcolor;
+    let bordercolor;
+    if(this.props.auth.nightmode == true){
+      bgcolor= '#303030'
+      textcolor= '#fff'
+     cardcolor='#424242'
+     bordercolor='#fff'
+    } else {
+      bgcolor= '#fff'
+      textcolor= '#333'
+     cardcolor='#fff'
+     bordercolor='#333'
+    }
    
     return (
      <View>
@@ -99,7 +114,7 @@ class Profiles extends Component {
                 
     onPress={
      async ()=>{
-       await this.props.getSingleUser(item, this.state)
+       await this.props.getSingleUser(item.userdata, this.state.token)
        if(this.state.token == null || undefined || ''){
          alert('Opps! Something went wrong!')
        } else {
@@ -108,17 +123,17 @@ class Profiles extends Component {
       }}
     style={{height:undefined,width: undefined,marginBottom:HEIGHT_MIN/50,marginLeft:PADDING_WIDTH}}
     >
-                <Card style={{borderRadius:20, width:WIDTH_MIN/2.3, }}>
+                <Card style={{borderRadius:20, width:WIDTH_MIN/2.3, backgroundColor:cardcolor}}>
                     
-                    <CardItem cardBody style={{height:(HEIGHT_MIN/4),width: undefined,borderTopLeftRadius: 20, borderTopRightRadius: 20}}> 
+                    <CardItem cardBody style={{height:(HEIGHT_MIN/4),width: undefined,borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor:cardcolor}}> 
                     <Image source={{uri: item.profileImage}}  resizeMode="cover"
                  style={{height:  (HEIGHT_MIN/4) ,width: (WIDTH_MIN/ 2.3),borderTopLeftRadius: 20, borderTopRightRadius: 20}}/> 
                        
                     </CardItem>
                     
-                    <CardItem style={{height: HEIGHT_MIN/19, borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
+                    <CardItem style={{height: HEIGHT_MIN/19,backgroundColor:cardcolor, borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
                         <Left style={{flex:1}}>
-                           <Text numberOfLines={1} style={styles.name}>{item.name}</Text> 
+                           <Text numberOfLines={1} style={[styles.name, {color:textcolor}]}>{item.name}</Text> 
                         </Left>
                     </CardItem>
                    
@@ -161,15 +176,31 @@ class Profiles extends Component {
        <Text style={{textAlign:'center',marginTop:6, fontSize:22, fontFamily:'Quicksand-Medium'}}>No Internet</Text>
      </View>
       }
+      let bgcolor;
+      let textcolor;
+      let cardcolor;
+      let bordercolor;
+      if(this.props.auth.nightmode == true){
+        bgcolor= '#303030'
+        textcolor= '#fff'
+       cardcolor='#424242'
+       bordercolor='#fff'
+      } else {
+        bgcolor= '#fff'
+        textcolor= '#333'
+       cardcolor='#fff'
+       bordercolor='#333'
+      }
 
     return (
-      <View style={{flex:1,backgroundColor:'#ffffff' }}> 
+      <View style={{flex:1,backgroundColor:bgcolor }}> 
        <View style={{flex:1,backgroundColor:'transparent',flexDirection: 'row'}}>
        <StatusBar
-          backgroundColor='#002463'
+          backgroundColor='#2B32B2'
           barStyle="light-content"
         />
-          <LinearGradient  colors={['#000', '#0b61bd']} style={{width: 100 + '%', height: 100 +'%',}} start={{x: 0, y: 0.6}} end={{x: 1, y: 0.5}}>
+          <LinearGradient  colors={['#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',}}
+           start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
            <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',alignSelf: 'center'}}>
                
                <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 32 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
@@ -182,13 +213,13 @@ class Profiles extends Component {
       
           <FlatList
               data={allCollegues}
-             ListEmptyComponent={()=> <View  style={{justifyContent:'center'}}>
-             <Text style={{  color:'#333',
-             fontSize: TEXTSIZE/28,
-             flex:1,
-             textAlign:'center',
-             fontFamily:'Quicksand-Regular'}}>No Profile!</Text>
-             </View>}
+            //  ListEmptyComponent={()=> <View  style={{justifyContent:'center'}}>
+            //  <Text style={{  color:'#333',
+            //  fontSize: TEXTSIZE/28,
+            //  flex:1,
+            //  textAlign:'center',
+            //  fontFamily:'Quicksand-Regular'}}>No Profile!</Text>
+            //  </View>}
               renderItem={(item, index)=> this._renderItem(item, index)}
               ListFooterComponent={()=>{
                 if(allCollegues.length <=1){
@@ -198,7 +229,7 @@ class Profiles extends Component {
                     <View
                      style={{marginTop:10,marginBottom:10, justifyContent:'center' }}>
                       
-                     <Text style={{fontFamily:'Quicksand-Medium', fontSize:16, paddingHorizontal:10}}>No more colleagues found. Share this app with your friends to find more colleagues from your workplace</Text>
+                     <Text style={{fontFamily:'Quicksand-Medium',color:textcolor, fontSize:16, paddingHorizontal:10}}>No more colleagues found. Share this app with your friends to find more colleagues from your workplace</Text>
                      
                     </View>
                     </View>
@@ -239,12 +270,12 @@ export default connect(mapStateToProps, {getAllUsers, getSingleUser, getAllColle
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+   
     alignItems: 'center',
     justifyContent: 'center',
   },
   name:{
-    color:'#333',
+    
     fontSize: TEXTSIZE/24,
     flex:1,
     fontFamily:'Quicksand-Medium'

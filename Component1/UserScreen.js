@@ -6,7 +6,10 @@ import { Container, Header, Content, Card, CardItem, Right, Item, Input } from '
 
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import {deleteAuthUser, deletepost, getposts, addlike, addcomment,nightmodeon, nightmodeoff, getSinglePost, updateProfileImage,updateProfileImage2, getSingleUser} from '../redux/actions/authAction'
+import { deletepost, getposts, addlike, addcomment, getSinglePost} from '../redux/actions/postAction'
+import { updateProfileImage,updateProfileImage2, getSingleUser} from '../redux/actions/profileAction'
+import {deleteAuthUser, nightmodeon, nightmodeoff} from '../redux/actions/authAction'
+
 import LinearGradient from 'react-native-linear-gradient';
 import Spinner from 'react-native-spinkit'
 const HEIGHT = Dimensions.get('window').height;
@@ -16,15 +19,13 @@ const WIDTH_MIN = Dimensions.get('window').width;
 
 const TEXTSIZE = Dimensions.get('window').width ;
 const ACCESS_TOKEN = 'Access_Token'
-import {  LoginManager,LoginButton,AccessToken,GraphRequest,GraphRequestManager } from 'react-native-fbsdk';
 
 
 import moment from 'moment'
 import { BannerView } from 'react-native-fbads';
 
 import ImagePicker from 'react-native-image-picker';
-const Switch = require('react-native-material-switch')
-
+import { Switch } from 'react-native-switch';
 const options = {
   title: 'Select Image',
   takePhotoButtonTitle: 'Take a photo',
@@ -50,7 +51,7 @@ class UserScreen extends Component {
       sizevalue: new Animated.Value(0),
      // profileImage: null,
       response:null,
-      nightmode: true
+      nightmode: false
     }
   }
   
@@ -58,16 +59,14 @@ class UserScreen extends Component {
   
   async componentDidMount() {
    
-    //Animated.timing(this.state.opvalue, { toValue: 1,delay:1000, duration:600 }).start();
+    
+    const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+    if(token){
+      this.setState({
+        token
+      })
 
-
-        const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-        if(token){
-          this.setState({
-            token
-          })
-
-        }
+    }
         NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
 
        // Animated.timing(this.state.opvalue, { toValue: 1,delay:6000, duration:1000 }).start();
@@ -106,7 +105,22 @@ handleConnectionChange = (isConnected) => {
         } 
 }
 
-  deletebutton(token) {
+
+nightmode = (nightmode)=> {
+  if(nightmode == false){
+    this.setState({
+      nightmode:!this.state.nightmode
+    })
+    this.props.nightmodeon()
+    
+  } else {
+    this.setState({
+      nightmode:!this.state.nightmode
+    })
+    this.props.nightmodeoff()
+  }}
+
+  deletebutton() {
    
     Alert.alert(
       'Are you sure?',
@@ -114,7 +128,7 @@ handleConnectionChange = (isConnected) => {
       [
         
         {text: 'Cancel', onPress: () =>{}},
-        {text: 'Delete', onPress: () => this.props.deleteAuthUser(token)},
+        {text: 'Delete', onPress: () => this.props.deleteAuthUser(this.state.token)},
       ],
       { cancelable: true }
     )
@@ -123,7 +137,7 @@ handleConnectionChange = (isConnected) => {
   findUserLike(likes){
     if(likes && likes.length !==undefined){
      
-      if (likes.filter(like => like.facebookId == this.props.auth.user.facebookId).length >0) {
+      if (likes.filter(like => like.userdata == this.props.auth.user._id).length >0) {
         return true
       } else {
         return false
@@ -151,11 +165,12 @@ handleConnectionChange = (isConnected) => {
           //postImage: source,
            response: response
         }, ()=> {
-          ToastAndroid.show('Profile image updating...Please wait', ToastAndroid.LONG)
+          ToastAndroid.show('Processing...', ToastAndroid.SHORT)
         });
-        this.props.updateProfileImage(this.state)
+       
        //
         this.props.updateProfileImage2(this.state)
+        this.props.updateProfileImage(this.state)
        // console.log(this.state.postImage)
       }
     });
@@ -182,7 +197,7 @@ handleConnectionChange = (isConnected) => {
       textcolor= '#fff'
       cardcolor='#424242'
       iconcolor='#fff'
-      carditemcolor='#212121'
+      carditemcolor='#424242'
 
     } else {
       bgcolor= '#fff'
@@ -197,7 +212,7 @@ handleConnectionChange = (isConnected) => {
     <View 
     style={{height:undefined,width: undefined,marginBottom:HEIGHT_MIN/40,paddingHorizontal:10}}
     >
-      <Card style={{borderRadius:10, elevation:4 , backgroundColor:cardcolor }}>
+      <Card style={{borderRadius:10, elevation:4 , backgroundColor:carditemcolor }}>
               <CardItem  style={{height:undefined,width: undefined,borderTopLeftRadius: 10, borderTopRightRadius: 10, flexDirection:'row',backgroundColor:carditemcolor,borderBottomWidth:0.5, borderBottomColor:'#888' , backgroundColor:bgcolor}}> 
                     <View style={{flexDirection:'row'}}>
                       <View style={{ }}>
@@ -207,7 +222,7 @@ handleConnectionChange = (isConnected) => {
                     <View style={{flexDirection:'row', width:WIDTH-(HEIGHT_MIN/14 +30)}}>
                    
                         <TouchableOpacity style={{flexDirection:'column', justifyContent:'center'}} activeOpacity={0.99} onPress={()=> {
-                        this.props.getSingleUser(item, this.state)
+                        this.props.getSingleUser(item.userdata, this.state.token)
                         this.props.navigation.navigate('ProfileItem')
                       }}>
                       <View style={{marginRight:20,}}> 
@@ -299,7 +314,7 @@ handleConnectionChange = (isConnected) => {
                        </View>
                        <View style={{position:'absolute', right:40}}>
                        <TouchableOpacity style={{}}  activeOpacity={0.9} onPress={()=>{ 
-                  this.props.deletepost(item._id, this.state )
+                  this.props.deletepost(item, this.state.token )
                   ToastAndroid.show('Deleting...', ToastAndroid.SHORT)
                   setTimeout(()=>   this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 800)
                   setTimeout(()=>   this.props.getposts(this.state.token, this.props.auth.userInfo.institution), 1200)
@@ -353,8 +368,24 @@ handleConnectionChange = (isConnected) => {
     
     
   }
+  _rendernames = (item ,index)=> {
+      return (
+        <View>
+          <Text style={{fontFamily:'Quicksand-Medium', fontSize:16,color:'#333', padding:3}}>{item}</Text>
+        </View>
+      )
+  }
   
-  
+  _renderskills= (item ,index)=> {
+    return (
+      <View style={{paddingBottom:3}}>
+        <Text style={{fontFamily:'Quicksand-Medium', fontSize:16,color:'#333', padding:3}}>{item.title}</Text>
+        <Text style={{fontFamily:'Quicksand-Medium', fontSize:14,color:'#333', padding:1}}>{item.score}</Text>
+
+      </View>
+    )
+}
+
   
 
   render() {
@@ -379,7 +410,7 @@ handleConnectionChange = (isConnected) => {
 
     let myPost;
    if(posts && posts.length !== undefined){
-    myPost= posts.filter(post=> post.facebookId === user.facebookId);
+    myPost= posts.filter(post=> post.userdata === user._id);
    }  else {
      return myPost = null
    }
@@ -417,164 +448,216 @@ handleConnectionChange = (isConnected) => {
         cardcolor='#fff'
         iconcolor='#002463'
       }
+    const banner = (HEIGHT/1.6)/5.5;
+    let MyIns = []
+    const institutes = userInfo.institution.map(institute=> {
+        MyIns.push(institute.institution_name)
+      
+    })
+   const names=( 
+            <FlatList
+              data={MyIns}
+              keyExtractor={name=> name}
+              renderItem={({item, index}) => this._rendernames(item, index)}
+          />)
+      const MySkill=[]
+    const skills = userInfo.skills.map(skill=> {
+      MySkill.push(skill)
     
+  })
+  const myskills=( 
+          <FlatList
+            data={MySkill}
+            keyExtractor={name=> name.toString()}
+            renderItem={({item, index}) => this._renderskills(item, index)}
+        />)
+              
+    
+   
+    // const myInses = institutes.institution_name;
+    // console.log(myInses)
+
+      
     return (
      
       <ScrollView style={{flex:1, backgroundColor: bgcolor}} showsVerticalScrollIndicator={false}>
       <Animated.View >
-      {/******************user profile*****************/}
-      
-        <View style={{height: HEIGHT/2, borderBottomLeftRadius:20, borderBottomRightRadius:20 }}>
-        <StatusBar
-          backgroundColor='#002463'
+      <StatusBar
+          backgroundColor='#2b32b2'
           barStyle="light-content"
         />
-          <ImageBackground blurRadius={2.3} resizeMode='cover' source={{uri:user.profile}} style={{flex:1, overflow:'hidden', borderBottomLeftRadius:20, borderBottomRightRadius:20}}>
-            
-              <LinearGradient 
-                 colors={[ '#000', '#0b61bd']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 1}}
-              >
-              <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
-             <View style={{ position:'relative',  height: HEIGHT/3.6,
-                  width:HEIGHT/3.6,
-                  borderRadius:HEIGHT/2,
-                  borderColor:'white',
-                  borderWidth:2, alignContent:'center', alignItems:'center', justifyContent:'center'}}>
-              <Image source={{uri:user.profile}} style={styles.image}/>
-                <TouchableOpacity activeOpacity={0.9}
-               onPress={()=> this.selectphoto()}
-                 style={{padding:15,alignSelf:'center',position:'absolute', right:0, bottom:0, borderRadius:50, backgroundColor:'#002463', elevation:8, borderColor:'#fff', borderWidth:2}}>
-                <Animated.View style={
-                  
-                    {
-                      //transform: [{rotate: rot}],
-                       alignItems:'center', justifyContent:'center' }
-                    
-                  }>
-                 
-                <FontAwesome  name="camera" color="#fff" size={26} 
-                  
-                  />
-                </Animated.View>
-                  
-                </TouchableOpacity>
+      {/******************user profile*****************/}
+      {/*********************social card ***********************/} 
+      <Card style={{position:'absolute', top: (HEIGHT/1.45)-(banner/2.66), borderRadius:19,left:20, right:20, elevation:4, height:banner/1.33, backgroundColor:'#fff', width:WIDTH-40,zIndex:10000,overflow:'visible', alignItems:'center',flexDirection:'row', justifyContent:'space-evenly' }}>
+          {
+            userInfo.social.instagram == '' || userInfo.social.instagram == null ?null : (
+              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
+                  <Icon name="instagram" color="#405de6" size={25}/>
               </View>
+            )
+          }
+          {
+            userInfo.social.youtube == '' || userInfo.social.youtube == null ? null : (
+              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
+                  <Icon name="youtube" color="#ff0000" size={25}/>
+              </View>
+            )
+          }
+          {
+            userInfo.social.twitter == '' || userInfo.social.twitter == null ? null : (
+              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
+                  <Icon name="twitter" color="#1da1f2" size={25}/>
+              </View>
+            )
+          }
+          {/* {
+            userInfo.social.whatsapp == '' || userInfo.social.whatsapp == null ? null : (
+              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
+                  <Icon name="whatsapp" color="#25d366" size={25}/>
+              </View>
+            )
+          } */}
+         
+      
+      </Card>
+        <View style={{height: HEIGHT/1.45,}}>
+           <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',borderBottomLeftRadius:20, borderBottomRightRadius:20 , overflow:'visible'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+            <View style={{flexDirection:'row', justifyContent:'space-between',paddingTop:30, paddingHorizontal:20}}>
+               
+                <View style={{alignItems:"center", justifyContent:'center'}}>
+                  <FontAwesome name="bell" color="#fff" size={24}/>
+                </View>
+                <View style={{alignItems:"center", justifyContent:'center'}}>
+                  <Icon name="cog" onPress={()=>this.props.navigation.navigate('Settings')} color="#fff" size={24}/>
+                </View>
+            </View>
+                <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
+
+                  <View style={{ position:'relative',  height: HEIGHT/3.6, width:HEIGHT/3.6, borderRadius:HEIGHT/2, borderColor:'white', borderWidth:2, alignContent:'center', alignItems:'center', justifyContent:'center'}}>
+
+                    <Image source={{uri:userInfo.profileImage}} style={styles.image}/>
+
+                      <TouchableOpacity activeOpacity={0.9}
+                    onPress={()=> this.selectphoto()}
+                      style={{padding:15,alignSelf:'center',position:'absolute', right:0, bottom:0, borderRadius:50, backgroundColor:'#2b32b2', elevation:8, borderColor:'#fff', borderWidth:2}}>
+
+                      <Animated.View style={ { alignItems:'center', justifyContent:'center' } }>
+                        <FontAwesome  name="camera" color="#fff" size={26} />
+                      </Animated.View>
+
+                      </TouchableOpacity>
+                  </View>
+                  <View style={{paddingTop:20}}>
+                    <Text style={{textAlign:'center', color:'#fff', fontSize:24, fontFamily:'Quicksand-Bold'}}>
+                      {user.name.toUpperCase()}
+                    </Text>
+                    <Text style={{textAlign:'center', color:'#fff', fontSize:17, fontFamily:'Quicksand-Bold'}}>
+                      {userInfo.residence}
+                    </Text>
+                    <View style={{flexDirection:"row",paddingLeft:10,marginTop:7, paddingRight:10,backgroundColor:'#fff', borderRadius:10,elevation:3, alignItems:'center', justifyContent:'center'}}>
+                    
+                      <Icon name="star" size={26} color="#333"/>
+                      <View style={{marginLeft:12,borderLeftWidth:0.7, }}>
+                      <Text style={{textAlign:'center', fontFamily:'Quicksand-Bold', fontSize:20,marginLeft:12, color:'#333'}}>{userInfo.stars.length}</Text>
+                      </View>
+                     
+                     
+                    </View>
+                  </View>
                  
                 </View>
+               
                 
                 </LinearGradient>
-           </ImageBackground>
-        </View>
-       
-               <View style={{marginTop:10,marginLeft:3, marginRight:3,}}>
-               <View style={{}}>
-
-               
-           <Card style={{ margin:0,elevation:8,borderRadius:20, paddingBottom:0, marginBottom:0,backgroundColor:cardcolor }}>
-              
-              <TouchableOpacity activeOpacity={0.9} onPress={()=> this.props.navigation.navigate('EditProfile')} style={{position:'absolute', height:HEIGHT/11, width:HEIGHT/11, top:10, right:10, zIndex:100000, elevation:10}}>
-                    <LinearGradient
-                    colors={[ '#000', '#0b61bd']} style={{alignItems:'center', justifyContent:'center', height:HEIGHT/12, width:HEIGHT/12, backgroundColor:'#c4a5f5', borderRadius:HEIGHT/24, elevation:5}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.9}}>
-                  <Icon name='pen' size={24} color='white' style={{}}/>
-                  </LinearGradient>
-               </TouchableOpacity>
-
-             <CardItem style={{borderTopLeftRadius:20, borderTopRightRadius:20,backgroundColor:cardcolor}}>
-               <Text style={[styles.name, {color:textcolor, width:'80%', flexWrap:'wrap'}]}>{user.name}</Text> 
-             </CardItem>
-            
-            <CardItem style={{backgroundColor:cardcolor}}>
-            <Icon name="user-graduate" size={22}  color={ iconcolor} style={{width: WIDTH/10,alignSelf:'center'}}/>
-            <Text style={[styles.institute, {color: textcolor}]}>{userInfo.institution}</Text>  
-             </CardItem>
-             <CardItem style={{backgroundColor:cardcolor}}>
-             <Icon name="briefcase" size={22}  color={ iconcolor} style={{width: WIDTH/10,alignSelf:'center'}}/>
-            <Text style={[styles.institute, {color: textcolor}]}>{userInfo.status}</Text>
-              
-             </CardItem >
-             {userInfo.residence == '' || null || undefined ? ( <View></View>) :
-            (<CardItem style={{backgroundColor:cardcolor}}>
-            <Icon name="map-marker"  color={ iconcolor }size={25} style={{width: WIDTH/10,alignSelf:'center'}}/>
-            <Text style={[styles.institute, {color: textcolor}]}>{userInfo.residence}</Text>
-            </CardItem>)
-            
-              }  
-                 {userInfo.ig_username == '' || null || undefined ? (
-               <View></View>
-             ) :
-            (<CardItem style={{backgroundColor:cardcolor}}>
-            <Icon name="instagram"  color= {iconcolor} size={25} style={{width: WIDTH/10,alignSelf:'center'}}/>
-            <Text style= {[styles.institute, {color: textcolor}]}>{userInfo.ig_username}</Text>
-            </CardItem>)
-            
-            }
-             {userInfo.bio == '' || null ||undefined ? (
-              <View></View>
-            ) :
-             (<CardItem style={{backgroundColor:cardcolor}} >
-                <Icon name="info-circle" color= {iconcolor}size={22} style={{width: WIDTH/10,alignSelf:'center'}}/>
-                <Text style={[styles.bio, {color: textcolor}]}>{userInfo.bio}</Text>
-              </CardItem>)
-            }
-            <CardItem style={{borderBottomLeftRadius:20, borderBottomRightRadius:20, backgroundColor:cardcolor}}>
-               
-            </CardItem>
-           </Card>
-           </View>
-           </View>
-           
           
-          <View style={{paddingTop:10}}>
-    {myposts}
+             </View>
+       <View style={{paddingTop:banner/1.2,}}>
+       <View style={{padding:5, paddingHorizontal:20}}>
+         <Text style={{textAlign:'left',fontSize:18, fontFamily:'Quicksand-Bold', color:'#333'}}>About :</Text>
+       </View>
+       {/*********************institutions card ***********************/}        
+       <Card style={{borderRadius:6, elevation:3,backgroundColor:'#fff', width:WIDTH-40,marginLeft:20,marginTop:20 }}>
+                  <CardItem style={{borderBottomWidth:0.7, width:WIDTH-40, justifyContent:'space-between', paddingHorizontal:20}}>
+                      <Text style={{textAlign:'left',margin:0, padding:0, fontSize:15,color:'#333', fontFamily:'Quicksand-Bold'}}>My Institutions/Groups :</Text>
+                      <Text style={{textAlign:"center",fontFamily:'Quicksand-Regular', fontSize:13, color:'#2b32b2'}}>Edit</Text>
+                  </CardItem>
+                  <CardItem style={{}}>
+                      {/* <Text style={{textAlign:"center",fontFamily:'Quicksand-Medium', fontSize:16,color:'#333'}}>{names}</Text> */}
+                      {names}
+                  </CardItem>
+         </Card>
+         {/********************bio card ***********************/} 
+         <Card style={{borderRadius:6, elevation:3,backgroundColor:'#fff', width:WIDTH-40,marginLeft:20, }}>
+                  <CardItem style={{borderBottomWidth:0.7, width:WIDTH-40, justifyContent:'space-between', paddingHorizontal:20}}>
+                      <Text style={{textAlign:'left',margin:0, padding:0, fontSize:15,color:'#333', fontFamily:'Quicksand-Bold'}}>Bio :</Text>
+                      <Text style={{textAlign:"center",fontFamily:'Quicksand-Regular', fontSize:13, color:'#2b32b2'}}>Add bio</Text>
+                  </CardItem>
+                  <CardItem style={{}}>
+                      {
+                        userInfo.bio== '' || userInfo.bio == null ? (
+                          <View style={{alignItems:'center'}}>
+                            <Text style={{textAlign:"center",fontFamily:'Quicksand-Medium', fontSize:14,}}>No bio yet</Text>
+                            
+                          </View>
+                        ): (
+                          <View>
+                            <Text style={{textAlign:'auto',fontFamily:'Quicksand-Medium', fontSize:17, }}>{userInfo.bio}</Text>
+                          </View>
+                        )
+                      }
+                  </CardItem>
+         </Card>
+           {/*********************skills card ***********************/}        
+       <Card style={{borderRadius:6, elevation:3,backgroundColor:'#fff', width:WIDTH-40,marginLeft:20,marginTop:20 }}>
+                  <CardItem style={{borderBottomWidth:0.7, width:WIDTH-40, justifyContent:'space-between', paddingHorizontal:20}}>
+                      <Text style={{textAlign:'left',margin:0, padding:0, fontSize:15,color:'#333', fontFamily:'Quicksand-Bold'}}>My skills/hobbies :</Text>
+                      <Text style={{textAlign:"center",fontFamily:'Quicksand-Regular', fontSize:13, color:'#2b32b2'}}>Edit</Text>
+                  </CardItem>
+                  <CardItem style={{}}>
+                      
+                      {myskills}
+                  </CardItem>
+                  
+         </Card>
+       
         
-        </View>
+ 
+       </View>
+            
+          
+          <View style={{paddingTop:10, zIndex:1}}>
+
+             {myposts}
+          </View>
         {/*************ads*************/}
-        <View >
+        {/* <View >
         <BannerView
         placementId="1911005745652403_1911143952305249"
         type="rectangle"
      
       />
-        </View>
+        </View> */}
        
-        <View style={{borderTopWidth:0.4,alignItems:'center', borderBottomWidth:0.4,flexDirection:'row', marginBottom:10, marginTop:10}}>
-          <Text style={{color:textcolor,  fontSize: TEXTSIZE/22,marginLeft:20,paddingBottom:5,paddingTop:6,fontFamily:'Quicksand-Medium'}}>Night mode</Text>
-          {/* <Switch 
-          style={{position:'absolute', right:20}}
-          //onChangeState={()=> this.nightmode(nightmode)}
-          activeButtonColor="#002463"
-          // onActivate={()=> {
-           
-          //   this.props.nightmodeon()
-          // }}
-          // onDeactivate={()=> {
-          //   this.props.nightmodeoff()
-          // }}
-          /> */}
-
-           {/* nightmode = (nightmode)=> {
-    if(nightmode == true){
-      this.setState({
-        nightmode:!this.state.nightmode
-      })
-      
-    } else {
-      this.setState({
-        nightmode:!this.state.nightmode
-      }) */}
-      
-    }
-  }
-  
-
-
-        </View>
+        <View style={{borderTopWidth:0.4,alignItems:'center', borderBottomWidth:0.4,flexDirection:'row', marginBottom:10, marginTop:10, justifyContent:'space-between', marginHorizontal:10}}>
+          <Text style={{color:textcolor,  fontSize: TEXTSIZE/22,marginLeft:10,paddingBottom:5,paddingTop:6,fontFamily:'Quicksand-Medium'}}>Night mode</Text>
+          <Switch 
+          onValueChange={()=> this.nightmode(nightmode)}
+          backgroundActive={'#2b32b2'}
+          backgroundInactive={'gray'}
+          circleActiveColor={'#fff'}
+          circleInActiveColor={'#fff'}
+          value={this.state.nightmode}
+          switchLeftPx={2} 
+          switchRightPx={2} 
+         
+          />
+       </View>
 
         <View style={{borderTopWidth:0.4, borderBottomWidth:0.4, marginBottom:20, marginTop:20}}>
           
         
           <Text  style={{color:textcolor,  fontSize: TEXTSIZE/22,marginLeft:20,paddingBottom:5,paddingTop:6,fontFamily:'Quicksand-Bold'}}>Account</Text>
-          <TouchableOpacity activeOpacity={0.9} onPress={()=> this.deletebutton(this.state.token)}>
+          <TouchableOpacity activeOpacity={0.9} onPress={()=> this.deletebutton()}>
               <Text style={{color:'red',  fontSize: TEXTSIZE/23.5,marginLeft:20,paddingBottom:5, fontFamily:'Quicksand-Medium'}}>Delete Account</Text>
           </TouchableOpacity>
         </View>
@@ -606,13 +689,7 @@ const styles = StyleSheet.create({
     borderColor:'white',
     borderWidth:2
   },
-  userinformation:{
-    
-  
-
-  },
-  name:{
-   
+  name:{ 
     fontSize: TEXTSIZE/18,
     textAlign:'left',
     paddingTop:3,
@@ -620,7 +697,6 @@ const styles = StyleSheet.create({
     fontFamily:'Quicksand-Bold'
   },
   bio:{
-   
     fontSize:TEXTSIZE/23,
     paddingLeft:5,
     paddingRight:5,
@@ -630,34 +706,25 @@ const styles = StyleSheet.create({
     fontFamily:'Quicksand-Medium'
   },
   institute:{
-   
     fontSize: TEXTSIZE/22,
     paddingLeft:5,
     paddingRight:5,
     marginRight:20,
-   
     flexWrap:'wrap',
     fontFamily:'Quicksand-Medium'
   },
   posttext: {
-   
     fontSize: TEXTSIZE/24,
     marginLeft:3,
      padding:4,
     fontFamily:'Quicksand-Medium'
-  
   },
-  
   name1:{
     marginLeft:10,
     color:'#333',
     fontFamily:'Quicksand-Bold',
     fontSize:TEXTSIZE/22,
-   
   },
-  
-  
-  
 })
 //Medium rectangle
 //1911005745652403_1911143952305249

@@ -9,14 +9,23 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomeScreen from '../Component1/HomeScreen';
 import SearchScreen from '../Component1/SearchScreen';
 import UserScreen from '../Component1/UserScreen';
-import LoginWithFB from '../Component2/LoginWithFB'
-import EditProfile from '../Component1/EditProfile'
-import CreateProfile from '../Component1/CreateProfile'
 import ProfileItem from '../profiles/profileItem'
 import StoryScreen from '../Component1/StoryScreen'
-import PostScreen from '../Component1/PostScreen'
-import CommentPage from '../Component1/CommentPage'
-import LikesPage from '../Component1/LikesPage'
+
+import SignUpPage from '../Component2/SignUpPage'
+import CreateProfile1 from '../Component2/CreateProfile1'
+import CreateProfile2 from '../Component2/CreateProfile2'
+
+import RegisterPage from '../Component2/RegisterPage'
+import UploadAvatar from '../Component2/UploadAvatar'
+import LoginPage from '../Component2/LoginPage'
+
+import PostScreen from '../Component3/PostScreen'
+import CommentPage from '../Component3/CommentPage'
+import LikesPage from '../Component3/LikesPage'
+import EditProfile from '../Component3/EditProfile'
+
+import SettingPage from '../Component4/settingsPage'
 
 
 
@@ -26,8 +35,8 @@ export const UserStack = createStackNavigator(
   User:{
     screen:UserScreen
   },
-  EditProfile:{
-    screen: EditProfile
+  Settings:{
+    screen: SettingPage
     
   },
   
@@ -73,17 +82,30 @@ StoryStack.navigationOptions = ({ navigation }) => {
   };
 };
 
-export const LoginPage = createSwitchNavigator({
+export const LoginPageTab = createSwitchNavigator({
   Login: {
-    screen: LoginWithFB
+    screen: SignUpPage
   },
+  RegisterPage:{
+    screen:RegisterPage
+  },
+  LoginPage:{
+    screen: LoginPage
+  }
  
 })
 
 export const CreatePropfilePage = createSwitchNavigator({
-  CreateProfile: {
-    screen: CreateProfile
+  
+  CreateProfile1: {
+    screen: CreateProfile1
   },
+  CreateProfile2: {
+    screen: CreateProfile2
+  },
+  UploadAvatar:{
+    screen: UploadAvatar
+  }
  
 })
 
@@ -128,9 +150,9 @@ HomeStack.navigationOptions = ({ navigation }) => {
         tabBarIcon:
           ({ focused }) => (
             focused ?
-             <View style={{alignItems:'center',borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor:'#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
-                <Icon name="home"  size={32} style={{}} color='#fff' />
-            </View>:
+            
+            <Icon name="home"  size={32} style={{}} color='#2b32b2' />
+            :
             <Icon name="home"  size={27} style={{}} color="#808080" />
           )
       },
@@ -142,10 +164,10 @@ HomeStack.navigationOptions = ({ navigation }) => {
             tabBarIcon:
               ({ focused }) => (
                 focused ?
-                 <View style={{alignItems:'center',borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor:'#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
-                    <FontAwesome5 name="user-friends"  size={30} style={{}} color='#fff' />
-                </View>:
-                (<FontAwesome5 name="user-friends"  size={27} style={{}} color="#808080" />)
+                
+                <FontAwesome5 name="user-friends"  size={29} style={{}} color='#2b32b2' />
+                :
+                (<FontAwesome5 name="user-friends"  size={25} style={{}} color="#808080" />)
               )
           },
           },
@@ -159,9 +181,9 @@ HomeStack.navigationOptions = ({ navigation }) => {
               tabBarIcon:
               ({ focused }) => (
                 focused ?
-                <View style={{alignItems:'center',borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor:'#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
-                <Icon name="search"  size={30} style={{}} color='#fff' />
-            </View>:  <Icon name="search"  size={25} style={{}} color="#808080" />
+           
+            <Icon name="search"  size={30} style={{}} color='#2b32b2' />
+            :  <Icon name="search"  size={25} style={{}} color="#808080" />
               )
                
            },
@@ -177,9 +199,9 @@ HomeStack.navigationOptions = ({ navigation }) => {
             tabBarIcon:
             ({ focused }) => (
               focused ?
-              <View style={{alignItems:'center',elevation:1,borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor: '#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
-              <Icon name="user"  size={30} style={{}} color='#fff' />
-          </View>:
+        
+          <Icon name="user"  size={30} style={{}} color='#2b32b2' />
+          :
               <Icon name="user"  size={26} style={{}} color="#808080" />
             )
           },
@@ -187,26 +209,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
           },
           
  },
- //#002463
-
-//one #E239FC;
-//two #6BBAFC
-//three #FF014B;
-//#3972e9
-//four #FDBF3F
-//#D492FF
-//#96B5FF
-//#931FFF
-//#128EFE
-//#514a9d
-//#24c6dc
-//#4776e6
-//#8e54e9
-//Quicksand_Bold
-//Quicksand-Light
-//Quicksand-Medium
-//Quicksand-Regular
-
+ 
  {
         
     tabBarPosition: 'bottom',
@@ -216,7 +219,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
        showIcon: true,
        style:{
         backgroundColor: '#fff',
-       height:55,
+       
         padding: 0, margin:0, 
         
        },
@@ -225,8 +228,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
         padding:0
       },
        iconStyle: {
-        width: 50,
-        height: 50,
+       
         padding:0},
        indicatorStyle:{
            opacity:0
@@ -236,6 +238,8 @@ HomeStack.navigationOptions = ({ navigation }) => {
 
  ) 
 
-
+//  <View style={{alignItems:'center',borderWidth:1.5, borderColor:'#fff', justifyContent:'center',backgroundColor:'#002463', borderRadius:25, height:50, width:50,position:'absolute'}}>
+                //     
+                // </View>
 
  
