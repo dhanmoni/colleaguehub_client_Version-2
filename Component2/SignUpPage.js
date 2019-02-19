@@ -75,7 +75,7 @@ class LoginWithFB extends Component {
     return (
      
       <View style={styles.container}>
-        <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+        <LinearGradient  colors={['#00A9FE', '#0068E7']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.2, y: 0.2}} end={{x: 0.5, y: 0.5}} >
            <View style={{flex: 1,
               
                 paddingHorizontal:10,

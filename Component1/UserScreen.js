@@ -49,6 +49,7 @@ class UserScreen extends Component {
      opvalue: new Animated.Value(0),
       springvalue: new Animated.Value(0),
       sizevalue: new Animated.Value(0),
+      scrollY: new Animated.Value(0),
      // profileImage: null,
       response:null,
       nightmode: false
@@ -398,8 +399,30 @@ nightmode = (nightmode)=> {
       inputRange:[0,1],
       outputRange:['0deg', '720deg']
     })
-   
-  
+    const banner = (HEIGHT/1.6)/5.5;
+    const HEADER_FIRST_HEIGHT = HEIGHT/1.45;
+    const HEADER_LAST_HEIGHT = HEIGHT/9
+    const headerHeight1 = this.state.scrollY.interpolate({
+      inputRange:[0, (HEADER_FIRST_HEIGHT-HEADER_LAST_HEIGHT)/4, (HEADER_FIRST_HEIGHT-HEADER_LAST_HEIGHT)/2],
+      outputRange:[HEADER_FIRST_HEIGHT,HEADER_LAST_HEIGHT/1.3, HEADER_LAST_HEIGHT],
+      extrapolate:'clamp'
+    })
+    const headerMargin = this.state.scrollY.interpolate({
+      inputRange:[0, (HEADER_FIRST_HEIGHT-HEADER_LAST_HEIGHT)/4, (HEADER_FIRST_HEIGHT-HEADER_LAST_HEIGHT)/2],
+      outputRange:[HEADER_FIRST_HEIGHT, HEADER_LAST_HEIGHT/3, HEADER_LAST_HEIGHT],
+      extrapolate:'clamp'
+    })
+    const headerMargin2 = this.state.scrollY.interpolate({
+      inputRange:[0,(HEADER_FIRST_HEIGHT-HEADER_LAST_HEIGHT)/2],
+      outputRange:[(500), 0],
+      extrapolate:'clamp'
+    })
+    const opacity1 = this.state.scrollY.interpolate({
+      inputRange:[0, (HEADER_FIRST_HEIGHT-HEADER_LAST_HEIGHT)/3, (HEADER_FIRST_HEIGHT-HEADER_LAST_HEIGHT)/1.5],
+      outputRange:[1,0,  0],
+      extrapolate:'clamp'
+    })
+
     const {user, loggedIn, userInfo, getposts, posts, nightmode}= this.props.auth;
      if(this.state.connection == false){
       <View style={{alignItems:'center', justifyContent:'center',flex:1, backgroundColor:bgcolor}}>
@@ -448,7 +471,7 @@ nightmode = (nightmode)=> {
         cardcolor='#fff'
         iconcolor='#002463'
       }
-    const banner = (HEIGHT/1.6)/5.5;
+   
     let MyIns = []
     const institutes = userInfo.institution.map(institute=> {
         MyIns.push(institute.institution_name)
@@ -480,7 +503,6 @@ nightmode = (nightmode)=> {
       
     return (
      
-      <ScrollView style={{flex:1, backgroundColor: bgcolor}} showsVerticalScrollIndicator={false}>
       <Animated.View >
       <StatusBar
           backgroundColor='#2b32b2'
@@ -488,41 +510,10 @@ nightmode = (nightmode)=> {
         />
       {/******************user profile*****************/}
       {/*********************social card ***********************/} 
-      <Card style={{position:'absolute', top: (HEIGHT/1.45)-(banner/2.66), borderRadius:19,left:20, right:20, elevation:4, height:banner/1.33, backgroundColor:'#fff', width:WIDTH-40,zIndex:10000,overflow:'visible', alignItems:'center',flexDirection:'row', justifyContent:'space-evenly' }}>
-          {
-            userInfo.social.instagram == '' || userInfo.social.instagram == null ?null : (
-              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
-                  <Icon name="instagram" color="#405de6" size={25}/>
-              </View>
-            )
-          }
-          {
-            userInfo.social.youtube == '' || userInfo.social.youtube == null ? null : (
-              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
-                  <Icon name="youtube" color="#ff0000" size={25}/>
-              </View>
-            )
-          }
-          {
-            userInfo.social.twitter == '' || userInfo.social.twitter == null ? null : (
-              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
-                  <Icon name="twitter" color="#1da1f2" size={25}/>
-              </View>
-            )
-          }
-          {/* {
-            userInfo.social.whatsapp == '' || userInfo.social.whatsapp == null ? null : (
-              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
-                  <Icon name="whatsapp" color="#25d366" size={25}/>
-              </View>
-            )
-          } */}
-         
-      
-      </Card>
-        <View style={{height: HEIGHT/1.45,}}>
-           <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',borderBottomLeftRadius:20, borderBottomRightRadius:20 , overflow:'visible'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
-            <View style={{flexDirection:'row', justifyContent:'space-between',paddingTop:30, paddingHorizontal:20}}>
+    
+        <Animated.View style={{height: headerHeight1,position:'absolute',borderBottomLeftRadius:20, borderBottomRightRadius:20 , top:0, left:0, right:0,zIndex:100}}>
+           <LinearGradient  colors={[ '#00c6ff', '#2B32B2']} style={{height:100+'%'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+            <Animated.View style={{flexDirection:'row',opacity:opacity1, justifyContent:'space-between',paddingTop:30, paddingHorizontal:20}}>
                
                 <View style={{alignItems:"center", justifyContent:'center'}}>
                   <FontAwesome name="bell" color="#fff" size={24}/>
@@ -530,8 +521,8 @@ nightmode = (nightmode)=> {
                 <View style={{alignItems:"center", justifyContent:'center'}}>
                   <Icon name="cog" onPress={()=>this.props.navigation.navigate('Settings')} color="#fff" size={24}/>
                 </View>
-            </View>
-                <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
+            </Animated.View>
+                <Animated.View style={{flex:1,alignItems:'center', justifyContent:'center',opacity:opacity1}}>
 
                   <View style={{ position:'relative',  height: HEIGHT/3.6, width:HEIGHT/3.6, borderRadius:HEIGHT/2, borderColor:'white', borderWidth:2, alignContent:'center', alignItems:'center', justifyContent:'center'}}>
 
@@ -564,14 +555,52 @@ nightmode = (nightmode)=> {
                      
                     </View>
                   </View>
-                 
-                </View>
                
+                 
+                </Animated.View>
+                <Animated.View style={{
+         marginTop: HEADER_FIRST_HEIGHT - banner/2, borderRadius:19, elevation:4, height:banner/1.33, backgroundColor:'#fff', width:WIDTH-40,zIndex:10000,overflow:'visible', alignItems:'center',flexDirection:'row', justifyContent:'space-evenly', opacity:opacity1,marginLeft:20, marginRight:20
+      }}>
+
+     
+      <Card style={{ }}>
+          {
+            userInfo.social.instagram == '' || userInfo.social.instagram == null ?null : (
+              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
+                  <Icon name="instagram" color="#405de6" size={25}/>
+              </View>
+            )
+          }
+          {
+            userInfo.social.youtube == '' || userInfo.social.youtube == null ? null : (
+              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
+                  <Icon name="youtube" color="#ff0000" size={25}/>
+              </View>
+            )
+          }
+          {
+            userInfo.social.twitter == '' || userInfo.social.twitter == null ? null : (
+              <View style={{width: banner/1.6, height:banner/1.6, borderRadius:banner/3.2, elevation:7, backgroundColor:'#fff', justifyContent:'center', alignItems:'center', }}> 
+                  <Icon name="twitter" color="#1da1f2" size={25}/>
+              </View>
+            )
+          }
+          
+      </Card>
+      </Animated.View>
                 
                 </LinearGradient>
           
-             </View>
-       <View style={{paddingTop:banner/1.2,}}>
+             </Animated.View>
+             <Animated.ScrollView style={{paddingTop:headerMargin, backgroundColor:bgcolor}}
+              onScroll={Animated.event([{
+                nativeEvent: {contentOffset:{y: this.state.scrollY}}
+              }])}
+             showsVerticalScrollIndicator={false}>
+             
+
+
+       <View style={{}}>
        <View style={{padding:5, paddingHorizontal:20}}>
          <Text style={{textAlign:'left',fontSize:18, fontFamily:'Quicksand-Bold', color:'#333'}}>About :</Text>
        </View>
@@ -582,7 +611,7 @@ nightmode = (nightmode)=> {
                       <Text style={{textAlign:"center",fontFamily:'Quicksand-Regular', fontSize:13, color:'#2b32b2'}}>Edit</Text>
                   </CardItem>
                   <CardItem style={{}}>
-                      {/* <Text style={{textAlign:"center",fontFamily:'Quicksand-Medium', fontSize:16,color:'#333'}}>{names}</Text> */}
+                      
                       {names}
                   </CardItem>
          </Card>
@@ -608,7 +637,7 @@ nightmode = (nightmode)=> {
                   </CardItem>
          </Card>
            {/*********************skills card ***********************/}        
-       <Card style={{borderRadius:6, elevation:3,backgroundColor:'#fff', width:WIDTH-40,marginLeft:20,marginTop:20 }}>
+        <Card style={{borderRadius:6, elevation:3,backgroundColor:'#fff', width:WIDTH-40,marginLeft:20,marginTop:20 }}>
                   <CardItem style={{borderBottomWidth:0.7, width:WIDTH-40, justifyContent:'space-between', paddingHorizontal:20}}>
                       <Text style={{textAlign:'left',margin:0, padding:0, fontSize:15,color:'#333', fontFamily:'Quicksand-Bold'}}>My skills/hobbies :</Text>
                       <Text style={{textAlign:"center",fontFamily:'Quicksand-Regular', fontSize:13, color:'#2b32b2'}}>Edit</Text>
@@ -622,7 +651,7 @@ nightmode = (nightmode)=> {
        
         
  
-       </View>
+       </View> 
             
           
           <View style={{paddingTop:10, zIndex:1}}>
@@ -638,37 +667,24 @@ nightmode = (nightmode)=> {
       />
         </View> */}
        
-        <View style={{borderTopWidth:0.4,alignItems:'center', borderBottomWidth:0.4,flexDirection:'row', marginBottom:10, marginTop:10, justifyContent:'space-between', marginHorizontal:10}}>
-          <Text style={{color:textcolor,  fontSize: TEXTSIZE/22,marginLeft:10,paddingBottom:5,paddingTop:6,fontFamily:'Quicksand-Medium'}}>Night mode</Text>
-          <Switch 
-          onValueChange={()=> this.nightmode(nightmode)}
-          backgroundActive={'#2b32b2'}
-          backgroundInactive={'gray'}
-          circleActiveColor={'#fff'}
-          circleInActiveColor={'#fff'}
-          value={this.state.nightmode}
-          switchLeftPx={2} 
-          switchRightPx={2} 
-         
-          />
-       </View>
+      
 
-        <View style={{borderTopWidth:0.4, borderBottomWidth:0.4, marginBottom:20, marginTop:20}}>
+         <View style={{borderTopWidth:0.4, borderBottomWidth:0.4, marginBottom:HEADER_FIRST_HEIGHT, marginTop:20}}>
           
         
           <Text  style={{color:textcolor,  fontSize: TEXTSIZE/22,marginLeft:20,paddingBottom:5,paddingTop:6,fontFamily:'Quicksand-Bold'}}>Account</Text>
           <TouchableOpacity activeOpacity={0.9} onPress={()=> this.deletebutton()}>
               <Text style={{color:'red',  fontSize: TEXTSIZE/23.5,marginLeft:20,paddingBottom:5, fontFamily:'Quicksand-Medium'}}>Delete Account</Text>
           </TouchableOpacity>
-        </View>
+        </View> 
        
-
+        </Animated.ScrollView>
        
 
 
         
         </Animated.View>
-      </ScrollView>
+     
     )
   }
 }

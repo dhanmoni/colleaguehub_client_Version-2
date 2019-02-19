@@ -6,6 +6,8 @@ import {getAllUsers, getSingleUser, getAllCollegues} from '../redux/actions/prof
 import {  getposts, addpost, deletepost, addpostwithImage} from '../redux/actions/postAction'
 import Icon from 'react-native-vector-icons/FontAwesome'
 let HEIGHT_MIN = Dimensions.get('window').height;
+let WIDTH_MIN = Dimensions.get('window').width;
+
 const TEXTSIZE = Dimensions.get('window').width ;
 const ACCESS_TOKEN = 'Access_Token'
 import ImagePicker from 'react-native-image-picker';
@@ -30,21 +32,30 @@ class PostScreen extends Component {
       page:1,
       refreshing:false,
       text:'',
+      name:'',
+      profileImage:'',
       isLoading:false,
       postImage:null,
-     response:null
+     response:null, 
+     myGroups:[]
     }
   }
   async componentDidMount() {
-   
-        const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+      
+          const token = await AsyncStorage.getItem(ACCESS_TOKEN)
         if(token){
           this.setState({
-            token
+            token,
+            name: this.props.auth.user.name,
+            profileImage: this.props.auth.user.profileImage,
           })
           console.log(token)
         }  
-   
+        const names = this.props.auth.userInfo.institution.filter(name=> {
+          this.state.myGroups.push(name.institution_name)
+        })
+        console.log(this.state.myGroups)
+  
     
     
   }
@@ -57,7 +68,7 @@ class PostScreen extends Component {
       }
 
       selectphoto(){
-        ImagePicker.launchImageLibrary(options, (response) => {
+        ImagePicker.showImagePicker(options, (response) => {
           console.log('Response = ', response);
          
           if (response.didCancel) {
@@ -102,26 +113,21 @@ class PostScreen extends Component {
     return (
      
       <View style={{flex:1,backgroundColor:bgcolor }}> 
-      <ScrollView>
-       <View style={{flex:1,flexDirection: 'row'}}>
-       <StatusBar
-          backgroundColor='#002463'
-          barStyle="light-content"
-        />
+     
+      <View style={{backgroundColor:'transparent',flexDirection: 'row', height: HEIGHT_MIN/10, width:WIDTH_MIN, borderBottomLeftRadius:15, borderBottomRightRadius:15,overflow:'hidden'}}>
+         <LinearGradient  colors={['#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',}}  start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+           <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',justifyContent:'space-between', paddingHorizontal:20}}>
           
-          <LinearGradient  colors={['#1fa5ff', '#1053ff']} style={{width: 100 + '%', height: 100 +'%',}} start={{ x: 0.1, y: 0.1 }} end={{x: 1, y: 0}}>
-           <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',alignSelf: 'center'}}>
+               <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 27 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
                
-               <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 32 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
-              
            </View>
           
  
          </LinearGradient> 
          </View>
           
-       <View style={{marginTop:HEIGHT_MIN/50, flex:10 }}>
-      
+       <View style={{marginTop:HEIGHT_MIN/50, }}>
+       <ScrollView>
             <View>
               <Text style={{ color:textcolor,
                     fontSize: TEXTSIZE/21,
@@ -136,6 +142,7 @@ class PostScreen extends Component {
                 value={this.state.text}
                 onChangeText={this.onTextChange}
                 numberOfLines={5}
+                selectionColor="#0073ff"
                 underlineColorAndroid='transparent'
                 multiline={true}
                 style={{borderRadius:8,textAlignVertical:'top', borderWidth:0.4, color:textcolor, fontSize:TEXTSIZE/22,fontFamily:'Quicksand-Regular',padding:15,marginHorizontal:10}}
@@ -158,9 +165,6 @@ class PostScreen extends Component {
                     <Image source={this.state.postImage} style={{ marginBottom:12,height:TEXTSIZE,width:TEXTSIZE, marginTop:12}}/>
                   </View>
                   
-                  
-                   
-                 
                 )
               }
              
@@ -180,7 +184,7 @@ class PostScreen extends Component {
            <View style={{width:'45%',}}>
            
 
-            <TouchableOpacity activeOpacity={0.9} style={{borderRadius:12, backgroundColor:'#002463', padding:7, borderRadius:10, flex:1}} onPress={
+            <TouchableOpacity activeOpacity={0.9} style={{borderRadius:12, backgroundColor:'#0073ff', padding:7, borderRadius:10, flex:1}} onPress={
              async ()=>{ 
                
                
@@ -190,30 +194,30 @@ class PostScreen extends Component {
                  
                }
                else if(this.state.text == ''  && this.state.postImage !==null){
-                this.props.addpostwithImage(this.state, userInfo.institution)
+                this.props.addpostwithImage(this.state, this.state.myGroups)
                 this.props.navigation.navigate('StoryScreen')
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
                else if(this.state.text !== ''  && this.state.postImage ==null){
-                this.props.addpost(this.state, userInfo.institution)
+                this.props.addpost(this.state, this.state.myGroups)
                 this.props.navigation.navigate('StoryScreen')
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
                else if(this.state.text !== ''  && this.state.postImage !==null){
-                this.props.addpostwithImage(this.state, userInfo.institution)
+                this.props.addpostwithImage(this.state, this.state.myGroups)
                 this.props.navigation.navigate('StoryScreen')
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
                else {
                  {
-                   this.state.postImage == null ?  (this.props.addpost(this.state, userInfo.institution) )
+                   this.state.postImage == null ?  (this.props.addpost(this.state, this.props.auth.myActiveGroups) )
                    : 
-                  ( this.props.addpostwithImage(this.state, userInfo.institution))
+                  ( this.props.addpostwithImage(this.state, this.props.auth.myActiveGroups))
                  }
                
                 this.props.navigation.navigate('StoryScreen')
                
-                setTimeout(()=> this.props.getposts(this.state.token, userInfo.institution), 2000)
+                setTimeout(()=> this.props.getposts(this.state.token, this.props.auth.myActiveGroups), 2000)
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
               }
@@ -226,10 +230,10 @@ class PostScreen extends Component {
        
         </View>
         </View>  
-           
+        </ScrollView>
          
     </View>
-    </ScrollView>
+   
 	  </View>
     
     )

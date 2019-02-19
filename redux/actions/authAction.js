@@ -124,10 +124,20 @@ export const nightmodeoff = () =>{
 }
 
 
+export const getCurrentUser = (userData)=> dispatch=> {
+   
+    
+    axios.get(`http://192.168.43.76:3001/api/auth/current?access_token=${userData}`)
+    .then(res=> {
+       console.log(res)}
+    )
+    .catch(err => console.log(err))}
+
+
 export const deleteAuthUser = (userData)=> dispatch=> {
    
     
-    axios.delete(`http://192.168.43.76:3001/api/user?access_token=${userData}`)
+    axios.delete(`http://192.168.43.76:3001/api/auth/user?access_token=${userData}`)
     .then(res=> {
        
         dispatch({

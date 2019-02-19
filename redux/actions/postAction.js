@@ -15,14 +15,18 @@ import jwt_decode from 'jwt-decode'
 
 //post
 export const getposts = (userdata ,userinfo)=>dispatch=> {
-  
-    axios.get(`http://192.168.43.76:3001/api/post/allposts?access_token=${userdata}&institution=${userinfo}`)
+     const group = JSON.stringify(userinfo)
+// console.log('gropppppp===', userinfo)
+//    console.log('groupssss===',group)
+    axios.get(`http://192.168.43.76:3001/api/post/allposts?access_token=${userdata}&institution=${group}`,
+    )
     .then(res=> {
+        console.log('res is =', res)
         dispatch({
             type: GET_POSTS,
             payload: res.data
         })
-    }).catch(err => console.log(err))
+    }).catch(err => console.log('err', err.response))
 }
 
 
@@ -36,8 +40,8 @@ export const setLoading = () =>{
 
 
 export const addpostwithImage = (userdata, userinfo)=>dispatch=> {
-
-    RNFetchBlob.config({appendExt : 'png'|| 'jpeg'|| 'jpg'}).fetch('POST', `http://192.168.43.76:3001/api/post/addpostwithImage?access_token=${userdata.token}&institution=${userinfo}`, {
+    const group = JSON.stringify(userinfo)
+    RNFetchBlob.config({appendExt : 'png'|| 'jpeg'|| 'jpg'}).fetch('POST', `http://192.168.43.76:3001/api/post/addpostwithImage?access_token=${userdata.token}&institution=${group}`, {
        
       }, [
         // element with property `filename` will be transformed into `file` in form data
@@ -61,8 +65,9 @@ export const addpostwithImage = (userdata, userinfo)=>dispatch=> {
 }
 
 export const addpost = (userdata, userinfo)=>dispatch=> {
-    
-     axios.post(`http://192.168.43.76:3001/api/post/addpost?access_token=${userdata.token}&institution=${userinfo}`, userdata)
+    const group = JSON.stringify(userinfo)
+    console.log(group)
+     axios.post(`http://192.168.43.76:3001/api/post/addpost?access_token=${userdata.token}&institution=${group}`, userdata)
      .then(res=> {
          console.log(res)
          dispatch({
@@ -78,7 +83,7 @@ export const addpost = (userdata, userinfo)=>dispatch=> {
 
 export const getSinglePost = (postData, token)=> dispatch=> {
     
-        dispatch(setLoading())
+      
      axios.get(`http://192.168.43.76:3001/api/post/allposts/${postData}?access_token=${token}`)
      .then(res=> 
          dispatch({
@@ -114,14 +119,14 @@ export const getSinglePost = (postData, token)=> dispatch=> {
 
 
 
-export const addlike = (postdata, token)=>dispatch=> {
+export const addlike = (postdata, data)=>dispatch=> {
    
-    axios.post(`http://192.168.43.76:3001/api/post/like/${postdata._id}?access_token=${token}`)
+    axios.post(`http://192.168.43.76:3001/api/post/like/${postdata._id}?access_token=${data.token}`)
     .then(()=> {
         dispatch(
-            getposts(token, postdata.institution )
+            getposts(data.token, data.myActiveGroups )
             )
-            dispatch(getPostComment(postdata._id, token))
+            //dispatch(getPostComment(postdata._id, token.token))
         })
         .catch(err => {
             
@@ -136,7 +141,7 @@ export const addliketocomment1 = (postdata,commentId, token)=>dispatch=> {
     axios.post(`http://192.168.43.76:3001/api/post/comment/${postdata._id}/like/${commentId}?access_token=${token}`)
         .then(()=> {
         dispatch(
-            getposts(token, postdata.institution )
+            //getposts(token, postdata.myGroups )
             )
             dispatch(getPostComment(postdata._id, token))
         }).catch(err =>console.log(err))
@@ -149,7 +154,7 @@ export const addcomment = (postId, postdata)=>dispatch=> {
    
     axios.post(`http://192.168.43.76:3001/api/post/comment/${postId}?access_token=${postdata.token}`, postdata)
     .then(()=> {
-        dispatch(getposts(postdata.token, postdata.institution ))
+       // dispatch(getposts(postdata.token, postdata.myGroups ))
         dispatch(getPostComment(postId,postdata.token))
         ToastAndroid.show('Posted!', ToastAndroid.SHORT)
     }).catch(err => {
@@ -165,7 +170,7 @@ export const deletecomment = (postId,commentId, postdata)=>dispatch=> {
    
     axios.delete(`http://192.168.43.76:3001/api/post/comment/${postId}/${commentId}?access_token=${postdata.token}`)
     .then(()=> {
-        dispatch(getposts(postdata.token, postdata.institution ))
+        //dispatch(getposts(postdata.token, postdata.myGroups ))
         dispatch(getPostComment(postId,postdata.token))
         ToastAndroid.show('Comment deleted!', ToastAndroid.SHORT)
     }).catch(()=> {
@@ -178,14 +183,14 @@ export const deletecomment = (postId,commentId, postdata)=>dispatch=> {
 
 export const deletepost = (postData, token)=> dispatch=> {
    
-    axios.delete(`http://192.168.43.76:3001/api/post/deletepost/${postData._id}?access_token=${token}`)
+    axios.delete(`http://192.168.43.76:3001/api/post/deletepost/${postData._id}?access_token=${token.token}`)
     .then(res=> {
        
         dispatch({
             type: DELETE_POST,
             payload: {}
         })
-    dispatch(getposts(token, postData.institution ))
+    dispatch(getposts(token, token.myActiveGroups ))
     }
     ).then(()=> {
         ToastAndroid.show('Post deleted', ToastAndroid.SHORT)

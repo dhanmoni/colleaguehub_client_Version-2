@@ -1,7 +1,6 @@
 import React from 'react'
 import { Text, View, Image } from 'react-native'
 import {createMaterialTopTabNavigator,createTabNavigator,createBottomTabNavigator, createSwitchNavigator, createStackNavigator} from 'react-navigation'
-
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -9,6 +8,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomeScreen from '../Component1/HomeScreen';
 import SearchScreen from '../Component1/SearchScreen';
 import UserScreen from '../Component1/UserScreen';
+import UserScreen2 from '../Component1/UserScreen2';
+
 import ProfileItem from '../profiles/profileItem'
 import StoryScreen from '../Component1/StoryScreen'
 
@@ -23,9 +24,15 @@ import LoginPage from '../Component2/LoginPage'
 import PostScreen from '../Component3/PostScreen'
 import CommentPage from '../Component3/CommentPage'
 import LikesPage from '../Component3/LikesPage'
-import EditProfile from '../Component3/EditProfile'
+
+import EditProfile from '../Component4/editProfile'
+import NotificationSetting from '../Component4/notificationSetting'
+import UpgradetoPro from '../Component4/upgradetoPro'
+import BlockedUser from '../Component4/BlockedUser'
+
 
 import SettingPage from '../Component4/settingsPage'
+import LinearGradient from 'react-native-linear-gradient';
 
 
 
@@ -33,12 +40,24 @@ import SettingPage from '../Component4/settingsPage'
 export const UserStack = createStackNavigator(
   {
   User:{
-    screen:UserScreen
+    screen:UserScreen2
   },
   Settings:{
     screen: SettingPage
     
   },
+  EditProfile:{
+    screen: EditProfile
+  },
+  NotificationSetting:{
+    screen: NotificationSetting
+  },
+  UpgradetoPro:{
+    screen:UpgradetoPro
+  },
+  BlockedUser:{
+    screen:BlockedUser
+  }
   
 }
 )
@@ -143,6 +162,10 @@ HomeStack.navigationOptions = ({ navigation }) => {
  export const Tabs = createBottomTabNavigator(
      {
 
+
+
+     
+
       Story: { 
         screen: StoryStack,
         navigationOptions: {
@@ -151,29 +174,48 @@ HomeStack.navigationOptions = ({ navigation }) => {
           ({ focused }) => (
             focused ?
             
-            <Icon name="home"  size={32} style={{}} color='#2b32b2' />
+            <Icon name="home"  size={33} style={{}} color="#0073ff"/>
             :
-            <Icon name="home"  size={27} style={{}} color="#808080" />
+            <Icon name="home"  size={30} style={{}} color="#808080" />
+          )
+      },
+      
+      },
+      
+      User: { 
+        screen:UserStack,
+          navigationOptions: {
+          tabBarLabel: 'User',
+         
+          tabBarIcon:
+          ({ focused }) => (
+            focused ?
+      
+        <FontAwesome5 name="user-alt"  size={25} style={{}} color='#0073ff' />
+        :
+            <FontAwesome5 name="user-alt"  size={22} style={{}} color="#808080" />
+          )
+        },
+        
+        },
+    
+      Home: { 
+        screen: HomeStack,
+        navigationOptions: {
+        tabBarLabel: 'User',
+        tabBarIcon:
+          ({ focused }) => (
+            focused ?
+            
+            <FontAwesome5 name="user-friends"  size={29} style={{}} color='#0073ff' />
+            :
+            (<FontAwesome5 name="user-friends"  size={25} style={{}} color="#808080" />)
           )
       },
       },
-        Home: { 
-            screen: HomeStack,
-            navigationOptions: {
-            tabBarLabel: 'User',
-            tabBarIcon:
-              ({ focused }) => (
-                focused ?
-                
-                <FontAwesome5 name="user-friends"  size={29} style={{}} color='#2b32b2' />
-                :
-                (<FontAwesome5 name="user-friends"  size={25} style={{}} color="#808080" />)
-              )
-          },
-          },
-         
         
-        Search:{
+         
+          Search:{
             screen: SearchScreen,
             navigationOptions: {
               tabBarLabel: 'Search',
@@ -182,7 +224,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
               ({ focused }) => (
                 focused ?
            
-            <Icon name="search"  size={30} style={{}} color='#2b32b2' />
+            <Icon name="search"  size={29} style={{}} color='#0073ff' />
             :  <Icon name="search"  size={25} style={{}} color="#808080" />
               )
                
@@ -191,22 +233,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
      
   
          
-          User: { 
-          screen:UserStack,
-            navigationOptions: {
-            tabBarLabel: 'User',
-           
-            tabBarIcon:
-            ({ focused }) => (
-              focused ?
-        
-          <Icon name="user"  size={30} style={{}} color='#2b32b2' />
-          :
-              <Icon name="user"  size={26} style={{}} color="#808080" />
-            )
-          },
-          
-          },
+         
           
  },
  

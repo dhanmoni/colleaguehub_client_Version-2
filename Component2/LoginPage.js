@@ -32,7 +32,7 @@ class LoginPage extends Component {
    
     return (
       <View style={{position:'relative'}}>
-        <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+        <LinearGradient  colors={['#00A9FE', '#0068E7']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.2, y: 0.2}} end={{x: 0.65, y: 0.65}} >
         <ScrollView>
            <View style={{flex: 1,marginTop:30, paddingHorizontal:10, alignItems:'center',  }}>
            <Text style={{fontSize:28, 
@@ -56,7 +56,7 @@ class LoginPage extends Component {
                 errors.email == null ? (
                   <View></View>
                 ): (
-                  <View style={{width:100+'%', backgroundColor: 'rgba(233, 10, 21, 0.3)', borderRadius:5}}>
+                  <View style={{width:100+'%', backgroundColor: 'rgba(255, 0, 0, 0.6)', borderRadius:5}}>
                     <Text style={{color:'#fff',padding:10, textAlign:'center'}}>{errors.email}</Text>
                   </View>
                 )
@@ -76,7 +76,7 @@ class LoginPage extends Component {
                 errors.password == null ? (
                   <View></View>
                 ): (
-                  <View style={{width:100+'%', backgroundColor: 'rgba(233, 10, 21, 0.3)', borderRadius:5}}>
+                  <View style={{width:100+'%', backgroundColor: 'rgba(255, 0, 0, 0.6)', borderRadius:5}}>
                     <Text style={{color:'#fff',padding:10, textAlign:'center'}}>{errors.password}</Text>
                   </View>
                 )

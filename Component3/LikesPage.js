@@ -73,7 +73,7 @@ _renderItem = (item)=> {
     style={{height:undefined,width: undefined, zIndex:11 ,marginBottom:HEIGHT_MIN/75,paddingHorizontal:10, marginTop:5, }}
     >
       <View style={{flexDirection:'row',backgroundColor:bgcolor, alignItems:'center'}}>
-      <Image source={{uri: item.avatar}}  resizeMode="cover"
+      <Image source={{uri: item.profileImage}}  resizeMode="cover"
                     style={{height:  (HEIGHT_MIN/15) ,width: (HEIGHT_MIN/ 15), borderRadius:(HEIGHT_MIN/8), marginLeft:4, marginTop:1, marginBottom:1, borderColor:'#999', borderWidth:1}}/> 
        
        <Text style={{fontSize:16,marginLeft:9, fontFamily:'Quicksand-Bold', color:textcolor, width:WIDTH-((HEIGHT_MIN/15)+90)}}>{item.name}</Text>

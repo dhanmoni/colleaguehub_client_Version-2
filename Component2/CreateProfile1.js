@@ -11,7 +11,7 @@ import {BannerView} from 'react-native-fbads'
 
 
 import {connect} from 'react-redux'
-import { clearError} from '../redux/actions/authAction'
+import { clearError, getCurrentUser} from '../redux/actions/authAction'
 import {setCurrentUserWithProfile, getAllUsers, getAllCollegues, } from '../redux/actions/profileAction'
 
 const ACCESS_TOKEN = 'Access_Token'
@@ -43,27 +43,38 @@ class CreateProfile1 extends Component {
    
     async componentDidMount() {
       console.log('component did mount')
-      // const institutionnames = this.props.auth.allUsers.map(name=> {
-      //   return name.institution
-      // })
-     // const unique = [ ...new Set(institutionnames) ]
      
-      const token = await AsyncStorage.getItem(ACCESS_TOKEN)
-        if(token){
+     
+          const token = await AsyncStorage.getItem(ACCESS_TOKEN)
+        
           console.log('token in createprofile is', token)
           this.setState({
             token,
             //suggestions: unique
+          }, ()=> {
+            this.props.getCurrentUser(this.state.token)
+            console.log(token)
           })
-         
-        } else {
-          async()=> {
+          
+            console.log('getting...')
+          this.props.getCurrentUser(this.state.token)
+          setTimeout(()=> this.props.getCurrentUser(this.state.token), 1000)
+          setTimeout(()=> this.props.getCurrentUser(this.state.token), 2000)
+          console.log('got it...')
+           
+          setTimeout(async()=> {
             const token2 = await AsyncStorage.getItem(ACCESS_TOKEN)
-            console.log('No Token')
-            console.log('Token2 is ', token2)
-          }
         
-        }
+            console.log('token in settiimeout is', token2)
+            this.setState({
+              token:token2,
+              //suggestions: unique
+            }, ()=> {
+              this.props.getCurrentUser(this.state.token)
+              
+            })
+          }, 5000)
+
        
     }
 
@@ -107,7 +118,7 @@ class CreateProfile1 extends Component {
       if(loading){
        return(
          <View style={{flex: 1, justifyContent:'center',alignItems:'center'}}>
-          <LinearGradient  colors={[ '#1488CC', '#2B32B2']} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+          <LinearGradient  colors={[ '#00c6ff', '#0073ff']} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
             <Spinner color={'#fff'} size={50} type={"Circle"}/>
            </LinearGradient>
          </View>
@@ -138,7 +149,7 @@ class CreateProfile1 extends Component {
       <View  style={{ flex:1,}}>
      
      
-      <LinearGradient style={{flex:10,}}  colors={[ '#1488CC', '#2B32B2']} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+      <LinearGradient style={{flex:10,}}  colors={['#00c6ff', '#0073ff']} start={{x: 0.2, y: 0.2}} end={{x: 0.65, y: 0.65}} >
      
      <View style={{position:'absolute', right:-(WIDTH/1.2), top:-(WIDTH/1.2), width:WIDTH/0.7,height:WIDTH/0.7, borderRadius:WIDTH/1.4, borderColor:'#fff', opacity:0.15, backgroundColor: '#fff', }}>
 
@@ -257,7 +268,7 @@ class CreateProfile1 extends Component {
             placeholder={"Instagram username"}
            
             // this is used as backgroundColor of icon container view.
-            iconBackgroundColor={'#2b32b2'}
+            iconBackgroundColor={'#0073ff'}
             inputStyle={{ color: '#464949',fontFamily:'Quicksand-Medium',  }}
             style={{marginBottom:10, borderRadius:10}}
             
@@ -273,7 +284,7 @@ class CreateProfile1 extends Component {
             placeholder={"Twitter username"}
            
             // this is used as backgroundColor of icon container view.
-            iconBackgroundColor={'#2b32b2'}
+            iconBackgroundColor={'#0073ff'}
             inputStyle={{ color: '#464949',fontFamily:'Quicksand-Medium',  }}
             style={{marginBottom:10, borderRadius:10}}
             
@@ -289,7 +300,7 @@ class CreateProfile1 extends Component {
             placeholder={"Youtube channel name"}
            
             // this is used as backgroundColor of icon container view.
-            iconBackgroundColor={'#2b32b2'}
+            iconBackgroundColor={'#0073ff'}
             inputStyle={{ color: '#464949',fontFamily:'Quicksand-Medium',  }}
             style={{marginBottom:10, borderRadius:10}}
             
@@ -307,7 +318,7 @@ class CreateProfile1 extends Component {
               <View
                style={{marginTop:30,marginBottom:HEIGHT,width:'65%', margin:'auto', justifyContent:'center', opacity:0.6 }}>
                  <LinearGradient
-                     colors={[ '#2B32B2', '#2B32B2']} style={{ margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                     colors={[ '#0073ff', '#0073ff']} style={{ margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
                   >
                 <TouchableOpacity  activeOpacity={0.7}
                 style={{ padding:8, flex:1,borderColor:'#fff',borderWidth:2,borderRadius:20}}
@@ -328,7 +339,7 @@ class CreateProfile1 extends Component {
                style={{marginTop:50,paddingBottom:HEIGHT/5,width:'25%', margin:'auto', justifyContent:'center' }}>
                  <LinearGradient
                  
-                     colors={['#2B32B2', '#2B32B2']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                     colors={['#0073ff', '#0073ff']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
                   >
                 <TouchableOpacity  activeOpacity={0.7}
                 style={{ padding:3, flex:1,borderColor:'#fff',borderWidth:2,borderRadius:20}}
@@ -336,6 +347,7 @@ class CreateProfile1 extends Component {
                        
                        
                    this.props.clearError()
+                   this.props.getCurrentUser(this.state.token)
                   await this.props.setCurrentUserWithProfile(this.state)
                     this.props.navigation.navigate('CreateProfile2')
                    
@@ -381,7 +393,7 @@ const mapStateToProps = (state)=> {
   }
 }
 
-export default connect(mapStateToProps, {setCurrentUserWithProfile, getAllUsers, getAllCollegues, clearError})(withNavigation(CreateProfile1));
+export default connect(mapStateToProps, {setCurrentUserWithProfile, getAllUsers, getAllCollegues, clearError, getCurrentUser})(withNavigation(CreateProfile1));
 const styles = StyleSheet.create({
   text:{
     color:'white',

@@ -81,7 +81,7 @@ class UploadAvatar extends Component {
    
     return (
       <View style={{position:'relative'}}>
-        <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+        <LinearGradient  colors={['#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.2, y: 0.2}} end={{x: 0.65, y: 0.65}} >
         <ScrollView>
         <View style={{position:'absolute', right:-(WIDTH/1.2), top:-(WIDTH/1.2), width:WIDTH/0.7,height:WIDTH/0.7, borderRadius:WIDTH/1.4, borderColor:'#fff', opacity:0.15, backgroundColor: '#fff', }}>
 
@@ -128,7 +128,7 @@ class UploadAvatar extends Component {
               <Image source={{uri: this.state.profileImage}} style={styles.image}/>
                 <TouchableOpacity activeOpacity={0.9}
                onPress={()=> this.selectphoto()}
-                 style={{padding:15,alignSelf:'center',position:'absolute', right:0, bottom:0, borderRadius:50, backgroundColor:'#2B32B2', elevation:8, borderColor:'#fff', borderWidth:2}}>
+                 style={{padding:15,alignSelf:'center',position:'absolute', right:0, bottom:0, borderRadius:50, backgroundColor:'#0073ff', elevation:8, borderColor:'#fff', borderWidth:2}}>
                 <View>
                  
                 <FontAwesome  name="camera" color="#fff" size={26} 
@@ -149,7 +149,7 @@ class UploadAvatar extends Component {
                  style={{marginTop:50,paddingBottom:HEIGHT/6,width:'25%', margin:'auto', justifyContent:'center' }}>
                    <LinearGradient
                    
-                       colors={['#2B32B2', '#2B32B2']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                       colors={['#0073ff', '#0073ff']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
                     >
                 <TouchableOpacity activeOpacity={0.8}  onPress={()=>{
                    
@@ -173,7 +173,7 @@ class UploadAvatar extends Component {
                  style={{marginTop:50,paddingBottom:HEIGHT/2.5,width:'25%', margin:'auto', justifyContent:'center' }}>
                    <LinearGradient
                    
-                       colors={['#2B32B2', '#2B32B2']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                       colors={['#0073ff', '#0073ff']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
                     >
                <TouchableOpacity activeOpacity={0.8} onPress={()=>{
                   

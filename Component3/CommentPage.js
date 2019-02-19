@@ -89,7 +89,7 @@ _renderItem = (item)=> {
     style={{height:undefined,width: undefined, zIndex:11 ,marginBottom:HEIGHT_MIN/75,paddingHorizontal:10, marginTop:5,backgroundColor:bgcolor }}
     >
       <View style={{flexDirection:'row'}}>
-      <Image source={{uri: item.avatar}}  resizeMode="cover"
+      <Image source={{uri: item.profileImage}}  resizeMode="cover"
                     style={{height:  (HEIGHT_MIN/15) ,width: (HEIGHT_MIN/ 15), borderRadius:(HEIGHT_MIN/8), marginLeft:4, marginTop:1, marginBottom:1, borderColor:'#999', borderWidth:1}}/> 
          <View style={{flexDirection:'column'}}>
           <View style={{flexDirection:'row', position:'relative'}}>

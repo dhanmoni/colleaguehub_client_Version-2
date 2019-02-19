@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, Dimensions, Image, StyleSheet , ToastAndr
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import {signUp_User, clearError} from '../redux/actions/authAction'
+import {signUp_User, clearError, getCurrentUser} from '../redux/actions/authAction'
 import LinearGradient from 'react-native-linear-gradient';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -35,7 +35,7 @@ class RegisterPage extends Component {
    
     return (
       <View style={{position:'relative'}}>
-       <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+       <LinearGradient  colors={['#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.2, y: 0.2}} end={{x: 0.65, y: 0.65}} >
         <ScrollView>
            <View style={{flex: 1,marginTop:30, paddingHorizontal:10, alignItems:'center',  }}>
            <Text style={{fontSize:28, 
@@ -59,7 +59,7 @@ class RegisterPage extends Component {
                 errors.email == null ? (
                   <View></View>
                 ): (
-                  <View style={{width:100+'%', backgroundColor: 'rgba(233, 10, 21, 0.3)', borderRadius:5}}>
+                  <View style={{width:100+'%', backgroundColor: 'rgba(255, 0, 0, 0.6)', borderRadius:5}}>
                     <Text style={{color:'#fff',padding:10, textAlign:'center'}}>{errors.email}</Text>
                   </View>
                 )
@@ -79,7 +79,7 @@ class RegisterPage extends Component {
                 errors.password == null ? (
                   <View></View>
                 ): (
-                  <View style={{width:100+'%', backgroundColor: 'rgba(233, 10, 21, 0.3)', borderRadius:5}}>
+                  <View style={{width:100+'%', backgroundColor: 'rgba(255, 0, 0, 0.6)', borderRadius:5}}>
                     <Text style={{color:'#fff',padding:10, textAlign:'center'}}>{errors.password}</Text>
                   </View>
                 )
@@ -98,7 +98,7 @@ class RegisterPage extends Component {
                 errors.name == null ? (
                   <View></View>
                 ): (
-                  <View style={{width:100+'%', backgroundColor: 'rgba(233, 10, 21, 0.3)', borderRadius:5}}>
+                  <View style={{width:100+'%', backgroundColor: 'rgba(255, 0, 0, 0.6)', borderRadius:5}}>
                     <Text style={{color:'#fff',padding:10, textAlign:'center'}}>{errors.name}</Text>
                   </View>
                 )
@@ -119,7 +119,7 @@ class RegisterPage extends Component {
                <View style={{opacity:1,width: 60,borderRadius:30, height:60,borderColor:'#fff', borderWidth:2,alignItems:'center', justifyContent:'center' }}>
                 <TouchableOpacity onPress={()=>{
                     this.props.signUp_User(this.state)
-                  
+                 
                      
                      }} style={{alignItems:'center', justifyContent:'center'}}>
                     <FontAwesome name="chevron-right" size={30} color="#fff"/>
@@ -143,7 +143,7 @@ const mapStateToProps = (state)=> {
     }
   }
 
-export default connect(mapStateToProps, {signUp_User, clearError})(RegisterPage)
+export default connect(mapStateToProps, {signUp_User, clearError, getCurrentUser})(RegisterPage)
 
 const styles = StyleSheet.create({ 
      image:{

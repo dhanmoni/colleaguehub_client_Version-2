@@ -199,7 +199,7 @@ class ProfileItem extends Component {
                   InterstitialAdManager.showAd('1911005745652403_1935495603203417')
                 }}
                 name='arrow-left' size={30} color="#fff" style={{position:'absolute', top:20, left:20, padding:10,zIndex:1000 }}/>
-                <LinearGradient  colors={[ '#1488CC', '#2B32B2']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} ><View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
+                <LinearGradient  colors={[ '#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',overflow:'hidden'}} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} ><View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
                   <Image source={{uri:profile.profileImage}} style={styles.image}/> 
                   </View>
                   </LinearGradient>

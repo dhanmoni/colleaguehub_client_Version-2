@@ -10,10 +10,19 @@ import { SET_PROFILE_WITHDATA,
     GET_POSTS, DELETE_POST,
     ADD_POST ,SINGLE_POST,
     UPDATE_USER, 
+    UPDATE_OTHER_PROFILE,
     NIGHT_MODE_ON, NIGHT_MODE_OFF,
     LOGIN_USER, 
     GET_ERRORS, CLEAR_ERRORS,
-    GET_ALL_GROUPS
+    GET_ALL_GROUPS,
+    MY_GROUPS,
+    HIDE_BIO,
+    HIDE_SKILLS,
+    SHOW_BIO,
+    SHOW_SKILLS,
+    MY_ACTIVE_GROUPS,
+    MY_FILTERED_GROUPS_FOR_COLLEAGUES,
+    MY_FILTERED_GROUPS_FOR_POST
     } from '../actions/types'
 //import isEmpty from '../../validation/isEmpty'
 
@@ -30,7 +39,14 @@ const initialState={
     posts:[],
     nightmode: false,
     errors:[],
-    allGroups:null
+    allGroups:null,
+    myGroups:[],
+    myActiveGroups:[],
+    myFilteredGroupsForPost:[],
+    myFilteredGroupsForColleagues:[],
+    hideBio: false,
+    hideSkills:false
+
 }
 export default function(state= initialState, action){
     switch (action.type) {
@@ -60,6 +76,14 @@ export default function(state= initialState, action){
             ...state,
             loggedIn: true,
             user:action.payload,
+            loading:false,
+            
+        }
+        case UPDATE_OTHER_PROFILE:
+        return {
+            ...state,
+            loggedIn: true,
+            profile:action.payload,
             loading:false,
             
         }
@@ -102,7 +126,27 @@ export default function(state= initialState, action){
             ...state,
             nightmode: false   
         }
+        case HIDE_BIO:
+        return {
+            ...state,
+            hideBio: true   
+        }
+        case HIDE_SKILLS:
+        return {
+            ...state,
+            hideSkills: true   
+        }
 
+        case SHOW_BIO:
+        return {
+            ...state,
+            hideBio: false   
+        }
+        case SHOW_SKILLS:
+        return {
+            ...state,
+            hideSkills: false   
+        }
 
         case DELETE_AUTH_USER:
         return {
@@ -147,6 +191,30 @@ export default function(state= initialState, action){
               userInfo:action.payload,
               loading:false
             } 
+        case MY_GROUPS: 
+            return {
+              ...state, 
+              myGroups: action.payload,
+              loading: false
+            }
+        case MY_ACTIVE_GROUPS: 
+            return {
+              ...state, 
+              myActiveGroups: action.payload,
+              loading: false
+            }
+         case MY_FILTERED_GROUPS_FOR_COLLEAGUES: 
+            return {
+              ...state, 
+              myFilteredGroupsForColleagues: action.payload,
+              loading: false
+            }
+         case MY_FILTERED_GROUPS_FOR_POST: 
+            return {
+              ...state, 
+              myFilteredGroupsForPost: action.payload,
+              loading: false
+            }
             //post reducer
         case GET_POSTS: 
             return {

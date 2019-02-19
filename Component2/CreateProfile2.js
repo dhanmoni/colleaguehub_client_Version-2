@@ -51,7 +51,7 @@ class CreateProfile2 extends Component {
             token,
            suggestions:institutions
           })
-         // console.log(this.state.suggestions)
+          console.log(this.state.token)
          
         } else {
           console.log('No token')
@@ -97,11 +97,11 @@ class CreateProfile2 extends Component {
       }
     }
     render() {
-      const {user, loading, } = this.props.auth
+      const {user, loading,errors } = this.props.auth
       if(loading){
        return(
          <View style={{flex: 1, justifyContent:'center',alignItems:'center'}}>
-          <LinearGradient  colors={[ '#1488CC', '#2B32B2']} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+          <LinearGradient  colors={[ '#00c6ff', '#0073ff']} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
             <Spinner color={'#fff'} size={50} type={"Circle"}/>
            </LinearGradient>
          </View>
@@ -132,7 +132,7 @@ class CreateProfile2 extends Component {
            
 
       <View  style={{ flex:1,}}>
-      <LinearGradient style={{flex:1,}}  colors={[ '#1488CC', '#2B32B2']} start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+      <LinearGradient style={{flex:1,}}  colors={['#00c6ff', '#0073ff']} start={{x: 0.2, y: 0.2}} end={{x: 0.65, y: 0.65}} >
      
      
         <View style={{flex: 1,
@@ -181,7 +181,16 @@ class CreateProfile2 extends Component {
             <Text   style={{marginTop:4,fontFamily:'Quicksand-Medium' , fontSize: 14, color:'white'}}>
                *Name of your group/institution/company (required).
             </Text>
-            <View style={{position:'absolute', top:0,left:0, right:0, backgroundColor:'#fff', borderBottomLeftRadius:10,
+            {
+                errors.institution == null ? (
+                  <View></View>
+                ): (
+                  <View style={{width:100+'%', backgroundColor: 'rgba(255, 0, 0, 0.6)', borderRadius:5}}>
+                    <Text style={{color:'#fff',padding:10, textAlign:'center'}}>{errors.institution}</Text>
+                  </View>
+                )
+              }
+            <View style={{position:'absolute', top:0,left:0, right:0, backgroundColor:'#fff',zIndex:100, borderBottomLeftRadius:10,
             borderBottomRightRadius:10, elevation:5}}>
              
            {this.renderSuggestions(suggestions)}
@@ -228,7 +237,7 @@ class CreateProfile2 extends Component {
               <View
                style={{marginTop:30,marginBottom:HEIGHT,width:'65%', margin:'auto', justifyContent:'center', opacity:0.6 }}>
                  <LinearGradient
-                     colors={[ '#2B32B2', '#2B32B2']} style={{ margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                     colors={[ '#0073ff', '#0073ff']} style={{ margin:'auto'}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
                   >
                 <TouchableOpacity  activeOpacity={0.7}
                 style={{ padding:8, flex:1,borderColor:'#fff',borderWidth:2,borderRadius:20}}
@@ -249,13 +258,13 @@ class CreateProfile2 extends Component {
                style={{marginTop:50,paddingBottom:HEIGHT/2.5,width:'25%', margin:'auto', justifyContent:'center' }}>
                  <LinearGradient
                  
-                     colors={['#2B32B2', '#2B32B2']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                     colors={['#0073ff', '#0073ff']} style={{margin:'auto', borderRadius:20}} start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
                   >
                 <TouchableOpacity  activeOpacity={0.7}
                 style={{ padding:3, flex:1,borderColor:'#fff',borderWidth:2,borderRadius:20}}
                      onPress={async()=> {
                        
-                       
+                      
                    this.props.clearError()
                   await this.props.setCurrentProfileWithPublicInstitution(this.state)
                     this.props.navigation.navigate('UploadAvatar')
