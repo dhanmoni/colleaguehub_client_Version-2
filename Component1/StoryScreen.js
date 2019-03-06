@@ -8,7 +8,7 @@ import base64 from 'react-native-base64'
 import {  Card, CardItem, Left, Item, Input , Tab, TabHeading, Tabs, } from 'native-base';
 import {connect} from 'react-redux'
 import { getposts, addpost, addlike, addcomment, getSinglePost} from '../redux/actions/postAction'
-import {getAllUsers, getSingleUser,setMyGroups, setMyActiveGroups } from '../redux/actions/profileAction'
+import {getAllUsers, getSingleUser,setMyGroups, setMyActiveGroups , setLoading} from '../redux/actions/profileAction'
 import Spinner from 'react-native-spinkit'
 let HEIGHT_MIN = Dimensions.get('window').height;
 let WIDTH_MIN = Dimensions.get('window').width;
@@ -59,6 +59,7 @@ class StoryScreen extends Component {
     await this.props.auth.userInfo.activeGroup.filter(name=> {
       this.state.myActiveGroups.push(name.institution_name)
     })
+    console.log('token..',token)
 
 
     
@@ -203,7 +204,10 @@ class StoryScreen extends Component {
               </Animated.View>
                <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 27 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
                <Animated.View style={{opacity:opacity, }}>
-              <Icon name="plus" size={24} style={{}} color="#fff" onPress={()=> this.props.navigation.navigate('PostScreen')}/>
+              <Icon name="plus" size={24} style={{}} color="#fff" onPress={()=> {
+                this.props.navigation.navigate('PostScreen')
+                this.props.setLoading()
+                }}/>
               </Animated.View>
            </View>
           
@@ -251,7 +255,7 @@ const mapStateToProps = (state)=> {
   }
 }
 
-export default connect(mapStateToProps, {getAllUsers, getSingleUser,getposts,setMyActiveGroups, addpost, addlike,setMyGroups, addcomment, getSinglePost})(StoryScreen)
+export default connect(mapStateToProps, {getAllUsers, getSingleUser,getposts,setMyActiveGroups, addpost, addlike,setMyGroups, addcomment, getSinglePost, setLoading})(StoryScreen)
 
 const styles = StyleSheet.create({
   container: {

@@ -58,22 +58,35 @@ class CreateProfile1 extends Component {
           
             console.log('getting...')
           this.props.getCurrentUser(this.state.token)
-          setTimeout(()=> this.props.getCurrentUser(this.state.token), 1000)
+          
           setTimeout(()=> this.props.getCurrentUser(this.state.token), 2000)
           console.log('got it...')
-           
           setTimeout(async()=> {
             const token2 = await AsyncStorage.getItem(ACCESS_TOKEN)
         
-            console.log('token in settiimeout is', token2)
+            console.log('token 2 in createprofile is', token2)
             this.setState({
               token:token2,
               //suggestions: unique
             }, ()=> {
               this.props.getCurrentUser(this.state.token)
-              
+              console.log(token)
             })
-          }, 5000)
+          }, 3000)
+          setTimeout(async()=> {
+            const token2 = await AsyncStorage.getItem(ACCESS_TOKEN)
+        
+            console.log('token 2 in createprofile is', token2)
+            this.setState({
+              token:token2,
+              //suggestions: unique
+            }, ()=> {
+              this.props.getCurrentUser(this.state.token)
+              console.log(token)
+            })
+          }, 6000)
+           
+          
 
        
     }

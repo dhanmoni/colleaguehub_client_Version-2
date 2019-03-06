@@ -37,11 +37,12 @@ class Profiles extends Component {
         await this.props.auth.userInfo.activeGroup.filter(name=> {
           this.state.myActiveGroups.push(name.institution_name)
         })
+        console.log('token..',token)
     if(token){
       this.setState({
         token
       })
-      const names = this.props.auth.userInfo.institution.filter(name=> {
+       this.props.auth.userInfo.institution.filter(name=> {
         this.state.myGroups.push(name.institution_name)
       })
 
@@ -115,7 +116,7 @@ class Profiles extends Component {
     
     if(item){
      
-      if (item.stars.filter(like => like.userdata == this.props.auth.user._id).length >0) {
+      if (item.stars.filter(like => like.userdata == this.props.auth.userInfo.userdata).length >0) {
         console.log('yes')
         return true
       } else {
@@ -127,18 +128,6 @@ class Profiles extends Component {
    }
    deletebutton(item) {
    
-    // Alert.alert(
-    //   'Unfollow ?',
-    //   'Are you sure to unfollow this user ?'
-    //   [
-        
-    //     {text: 'Cancel', onPress: () =>{}},
-    //     {text: 'Unfollow', onPress: () => alert(item.name)}
-    //   ],
-    //   { cancelable: true }
-    // )
-    //
-    //console.log('item is ',item)
     Alert.alert(
       'Unfollow ?',
       'Do you want to unfollow '+item.name+' ?',
@@ -150,6 +139,8 @@ class Profiles extends Component {
           style: 'cancel',
         },
         {text: 'Unfollow', onPress: () => {
+          console.log('token...', this.state.token)
+          console.log('unfollowing...', item.userdata)
           ToastAndroid.show('Unfollowed', ToastAndroid.SHORT)
           this.props.unstarProfile2(item.userdata, this.state.token, this.state.myActiveGroups)
           this.props.unstarProfile(item.userdata, this.state.token, this.state.myActiveGroups)

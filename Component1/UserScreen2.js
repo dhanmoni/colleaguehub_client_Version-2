@@ -8,7 +8,7 @@ import SelectMultiple from 'react-native-select-multiple'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { deletepost, getposts, addlike, addcomment, getSinglePost} from '../redux/actions/postAction'
-import { updateProfileImage,updateProfileImage2, getSingleUser,updateUserBio,setMyGroups, setMyActiveGroups, hideBio, hideSkills, showBio, deleteInstitution, addPublicInstitution, setCurrentProfileWithPrivateInstitution } from '../redux/actions/profileAction'
+import { updateProfileImage,updateProfileImage2, getSingleUser,updateUserBio,setMyGroups, setMyActiveGroups, hideBio, hideSkills, showBio, deleteInstitution, addPublicInstitution, setCurrentProfileWithPrivateInstitution, setCurrentProfileWithPublicInstitution } from '../redux/actions/profileAction'
 import {deleteAuthUser, nightmodeon, nightmodeoff} from '../redux/actions/authAction'
 import Modal from 'react-native-modal'
 import LinearGradient from 'react-native-linear-gradient';
@@ -40,14 +40,12 @@ const {height} = Dimensions.get('window')
 class UserScreen2 extends Component {
   static defaultProps = {
     draggableRange: {
-      top: height - ((HEIGHT/1.6)/5.5),
+      top: height - ((HEIGHT/1.6)/7),
       bottom: height/2.7
     }
   }
   static navigationOptions = {
     header: null, 
-
-
   }
 
   _draggedValue = new Animated.Value(-(height/2.7))
@@ -94,9 +92,9 @@ class UserScreen2 extends Component {
     })
 
     await this.props.auth.userInfo.activeGroup.filter(name=> {
-      this.state.myActiveGroups.push(name.institution_name)
+      this.state.myActiveGroups.push(name)
     })
-   // const unique = [ ...new Set(institutionnames) ]
+   
      this.props.auth.userInfo.activeGroup.filter(name=> {
       this.state.groupsNames.push(name.institution_name)
       console.log('grp= ',this.state.groupsNames)
@@ -111,9 +109,9 @@ class UserScreen2 extends Component {
       
       this.setState({token: token, suggestions: institutions}, ()=> {
        // this.setState({myActiveGroups: this.props.auth.userInfo.activeGroup})
-        this.props.setMyActiveGroups(this.state.myActiveGroups, this.state.token)
-        this.props.setMyGroups(this.state.myGroups)
-        console.log('active .. ',this.state.myActiveGroups)
+      this.props.setMyActiveGroups(this.state.myGroups, this.state.token)
+       // this.props.setMyGroups(this.state.myGroups)
+        console.log('state .. ',this.state)
         this.props.getposts(this.state.token,this.state.myActiveGroups )
         this.setState({bio: this.props.auth.userInfo.bio, hideBio: this.props.auth.hideBio})
         
@@ -168,7 +166,7 @@ class UserScreen2 extends Component {
   findUserLike(likes){
     if(likes && likes.length !==undefined){
      
-      if (likes.filter(like => like.userdata == this.props.auth.user.id).length >0) {
+      if (likes.filter(like => like.userdata == this.props.auth.userInfo.userdata).length >0) {
         return true
       } else {
         return false
@@ -1042,7 +1040,7 @@ const styles = {
           animationInTiming={200}
           onBackButtonPress={()=> this.setState({isModalVisibleBio:false})}
         >
-          <View style={{ width: WIDTH_MIN-(WIDTH/10),height: HEIGHT_MIN, backgroundColor:bgcolor, alignItems:'center', justifyContent:'center', borderRadius:20,flex:1  }}>
+          <View style={{ width: WIDTH_MIN-(WIDTH/10),backgroundColor:bgcolor, alignItems:'center', justifyContent:'center', borderRadius:20,flex:1  }}>
           <View style={{position:'absolute',backgroundColor:'#0073ff', top:0, left:0, right:0, height:50,  borderTopLeftRadius:20, borderTopRightRadius:20, alignItems:'center', justifyContent:'center'}}>
             <Text style={{color:'#fff', fontFamily:'Quicksand-Bold', fontSize:20, paddingLeft:10}}>Edit Bio :</Text>
           </View>
@@ -1086,7 +1084,7 @@ const styles = {
           onBackButtonPress={()=> this.setState({isModalVisibleAddGroup:false})}
           style={{}}
         >
-          <View style={{ width: WIDTH_MIN-(WIDTH/10),height: HEIGHT_MIN, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', borderRadius:20,flex:1, zIndex:100  }}>
+          <View style={{ width: WIDTH_MIN-(WIDTH/10), backgroundColor:'#fff', alignItems:'center', justifyContent:'center', borderRadius:20,flex:1, zIndex:100  }}>
           <View style={{position:'absolute',backgroundColor:'#0073ff', top:0, left:0, right:0, height:50,  borderTopLeftRadius:20, borderTopRightRadius:20, alignItems:'center', justifyContent:'center'}}>
             <Text style={{color:'#fff', fontFamily:'Quicksand-Bold', fontSize:20, paddingLeft:10}}>Add Group :</Text>
           </View>
@@ -1151,7 +1149,7 @@ const styles = {
                   </TouchableOpacity>
                 <TouchableOpacity style={{alignItems:"center",padding:5,width:30+'%', borderRadius:10, justifyContent:'center', backgroundColor:'#0073ff'}} onPress={async()=> {
                   
-                await this.props.addPublicInstitution(this.state, this.state.token)
+                await this.props.addPublicInstitution(this.state)
                 console.log('state 1 =', this.state)
                   
                
@@ -1279,7 +1277,7 @@ const mapStateToProps = (state)=> {
   }
   
 export default connect(mapStateToProps, 
-    {deleteAuthUser, deletepost, getposts, addlike, addcomment, getSinglePost,updateProfileImage2, getSingleUser, updateProfileImage, nightmodeoff,setMyActiveGroups, nightmodeon, updateUserBio, setMyGroups, hideBio, hideSkills, showBio, deleteInstitution, addPublicInstitution, setCurrentProfileWithPrivateInstitution
+    {deleteAuthUser, deletepost, getposts, addlike, addcomment, getSinglePost,updateProfileImage2, getSingleUser, updateProfileImage, nightmodeoff,setMyActiveGroups, nightmodeon, updateUserBio, setMyGroups, hideBio, hideSkills, showBio, deleteInstitution, addPublicInstitution, setCurrentProfileWithPrivateInstitution, setCurrentProfileWithPublicInstitution
     })(UserScreen2)
 
 

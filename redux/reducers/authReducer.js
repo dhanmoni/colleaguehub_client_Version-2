@@ -13,6 +13,8 @@ import { SET_PROFILE_WITHDATA,
     UPDATE_OTHER_PROFILE,
     NIGHT_MODE_ON, NIGHT_MODE_OFF,
     LOGIN_USER, 
+    REMOVE_LOADING,
+    LOG_OUT,
     GET_ERRORS, CLEAR_ERRORS,
     GET_ALL_GROUPS,
     MY_GROUPS,
@@ -63,6 +65,13 @@ export default function(state= initialState, action){
             errors:[],
             loading:false
         }
+        case LOG_OUT:
+        return {
+            ...state,
+            loggedIn: false,
+           loading:false
+          
+        }
        case LOGIN_USER:
         return {
             ...state,
@@ -71,6 +80,7 @@ export default function(state= initialState, action){
             loading:false,
             
         }
+        
         case UPDATE_USER:
         return {
             ...state,
@@ -114,6 +124,11 @@ export default function(state= initialState, action){
         return {
             ...state,
             loading:true     
+        }
+        case REMOVE_LOADING:
+        return {
+            ...state,
+            loading:false     
         }
         case NIGHT_MODE_ON:
         return {

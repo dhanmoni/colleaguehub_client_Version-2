@@ -8,7 +8,7 @@ import base64 from 'react-native-base64'
 import {  Card, CardItem, Left, Item, Input  } from 'native-base';
 import {connect} from 'react-redux'
 import { getposts, addpost, addlike, addcomment, getSinglePost} from '../redux/actions/postAction'
-import {getAllUsers, getSingleUser,setMyGroups, setMyActiveGroups } from '../redux/actions/profileAction'
+import {getAllUsers, getSingleUser,setMyGroups, setMyActiveGroups, setLoading } from '../redux/actions/profileAction'
 import Spinner from 'react-native-spinkit'
 let HEIGHT_MIN = Dimensions.get('window').height;
 let WIDTH_MIN = Dimensions.get('window').width;
@@ -75,7 +75,7 @@ import moment from 'moment'
       findUserLike(likes){
         if(likes && likes.length !==undefined){
          
-          if (likes.filter(like => like.userdata == this.props.auth.user.id).length >0) {
+          if (likes.filter(like => like.userdata == this.props.auth.userInfo.userdata).length >0) {
             return true
           } else {
             return false
@@ -261,13 +261,21 @@ import moment from 'moment'
 
 
       _rotateIcon =()=> {
-        //alert('yeah')
+       
         Animated.sequence([
           Animated.timing(this.state.opvalue, { toValue: 1,delay:200, duration:1200, useNativeDriver: true, }),
           Animated.timing(this.state.opvalue, { toValue: 0, duration:0,useNativeDriver: true, })
     
         ]).start()
-       //alert('yeah')
+       
+      }
+      _rotateRefresh =()=> {
+        
+        Animated.sequence([
+          Animated.timing(this.state.opvalue, { toValue: 1, duration:1800, useNativeDriver: true, }),
+          Animated.timing(this.state.opvalue, { toValue: 0, duration:0,useNativeDriver: true, })
+       ]).start()
+      
       }
     
       _rotateLike =(item)=> {
@@ -288,7 +296,7 @@ import moment from 'moment'
 
     const rot = this.state.opvalue.interpolate({
       inputRange:[0,1],
-      outputRange:['0deg', '720deg']
+      outputRange:['0deg', '1080deg']
     })
     
     
@@ -330,9 +338,7 @@ import moment from 'moment'
     if(loading){
       return(
         <View style={{flex: 1, justifyContent:'center',alignItems:'center', backgroundColor:bgcolor}}>
-          <Spinner color={'#0073ff'} size={50} type={"ThreeBounce"}/>
-          
-
+          <Spinner color={'#0073ff'} size={50} type={"Circle"}/>
         </View>
       )
 
@@ -352,13 +358,25 @@ import moment from 'moment'
       <View style={{ flex:1, backgroundColor:bgcolor}}>
          <View style={{flexDirection:'row',alignContent:'center', justifyContent:'space-around',marginTop:15,backgroundColor:bgcolor
         }}>
-              <TouchableOpacity activeOpacity={0.8}  onPress={()=> this.props.navigation.navigate('PostScreen')}
+              <TouchableOpacity activeOpacity={0.8}  onPress={()=> {
+                 this.props.setLoading()
+                this.props.navigation.navigate('PostScreen')
+             
+              }}
                  style={{borderColor:bordercolor, borderWidth:0.7, borderRadius:30, height:50, marginBottom:20,backgroundColor:cardcolor,alignContent:'center', justifyContent:'center',marginHorizontal:10,}}>
                 <Text style={{textAlign:'left',paddingLeft:20,paddingRight:20, color:textcolor, fontFamily:'Quicksand-Medium', fontSize:16}}>Hey {user.first_name}, Post something here...</Text>
                 </TouchableOpacity>
-                <TouchableOpacity activeOpacity={0.88} style={{alignItems:'center',height:50, width:50, justifyContent:'center', borderRadius:25,}}>
+                <TouchableOpacity activeOpacity={0.88}
+                onPress={()=> {
+                  this._rotateRefresh()
+                  this.props.getposts(this.state.token, this.state.myActiveGroups)
+                }}
+                 style={{alignItems:'center',height:50, width:50, justifyContent:'center', borderRadius:25,}}>
                 <LinearGradient colors={['#00aaff', '#0073ff']} style={{width:100+'%', height:100+'%', borderRadius:25, alignItems:'center', justifyContent:'center'}}  start={{x: 0.2, y: 0.2}} end={{x: 0.6, y: 0.6}} >
+                <Animated.View  style={{transform: [{rotate: rot}], }}>
                 <FontAwesomeIcon name="redo-alt" color="#fff" size={25}/>
+                </Animated.View>
+               
                 </LinearGradient>
           
               </TouchableOpacity>
@@ -376,6 +394,12 @@ import moment from 'moment'
                 flex:1,
                 textAlign:'center',
                 fontFamily:'Quicksand-Regular'}}>No post found...</Text>
+                 <TouchableOpacity activeOpacity={0.8} onPress={()=> this.onClick(url)} style={{marginTop:10, marginBottom:HEIGHT_MIN*2,margin:'auto',alignItems:'center', justifyContent:'center',padding:3, alignSelf:'center', overflow:'hidden',}}>
+                <LinearGradient colors={['#00aaff', '#0073ff']} style={{borderRadius:11}}  start={{x: 0.2, y: 0.2}} end={{x: 0.6, y: 0.6}} >
+                <Text style={{color:'#fff', padding:6,fontSize:14,textAlign:'center', fontFamily:'Quicksand-Bold'}}>Share the app</Text>
+                </LinearGradient>
+                
+              </TouchableOpacity>
                 </View>
               )     
             }}
@@ -385,18 +409,6 @@ import moment from 'moment'
               keyExtractor={(item, index)=> index.toString()}
               refreshing={this.state.refreshing}
               onRefresh={this.handleRefresh}
-            ListFooterComponent={()=> {
-              return(
-                <TouchableOpacity activeOpacity={0.8} onPress={()=> this.onClick(url)} style={{marginTop:10, marginBottom:HEIGHT_MIN*2,margin:'auto',alignItems:'center', justifyContent:'center',padding:3, alignSelf:'center', overflow:'hidden',}}>
-                <LinearGradient colors={['#00aaff', '#0073ff']} style={{borderRadius:11}}  start={{x: 0.2, y: 0.2}} end={{x: 0.6, y: 0.6}} >
-                <Text style={{color:'#fff', padding:6,fontSize:14,textAlign:'center', fontFamily:'Quicksand-Bold'}}>Share the app</Text>
-                </LinearGradient>
-                
-              </TouchableOpacity>
-              )
-             
-            }}
-             
               onEndReached={this.handleRefresh}
               onEndReachedThreshold={0}
           />
@@ -412,7 +424,7 @@ const mapStateToProps = (state)=> {
   }
   
   export default connect(mapStateToProps,
-     {getAllUsers, getSingleUser,getposts,setMyActiveGroups, addpost, addlike,setMyGroups, addcomment, getSinglePost})(withNavigation(AllPosts) )
+     {getAllUsers, getSingleUser,getposts,setMyActiveGroups, addpost, addlike,setMyGroups,setLoading, addcomment, getSinglePost})(withNavigation(AllPosts) )
   
 
   const styles = StyleSheet.create({

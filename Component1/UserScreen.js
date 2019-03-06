@@ -70,10 +70,6 @@ class UserScreen extends Component {
     }
         NetInfo.isConnected.addEventListener('connectionChange', await this.handleConnectionChange);
 
-       // Animated.timing(this.state.opvalue, { toValue: 1,delay:6000, duration:1000 }).start();
-
-
-  
   }
 
 

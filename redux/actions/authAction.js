@@ -1,4 +1,4 @@
-import { LOGIN_WITH_FB, SET_PROFILE_WITHDATA, DELETE_AUTH_USER, GET_ALL_USERS,SET_LOADING ,GET_CURRENT_PROFILE, UPDATE_USER_PROFILE, GET_SINGLE_USER, GET_SEARCHED_USER, GET_ALL_COLLEGUES, GET_POSTS, ADD_POST, DELETE_POST,UPDATE_USER, SINGLE_POST, NIGHT_MODE_OFF, NIGHT_MODE_ON, LOGIN_USER, GET_ERRORS, CLEAR_ERRORS} from './types'
+import { LOGIN_WITH_FB, SET_PROFILE_WITHDATA, DELETE_AUTH_USER, GET_ALL_USERS,SET_LOADING ,GET_CURRENT_PROFILE, UPDATE_USER_PROFILE, GET_SINGLE_USER, GET_SEARCHED_USER, GET_ALL_COLLEGUES, GET_POSTS, ADD_POST, DELETE_POST,UPDATE_USER, SINGLE_POST, NIGHT_MODE_OFF, NIGHT_MODE_ON, LOGIN_USER, GET_ERRORS, CLEAR_ERRORS, LOG_OUT} from './types'
 import axios from 'axios'
 import {AsyncStorage, ToastAndroid} from 'react-native'
 const ACCESS_TOKEN = 'Access_Token'
@@ -37,6 +37,7 @@ export const signUp_User = (userdata) => dispatch  => {
        console.log(decoded)
       await dispatch(setCurrentUser(decoded))
        dispatch(clearError())
+        dispatch(getCurrentUser(token))
 
        const accessToken = token
     
@@ -73,6 +74,7 @@ export const loginUser = (userData) => dispatch => {
             //set current user
            console.log('decoded token ',decoded)
           await dispatch(setCurrentUser(decoded))
+          await dispatch(getCurrentUser(token))
           
            
            // set item to localstorage
@@ -124,6 +126,13 @@ export const nightmodeoff = () =>{
 }
 
 
+export const logoutUser = ()=> {
+    console.log('logged out')
+    return {
+        type: LOG_OUT
+        }
+}
+
 export const getCurrentUser = (userData)=> dispatch=> {
    
     
@@ -132,6 +141,10 @@ export const getCurrentUser = (userData)=> dispatch=> {
        console.log(res)}
     )
     .catch(err => console.log(err))}
+
+
+
+    
 
 
 export const deleteAuthUser = (userData)=> dispatch=> {

@@ -29,6 +29,8 @@ import EditProfile from '../Component4/editProfile'
 import NotificationSetting from '../Component4/notificationSetting'
 import UpgradetoPro from '../Component4/upgradetoPro'
 import BlockedUser from '../Component4/BlockedUser'
+import AccountPage from '../Component4/AccountPage'
+
 
 
 import SettingPage from '../Component4/settingsPage'
@@ -57,6 +59,9 @@ export const UserStack = createStackNavigator(
   },
   BlockedUser:{
     screen:BlockedUser
+  },
+  AccountPage:{
+    screen:AccountPage
   }
   
 }

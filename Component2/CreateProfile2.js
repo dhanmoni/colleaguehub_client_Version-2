@@ -11,7 +11,7 @@ import {BannerView} from 'react-native-fbads'
 
 
 import {connect} from 'react-redux'
-import { clearError} from '../redux/actions/authAction'
+import { clearError, getCurrentUser} from '../redux/actions/authAction'
 import {setCurrentProfileWithPublicInstitution, getAllUsers, getAllCollegues} from '../redux/actions/profileAction'
 
 const ACCESS_TOKEN = 'Access_Token'
@@ -39,10 +39,11 @@ class CreateProfile2 extends Component {
   
    
     async componentDidMount() {
-    
+      this.props.getCurrentUser(this.state.token)
       const institutions = this.props.auth.allGroups.map(group=> {
         return group.institution_name
       })
+      
 
       const token = await AsyncStorage.getItem(ACCESS_TOKEN)
         if(token){
@@ -306,7 +307,7 @@ const mapStateToProps = (state)=> {
   }
 }
 
-export default connect(mapStateToProps, {setCurrentProfileWithPublicInstitution, getAllUsers, getAllCollegues, clearError})(withNavigation(CreateProfile2));
+export default connect(mapStateToProps, {setCurrentProfileWithPublicInstitution,getCurrentUser, getAllUsers, getAllCollegues, clearError})(withNavigation(CreateProfile2));
 const styles = StyleSheet.create({
   text:{
     color:'white',

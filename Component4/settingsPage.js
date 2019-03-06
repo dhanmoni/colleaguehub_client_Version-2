@@ -217,7 +217,7 @@ nightmode = (nightmode)=> {
                    <TouchableOpacity activeOpacity={0.9}  onPress={()=> this.props.navigation.navigate('NotificationSetting')} style={{flexDirection:"row",borderBottomColor:'#333',borderBottomWidth:0.45, justifyContent:'space-between', alignItems:'center', padding:10}}>
                    <View  style={{flexDirection:'row', alignItems:'center'}}>
                    <View style={{width: banner/2, height:banner/2, borderRadius:banner/4, elevation:7, backgroundColor:'#0073ff', justifyContent:'center', alignItems:'center',padding:2 }}>
-                   <Icon name="bell" size={20} color='#fff'/>
+                   <FontAwesome name="bell" size={20} color='#fff'/>
                    </View>
                     <Text style={{color:textcolor,marginLeft:10,  fontFamily:'Quicksand-Bold',fontSize:18}}>Notification</Text>
                   </View>        
@@ -288,17 +288,18 @@ nightmode = (nightmode)=> {
                     </View>
                      <Icon name="chevron-right" size={20} color={textcolor}/>
                    </View>
-                   <View style={{flexDirection:"row", justifyContent:'space-between', alignItems:'center', padding:10}}>
-                   <View  style={{flexDirection:'row', alignItems:'center'}}>
-                   <View style={{width: banner/2, height:banner/2, borderRadius:banner/4, elevation:7, backgroundColor:'#0073ff', justifyContent:'center', alignItems:'center',padding:2 }}>
-                      <Icon name="user-alt" size={20} color='#fff'/>
-                   </View>
-                      
-                    <Text style={{color:textcolor,marginLeft:10, fontFamily:'Quicksand-Bold',fontSize:18}}>Account</Text>
+                   
+                   
+                  <TouchableOpacity activeOpacity={0.9} onPress={()=> this.props.navigation.navigate('AccountPage')} style={{flexDirection:"row",borderBottomColor:'#333',borderBottomWidth:0.45, justifyContent:'space-between', alignItems:'center', padding:10}}>
 
-                    </View>                     
+                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                    <View style={{width: banner/2, height:banner/2, borderRadius:banner/4, elevation:7, backgroundColor:'#0073ff', justifyContent:'center', alignItems:'center',padding:2 }}>
+                    <Icon name="shield-alt" size={20} color='#fff'/>
+                    </View>
+                    <Text style={{color:textcolor,marginLeft:10,  fontFamily:'Quicksand-Bold',fontSize:18}}>Account</Text>
+                    </View>
                     <Icon name="chevron-right" size={20} color={textcolor}/>
-                   </View>
+                    </TouchableOpacity>
 
 
                   

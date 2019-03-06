@@ -16,8 +16,8 @@ import jwt_decode from 'jwt-decode'
 //post
 export const getposts = (userdata ,userinfo)=>dispatch=> {
      const group = JSON.stringify(userinfo)
-// console.log('gropppppp===', userinfo)
-//    console.log('groupssss===',group)
+console.log('gropppppp===', userinfo)
+   console.log('groupssss===',group)
     axios.get(`http://192.168.43.76:3001/api/post/allposts?access_token=${userdata}&institution=${group}`,
     )
     .then(res=> {

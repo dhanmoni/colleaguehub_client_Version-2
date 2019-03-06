@@ -2,6 +2,7 @@ export const SET_PROFILE_WITHDATA = 'SET_PROFILE_WITHDATA';
 export const REGISTER_USER = 'REGISTER_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 
+export const LOG_OUT = 'LOG_OUT';
 export const DELETE_AUTH_USER = 'DELETE_AUTH_USER';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const GET_CURRENT_PROFILE = 'GET_CURRENT_PROFILE';
@@ -17,7 +18,7 @@ export const SINGLE_POST = 'SINGLE_POST';
 export const NIGHT_MODE_ON = 'NIGHT_MODE_ON';
 export const NIGHT_MODE_OFF = 'NIGHT_MODE_OFF';
 
-//
+export const REMOVE_LOADING = 'REMOVE_LOADING';
 export const SET_LOADING = 'SET_LOADING';
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 export const UPDATE_USER= 'UPDATE_USER';

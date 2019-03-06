@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View ,Image,Dimensions,TouchableOpacity,StatusBar,ScrollView, AsyncStorage, TextInput, Keyboard, ToastAndroid, NetInfo,  } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity,ActivityIndicator,ToastAndroid, Image, Dimensions,ImageBackground,StatusBar, ScrollView,TextInput, Button, Alert, AsyncStorage, FlatList, NetInfo, Easing, Animated,TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {connect} from 'react-redux'
-import {getAllUsers, getSingleUser, getAllCollegues} from '../redux/actions/profileAction'
+import { Container, Header, Content, ListItem, Radio, Right, Left } from 'native-base';
+import Modal from 'react-native-modal'
+import {getAllUsers, getSingleUser, getAllCollegues, removeLoading} from '../redux/actions/profileAction'
 import {  getposts, addpost, deletepost, addpostwithImage} from '../redux/actions/postAction'
 import Icon from 'react-native-vector-icons/FontAwesome'
 let HEIGHT_MIN = Dimensions.get('window').height;
 let WIDTH_MIN = Dimensions.get('window').width;
-
+let WIDTH = Dimensions.get('window').width;
 const TEXTSIZE = Dimensions.get('window').width ;
 const ACCESS_TOKEN = 'Access_Token'
 import ImagePicker from 'react-native-image-picker';
-
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import Spinner from 'react-native-spinkit'
 
 const options = {
   title: 'Select Image',
@@ -19,6 +22,15 @@ const options = {
   chooseFromLibraryButtonTitle: 'Choose from gallary',
   quatity:0.4
 };
+
+ 
+const radio_props = [
+  {label: '24 hours', value: 0, time:86400000 },
+  {label: '3 days (72 hours)', value: 1, time:259200000 },
+  {label: '7 days (168 hours)', value: 2, time:604800000 },
+  {label: 'Custom', value: 3, pro:true }
+];
+ 
 
 class PostScreen extends Component {
     static navigationOptions={
@@ -30,6 +42,7 @@ class PostScreen extends Component {
     this.state={
       token:'',
       page:1,
+      loading:false,
       refreshing:false,
       text:'',
       name:'',
@@ -37,14 +50,29 @@ class PostScreen extends Component {
       isLoading:false,
       postImage:null,
      response:null, 
-     myGroups:[]
+     myGroups:[],
+     selectedGroupsForPost:[],
+     groupsNames:[],
+     lifespan:0,
+     lifespan2:0,
+     showPicker: false,
+     days:null,
+     hours:null,
+     minutes:null,
+     showError1:false,
+     showError2:false,
+     showError3:false
     }
   }
   async componentDidMount() {
       
+
+        
+
           const token = await AsyncStorage.getItem(ACCESS_TOKEN)
         if(token){
           this.setState({
+            loading:true,
             token,
             name: this.props.auth.user.name,
             profileImage: this.props.auth.user.profileImage,
@@ -52,13 +80,22 @@ class PostScreen extends Component {
           console.log(token)
         }  
         const names = this.props.auth.userInfo.institution.filter(name=> {
-          this.state.myGroups.push(name.institution_name)
+          this.state.myGroups.push(name)
         })
-        console.log(this.state.myGroups)
-  
-    
+        this.props.auth.userInfo.activeGroup.filter(name=> {
+          console.log('groups name =', name)
+          this.state.selectedGroupsForPost.push(name.institution_name)
+          this.state.groupsNames.push(name.institution_name)
+          this.props.removeLoading()
+        })
+        console.log('groups name2 =', this.state.myGroups)
+        console.log('groups name3 =', this.state.groupsNames)
+        console.log('groups name4 =', this.state.selectedGroupsForPost)
+       // ToastAndroid.show(label[0].label, ToastAndroid.SHORT)
+        setTimeout(()=> this.setState({loading:false}), 5000)
     
   }
+
 
   
 
@@ -89,30 +126,72 @@ class PostScreen extends Component {
           }
         });
       }
-    
+
+      
     render() {
       const {user, loggedIn,allCollegues, loading, userInfo, posts, post}= this.props.auth
-      let bgcolor;
+  
+    const removeByAttr = function(arr, attr, value){
+      console.log('arr=', arr)
+      console.log('attr=', attr)
+      console.log('value=', value)
+      let i = arr.length;
+      while(i--){
+         if( arr[i] 
+             && arr[i].hasOwnProperty(attr) 
+             && (arguments.length > 2 && arr[i][attr] === value ) ){ 
+    
+             arr.splice(i,1);
+    
+         }
+      }
+      return arr;
+    }
+
+    if(loading){
+      return(
+        <View style={{flex: 1,}}>
+        <View style={{backgroundColor:'transparent',flexDirection: 'row', height: HEIGHT_MIN/10, width:WIDTH_MIN, borderBottomLeftRadius:15, borderBottomRightRadius:15,overflow:'hidden'}}>
+         <LinearGradient  colors={['#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',}}  start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
+           <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',justifyContent:'space-between', paddingHorizontal:20}}>
+          
+               <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 27 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
+               
+           </View>
+          
+ 
+         </LinearGradient> 
+         </View>
+         <View style={{ justifyContent:'center',alignItems:'center',flex:1, backgroundColor:'#fff'}}>
+         <Spinner color={'#aaa'} size={50} type={"Circle"}/>
+         </View>
+       
+       </View>
+      )
+    }
+  
     let textcolor;
     let cardcolor;
     let iconcolor;
     
     if(this.props.auth.nightmode == true){
-      bgcolor= '#303030'
+     
       textcolor= '#fff'
       cardcolor='#424242'
       iconcolor='#fff'
     } else {
-      bgcolor= '#fff'
+     
       textcolor= '#333'
       cardcolor='#fff'
-      iconcolor='#002463'
+      iconcolor='#0073ff'
     }
-      
+
+   
+
 
     return (
      
-      <View style={{flex:1,backgroundColor:bgcolor }}> 
+      <View style={{flex:1,backgroundColor:"#fff" }}> 
      
       <View style={{backgroundColor:'transparent',flexDirection: 'row', height: HEIGHT_MIN/10, width:WIDTH_MIN, borderBottomLeftRadius:15, borderBottomRightRadius:15,overflow:'hidden'}}>
          <LinearGradient  colors={['#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',}}  start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
@@ -130,7 +209,7 @@ class PostScreen extends Component {
        <ScrollView>
             <View>
               <Text style={{ color:textcolor,
-                    fontSize: TEXTSIZE/21,
+                    fontSize: TEXTSIZE/24,
                     marginLeft:10,
                     padding:15,
                     fontFamily:'Quicksand-Medium'}}>
@@ -170,12 +249,203 @@ class PostScreen extends Component {
              
             </View>
 
+                <View style={{marginTop:30}}>
+                  <View style={{}}>
+                    <Text style={{ color:textcolor,
+                    fontSize: TEXTSIZE/25,
+                    marginLeft:15,
+                    padding:3,
+                    fontFamily:'Quicksand-Medium'}}>Choose post life span :</Text>
+                  </View>
+                  <View style={{}}>
+                      
+
+                  {
+                    radio_props.map((data, key) => {
+                      
+                        return (
+                          
+                                  <ListItem key={key}
+                                   style={{marginTop:0,paddingTop:0,
+                                    paddingBottom:0, marginBottom:0,
+                                    opacity : data.value ==3 && userInfo.pro ==true ? 0.6 :1,
+                                   
+                                    }}>
+                                    <TouchableOpacity
+                                     style={{flexDirection:'row',justifyContent:'space-between', padding:5}} activeOpacity={0.8}
+                                     onPress={async()=>{
+                                       if( data.value ==3 && userInfo.pro ==true){
+                                         ToastAndroid.show('Only PRO user can use this feature!', ToastAndroid.SHORT)
+                                       }
+                                       else if( data.value ==3 && userInfo.pro ==false){
+                                        console.log('PRO')
+                                         this.setState({lifespan:data.value, showPicker:true})
+                                          
+                                       }
+                                       else {
+                                        this.setState({lifespan:data.value, lifespan2:data.time}, ()=> {
+                                          console.log('selected =', this.state.lifespan2)
+                                        })
+                                       
+                                       }
+                                        }}>
+                                    <Left>
+                                        <Text style={{
+                                           color:textcolor,
+                                            fontSize: TEXTSIZE/26,
+                                            padding:1,
+                                            fontFamily:'Quicksand-Medium'}}>{data.label}</Text>
+                                    </Left>
+                                    <Right>
+                                        <Radio
+                                            //onPress={()=> this.setState({lifespan:data.value})}
+                                            color={"#000"}
+                                            
+                                            selectedColor={"#0073ff"}
+                                            selected={data.value === this.state.lifespan}
+                                          />
+                                    </Right>
+                                    </TouchableOpacity>
+                                   
+                                  </ListItem>
+                                )
+                      })}
+
+                      <View style={{marginTop:10,}}>
+                      <View style={{}}>
+                    <Text style={{ color:textcolor,
+                    fontSize: TEXTSIZE/25,
+                    marginLeft:15,
+                    padding:3,
+                    fontFamily:'Quicksand-Medium'}}>This will be posted to :</Text>
+                  </View>
+              <View style={{marginTop:10, width:95+'%', flex:1,}}>
+
+              <FlatList
+          data={this.state.selectedGroupsForPost}
+          key={item=> item}
+          extraData={this.state}
+          ListEmptyComponent={()=> {
+            return (
+              <View>
+              <Text>No Item</Text>
+            </View>
+            )
+           
+          }}
+          renderItem={({item}) => {
+            return (
+            <View style={{paddingBottom:3, alignItems:'center',width:100+'%', justifyContent:'center' }}>
+           
+                  <TouchableOpacity activeOpacity={0.88}  style={{width:100+'%'}}
+                   onPress={
+                    this.state.groupsNames.includes(item)? (
+                      ()=> {
+                        removeByAttr(this.state.groupsNames, 'institution_name', item);
+                        let index = this.state.groupsNames.indexOf(item);
+                        if (index > -1) {
+                          this.state.groupsNames.splice(index, 1);
+                        }
+  
+                      }
+                    ): (
+                    ()=> {
+                      //this.state.selectedGroupsForPost.push(item)
+                      this.state.groupsNames.push(item)
+                    console.log('yesh')
+                    }  
+                      
+                    )
+                  } >
+                  
+                  {
+                    this.state.groupsNames.includes(item)? (
+                      <View style={{backgroundColor:'#0073ff', width:100+'%', borderRadius:8, flexDirection:'row', alignItems:"center"}}>
+                          <View style={{marginLeft:5,marginRight:5, alignItems:'center', justifyContent:'center'}}>
+                          <Icon name="check" size={18} color="#fff"/>
+                          </View>
+  
+                            <Text style={{fontSize:19,color:'#fff', fontFamily:'Quicksand-Bold',paddingLeft:10, padding:2,}}>{item}</Text> 
+                          
+                      </View>
+                    
+                    ): (
+                      <View style={{backgroundColor:"#fff", width:100+'%', borderRadius:8, flexDirection:'row', alignItems:'center',borderWidth:1, borderColor:'#0073ff'}}>
+                      <View style={{marginLeft:5,marginRight:5, alignItems:'center', justifyContent:'center'}}>
+                          <Icon name="circle" size={18} color={textcolor}/>
+                          </View>
+                      <View>
+                      <Text style={{fontSize:19,color:textcolor, fontFamily:'Quicksand-Bold',paddingLeft:10, padding:2,}}>{item}</Text>
+                      </View>
+                        
+                      
+                  </View>
+                    )
+                  
+                  }
+                 
+                  </TouchableOpacity>
+            </View>
+                    
+          ) 
+        }} />
+          
+                </View>
+                      </View>
+   
+
+
+                  {/* <ListItem selected={this.state.lifespan == 0} >
+                    <Left>
+                      <Text>24 hours</Text>
+                    </Left>
+                    <Right>
+                      <Radio
+                      onPress={() => this.setState({ lifespan: 0 })}
+                      selected={this.state.lifespan == 0}
+                        color={"#000"}
+                        selectedColor={"#0073ff"}
+                        selected={this.state.lifespan == 0}
+                      />
+                    </Right>
+                  </ListItem>
+                  <ListItem selected={this.state.lifespan == 1} >
+                    <Left>
+                      <Text>3 days : 72 hours</Text>
+                    </Left>
+                    <Right> */}
+                      {/* <Radio
+                       onPress={() => this.setState({ lifespan: 1 })}
+                       selected={this.state.lifespan == 1}
+                        color={"#000"}
+                        selectedColor={"#0073ff"}
+                        selected={this.state.lifespan == 1}
+                      />
+                    </Right>
+                  </ListItem>
+                  <ListItem selected={this.state.lifespan == 3} >
+                    <Left>
+                      <Text>7 days : 168 hours</Text>
+                    </Left>
+                    <Right>
+                      <Radio
+                       onPress={() => this.setState({ lifespan: 3 })}
+                       selected={this.state.lifespan == 3}
+                        color={"#000"}
+                        selectedColor={"#0073ff"}
+                        selected={this.state.lifespan == 3}
+                      />
+                    </Right>
+                  </ListItem> */}
+                  
+                  </View>
+                </View>
 
               
-            <View style={{flexDirection:'row', marginTop:35, justifyContent:'space-around', paddingBottom:50}}>
+            <View style={{flexDirection:'row', marginTop:35, justifyContent:'space-around', marginBottom:50}}>
           <View style={{width:'45%',}}>
         
-        <TouchableOpacity activeOpacity={0.9} style={{borderRadius:12, backgroundColor:'#888',padding:7, borderRadius:10}} 
+        <TouchableOpacity activeOpacity={0.9} style={{borderRadius:12, backgroundColor:'#c4cad3',padding:7, borderRadius:10}} 
         onPress={()=> this.props.navigation.navigate('StoryScreen')}>
           <Text style={{alignSelf:'center', color:'white', fontSize:TEXTSIZE/23,fontFamily:'Quicksand-Medium'}}>Cancel</Text>
         </TouchableOpacity>
@@ -194,30 +464,30 @@ class PostScreen extends Component {
                  
                }
                else if(this.state.text == ''  && this.state.postImage !==null){
-                this.props.addpostwithImage(this.state, this.state.myGroups)
+                this.props.addpostwithImage(this.state, this.state.selectedGroupsForPost)
                 this.props.navigation.navigate('StoryScreen')
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
                else if(this.state.text !== ''  && this.state.postImage ==null){
-                this.props.addpost(this.state, this.state.myGroups)
+                this.props.addpost(this.state, this.state.selectedGroupsForPost)
                 this.props.navigation.navigate('StoryScreen')
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
                else if(this.state.text !== ''  && this.state.postImage !==null){
-                this.props.addpostwithImage(this.state, this.state.myGroups)
+                this.props.addpostwithImage(this.state, this.state.selectedGroupsForPost)
                 this.props.navigation.navigate('StoryScreen')
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
                else {
                  {
-                   this.state.postImage == null ?  (this.props.addpost(this.state, this.props.auth.myActiveGroups) )
+                   this.state.postImage == null ?  (this.props.addpost(this.state, this.state.selectedGroupsForPost) )
                    : 
-                  ( this.props.addpostwithImage(this.state, this.props.auth.myActiveGroups))
+                  ( this.props.addpostwithImage(this.state, this.state.selectedGroupsForPost))
                  }
                
                 this.props.navigation.navigate('StoryScreen')
                
-                setTimeout(()=> this.props.getposts(this.state.token, this.props.auth.myActiveGroups), 2000)
+                setTimeout(()=> this.props.getposts(this.state.token, this.state.selectedGroupsForPost), 2000)
                 ToastAndroid.show('Posting...', ToastAndroid.LONG)
                }
               }
@@ -231,6 +501,149 @@ class PostScreen extends Component {
         </View>
         </View>  
         </ScrollView>
+
+
+        <Modal isVisible={this.state.showPicker} 
+          animationIn='slideInUp'
+          animationOut='slideOutDown'
+          hideModalContentWhileAnimating ={true}
+          animationInTiming={200}
+          onBackButtonPress={()=> this.setState({showPicker:false})}
+        >
+        <View style={{backgroundColor:"#fff", width:WIDTH-50,alignSelf:'center',borderRadius:20, overflow:'hidden'}}>
+                <View style={{backgroundColor:'#0073ff', height:50, alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontSize:18, fontFamily:'Quicksand-Medium', color:'#fff'}} >Pick Life-Span</Text>
+                </View>
+                <View style={{marginTop:15, paddingHorizontal:10, flexDirection:'row',alignItems:'center', justifyContent:'center'}}>
+                <TextInput 
+                        selectionColor="#0073ff"
+                        numberOfLines={1}
+                        underlineColorAndroid="#0073ff"
+                        value={this.state.days}
+                         maxLength={1}
+                         keyboardType="numeric"
+                        editable={true}
+                        onChangeText={(days)=>this.setState({days}) }
+                        placeholder="d"
+                        style={{fontFamily:'Quicksand-Medium',textAlign:'center', fontSize:18, color:'#333', width:WIDTH/10, textAlignVertical:'center'}}
+                         />
+                  <View style={{marginLeft:5, flexDirection:'row', alignItems:'center'}}>
+                    <Text style={{fontSize:18, fontFamily:'Quicksand-Medium', color:'#333'}}>Days</Text>
+                    <Text style={{fontSize:14, fontFamily:'Quicksand-Regular', color:'#333'}}>{'( <= 7 days)'}</Text>
+
+                  </View>
+                </View>
+
+                {
+                  this.state.showError2 ? (
+                    <View style={{marginTop:10, backgroundColor:'rgba(255,0, 0, 0.7)'}}>
+                    <Text style={{textAlign:'center', fontSize:17, color:'#fff', fontFamily:'Quicksand-Medium'}}>Post lifespan must be less than 7 days!</Text>
+                  </View>
+                  ) : (null)
+                }
+
+                <View style={{marginTop:10, paddingHorizontal:10, flexDirection:'row',alignItems:'center', justifyContent:'center'}}>
+                <TextInput 
+                        selectionColor="#0073ff"
+                        numberOfLines={1}
+                        underlineColorAndroid="#0073ff"
+                        value={this.state.hours}
+                         maxLength={2}
+                         keyboardType="numeric"
+                         onChangeText={(hours)=>this.setState({hours}) }
+                        editable={true}
+                        placeholder="hh"
+                        style={{fontFamily:'Quicksand-Medium',textAlign:'center', fontSize:18, color:'#333', width:WIDTH/10, textAlignVertical:'center'}}
+                         />
+                  <View style={{marginLeft:5, flexDirection:'row', alignItems:'center'}}>
+                    <Text style={{fontSize:18, fontFamily:'Quicksand-Medium', color:'#333'}}>Hours</Text>
+                    <Text style={{fontSize:14, fontFamily:'Quicksand-Regular', color:'#333'}}>{'( <= 24 hours)'}</Text>
+                  </View>
+                </View>
+                <View style={{marginTop:10, paddingHorizontal:10, flexDirection:'row',alignItems:'center', justifyContent:'center'}}>
+                <TextInput 
+                        selectionColor="#0073ff"
+                        numberOfLines={1}
+                        underlineColorAndroid="#0073ff"
+                        value={this.state.minutes}
+                         maxLength={2}
+                         keyboardType="numeric"
+                         onChangeText={(minutes)=>this.setState({minutes}) }
+                         placeholder="mm"
+                        editable={true}
+                        
+                        style={{fontFamily:'Quicksand-Medium',textAlign:'center', fontSize:18, color:'#333', width:WIDTH/10, textAlignVertical:'center'}}
+                         />
+                  <View style={{marginLeft:5, flexDirection:'row', alignItems:'center'}}>
+                    <Text style={{fontSize:18, fontFamily:'Quicksand-Medium', color:'#333'}}>Minutes</Text>
+                    <Text style={{fontSize:14, fontFamily:'Quicksand-Regular', color:'#333'}}>{'( <= 60 minutes)'}</Text>
+                  </View>
+                </View>
+                {
+                  this.state.showError1 ? (
+                    <View style={{marginTop:10, backgroundColor:'rgba(255,0, 0, 0.7)'}}>
+                    <Text style={{textAlign:'center', fontSize:17, color:'#fff', fontFamily:'Quicksand-Medium'}}>Invalid Input! Make sure your time input is correct</Text>
+                  </View>
+                  ) : (null)
+                }
+                {
+                  this.state.showError3 ? (
+                    <View style={{marginTop:10, backgroundColor:'rgba(255,0, 0, 0.7)'}}>
+                    <Text style={{textAlign:'center', fontSize:17, color:'#fff', fontFamily:'Quicksand-Medium'}}>Please select a time!</Text>
+                  </View>
+                  ) : (null)
+                }
+               
+                <View style={{ flexDirection:'row', marginBottom:20,marginTop:30, justifyContent:'space-around'}}>
+                <TouchableOpacity style={{alignItems:"center",padding:5,width:30+'%', borderRadius:10, justifyContent:'center', backgroundColor:'#bdc3c7'}} onPress={()=> {
+                 if(this.state.hours == null && this.state.days == null && this.state.minutes == null){
+                  this.setState({lifespan:0, showPicker:false})
+                 }
+                  this.setState({showPicker:false,})}}>
+                  <Text style={{fontFamily:'Quicksand-Medium', fontSize:18, color:'#fff'}}>Cancel</Text>
+                </TouchableOpacity>
+              <TouchableOpacity style={{alignItems:"center",padding:5,width:30+'%', borderRadius:10, justifyContent:'center', backgroundColor:'#0073ff'}} onPress={()=> {
+               this.setState({showError1:false, showError2:false})
+               if(this.state.hours >24 || this.state.minutes >60){
+                this.setState({showError1:true})
+                this.setState({showPicker:true})
+                
+               }
+               else if(this.state.days >7 ){
+                this.setState({showError2:true})
+                this.setState({showPicker:true})
+                
+               }
+               else if(this.state.hours == null && this.state.days == null && this.state.minutes == null){
+                this.setState({showError3:true})
+                this.setState({showPicker:true})
+               }  
+               else {
+                this.setState({showPicker:false})
+                let day = 86400000*this.state.days
+                let hour = this.state.hours*3600000
+                let minutes = this.state.minutes*60000
+                let lifespan2 =  day+ hour+ minutes
+                console.log('miliseconds =', day+ hour+ minutes)
+
+                console.log('time =',this.state.days, this.state.hours, this.state.minutes)
+                this.setState({showError1:false, showError2:false,lifespan2 })
+                this.setState({})
+               }
+              
+
+                   }}>
+                <Text style={{fontFamily:'Quicksand-Medium', fontSize:18, color:'#fff'}}>Done</Text>
+              </TouchableOpacity>
+            </View>
+        </View>
+        </Modal>
+
+
+
+
+
+
          
     </View>
    
@@ -245,7 +658,7 @@ const mapStateToProps = (state)=> {
   }
 }
 
-export default connect(mapStateToProps, {getAllUsers, getSingleUser,getposts, addpost, deletepost, addpostwithImage})(PostScreen)
+export default connect(mapStateToProps, {getAllUsers, getSingleUser,getposts, addpost,removeLoading, deletepost, addpostwithImage})(PostScreen)
 
 const styles = StyleSheet.create({
   container: {

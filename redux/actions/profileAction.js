@@ -1,6 +1,7 @@
 import {  SET_PROFILE_WITHDATA, 
     GET_ALL_USERS,
     SET_LOADING ,
+    REMOVE_LOADING,
     GET_CURRENT_PROFILE, 
     UPDATE_USER_PROFILE, 
     GET_SINGLE_USER, 
@@ -83,10 +84,10 @@ export const setCurrentProfileWithPublicInstitution = (userData)=> dispatch=> {
                     .catch(err => console.log('err', err.response))}
     
                     
-export const addPublicInstitution = (userData, token)=> dispatch=> {
+export const addPublicInstitution = (userData)=> dispatch=> {
 
     console.log('data =', userData)
-        axios.post(`http://192.168.43.76:3001/api/profile/updateProfile/institution/public?access_token=${token}`, userData)
+        axios.post(`http://192.168.43.76:3001/api/profile/updateProfile/institution/public?access_token=${userData.token}`, userData)
         .then(res=> 
             { 
               console.log('res is', res)
@@ -123,6 +124,11 @@ export const setLoading = () =>{
             return {
                 type: SET_LOADING
             }
+}
+export const removeLoading = () =>{
+    return {
+        type: REMOVE_LOADING
+    }
 }
    
 export const hideBio = () =>{
