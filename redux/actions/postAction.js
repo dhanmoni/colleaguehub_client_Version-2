@@ -59,7 +59,8 @@ export const addpostwithImage = (userdata, userinfo)=>dispatch=> {
                 payload: res.data
             })
             dispatch( getposts(userdata.token, userinfo) )
-            return
+           
+            
         }).catch(err => console.log(err))
     
 }
@@ -69,12 +70,14 @@ export const addpost = (userdata, userinfo)=>dispatch=> {
     console.log(group)
      axios.post(`http://192.168.43.76:3001/api/post/addpost?access_token=${userdata.token}&institution=${group}`, userdata)
      .then(res=> {
-         console.log(res)
+         console.log('res is =====',res)
+         console.log('lifespan is=', userdata.lifeSpanforPost)
          dispatch({
              type: ADD_POST,
              payload: res.data
          })
          dispatch( getposts(userdata.token, userinfo) )
+       
          
      }).catch(err =>console.log(err))
  }
@@ -181,16 +184,33 @@ export const deletecomment = (postId,commentId, postdata)=>dispatch=> {
 
 
 
-export const deletepost = (postData, token)=> dispatch=> {
+export const deletepostDirectly = (postData, token)=> dispatch=> {
    
-    axios.delete(`http://192.168.43.76:3001/api/post/deletepost/${postData._id}?access_token=${token.token}`)
+    axios.delete(`http://192.168.43.76:3001/api/post/deletepost/${postData}?access_token=${token.token}`)
     .then(res=> {
-       
+       console.log('deleted')
         dispatch({
             type: DELETE_POST,
             payload: {}
         })
-    dispatch(getposts(token, token.myActiveGroups ))
+    dispatch(getposts(token.token, token.selectedGroupsForPost ))
+    }
+    ).then(()=> {
+        ToastAndroid.show('Post deleted directly', ToastAndroid.SHORT)
+    })
+    .catch(err => console.log(err))}
+
+
+export const deletepost = (postData, token)=> dispatch=> {
+   
+    axios.delete(`http://192.168.43.76:3001/api/post/deletepost/${postData}?access_token=${token.token}`)
+    .then(res=> {
+       console.log('deleted')
+        dispatch({
+            type: DELETE_POST,
+            payload: {}
+        })
+    dispatch(getposts(token.token, token.myActiveGroups ))
     }
     ).then(()=> {
         ToastAndroid.show('Post deleted', ToastAndroid.SHORT)

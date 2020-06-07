@@ -187,22 +187,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
       
       },
       
-      User: { 
-        screen:UserStack,
-          navigationOptions: {
-          tabBarLabel: 'User',
-         
-          tabBarIcon:
-          ({ focused }) => (
-            focused ?
-      
-        <FontAwesome5 name="user-alt"  size={25} style={{}} color='#0073ff' />
-        :
-            <FontAwesome5 name="user-alt"  size={22} style={{}} color="#808080" />
-          )
-        },
-        
-        },
+     
     
       Home: { 
         screen: HomeStack,
@@ -236,6 +221,22 @@ HomeStack.navigationOptions = ({ navigation }) => {
            },
            },
      
+           User: { 
+            screen:UserStack,
+              navigationOptions: {
+              tabBarLabel: 'User',
+             
+              tabBarIcon:
+              ({ focused }) => (
+                focused ?
+          
+            <FontAwesome5 name="user-alt"  size={25} style={{}} color='#0073ff' />
+            :
+                <FontAwesome5 name="user-alt"  size={22} style={{}} color="#808080" />
+              )
+            },
+            
+            },
   
          
          

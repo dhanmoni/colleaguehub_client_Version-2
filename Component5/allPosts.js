@@ -412,6 +412,9 @@ import moment from 'moment'
               onEndReached={this.handleRefresh}
               onEndReachedThreshold={0}
           />
+          <View style={{marginBottom:100,}}>
+
+          </View>
       </View>
     )
   }

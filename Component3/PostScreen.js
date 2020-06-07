@@ -53,15 +53,17 @@ class PostScreen extends Component {
      myGroups:[],
      selectedGroupsForPost:[],
      groupsNames:[],
+     selectColor:"#fff",
      lifespan:0,
-     lifespan2:0,
+     lifeSpanforPost:0,
      showPicker: false,
      days:null,
      hours:null,
      minutes:null,
      showError1:false,
      showError2:false,
-     showError3:false
+     showError3:false,
+     showCustomTimeError:false
     }
   }
   async componentDidMount() {
@@ -76,23 +78,25 @@ class PostScreen extends Component {
             token,
             name: this.props.auth.user.name,
             profileImage: this.props.auth.user.profileImage,
+            lifeSpanforPost: 86400000 
           })
           console.log(token)
         }  
         const names = this.props.auth.userInfo.institution.filter(name=> {
           this.state.myGroups.push(name)
         })
+        console.log('state 1==', this.state.myGroups)
+        console.log('state 2==', this.state.selectedGroupsForPost)
+        console.log('state 3==', this.state.groupsNames)
         this.props.auth.userInfo.activeGroup.filter(name=> {
           console.log('groups name =', name)
           this.state.selectedGroupsForPost.push(name.institution_name)
           this.state.groupsNames.push(name.institution_name)
           this.props.removeLoading()
+          console.log(this.state.groupsNames)
         })
-        console.log('groups name2 =', this.state.myGroups)
-        console.log('groups name3 =', this.state.groupsNames)
-        console.log('groups name4 =', this.state.selectedGroupsForPost)
-       // ToastAndroid.show(label[0].label, ToastAndroid.SHORT)
-        setTimeout(()=> this.setState({loading:false}), 5000)
+        
+       
     
   }
 
@@ -147,23 +151,27 @@ class PostScreen extends Component {
       }
       return arr;
     }
+   
 
     if(loading){
+      
       return(
         <View style={{flex: 1,}}>
         <View style={{backgroundColor:'transparent',flexDirection: 'row', height: HEIGHT_MIN/10, width:WIDTH_MIN, borderBottomLeftRadius:15, borderBottomRightRadius:15,overflow:'hidden'}}>
          <LinearGradient  colors={['#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',}}  start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
-           <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',justifyContent:'space-between', paddingHorizontal:20}}>
-          
-               <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 27 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
-               
-           </View>
-          
+         <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',justifyContent:'center', paddingHorizontal:20}}>
+             <Icon style={{position:"absolute",marginTop:20, left:20, zIndex:100000}} name="chevron-circle-left" size={26} color="#fff" onPress={()=> this.props.navigation.navigate('StoryScreen')}/>
+             <View> 
+             <Text numberOfLines={1} style={{fontSize:27, fontFamily:'Quicksand-Bold',textAlign:'center' ,color:'#fff',}}>ColleagueHub</Text>
+             </View>
+           
+                 
+             </View>
  
          </LinearGradient> 
          </View>
-         <View style={{ justifyContent:'center',alignItems:'center',flex:1, backgroundColor:'#fff'}}>
-         <Spinner color={'#aaa'} size={50} type={"Circle"}/>
+         <View style={{ justifyContent:'center',alignItems:'center',flex:1, backgroundColor:"#fff"}}>
+         <Spinner color={'#0073ff'} size={50} type={"Circle"}/>
          </View>
        
        </View>
@@ -195,18 +203,20 @@ class PostScreen extends Component {
      
       <View style={{backgroundColor:'transparent',flexDirection: 'row', height: HEIGHT_MIN/10, width:WIDTH_MIN, borderBottomLeftRadius:15, borderBottomRightRadius:15,overflow:'hidden'}}>
          <LinearGradient  colors={['#00c6ff', '#0073ff']} style={{width: 100 + '%', height: 100 +'%',}}  start={{x: 0.1, y: 0.1}} end={{x: 0.5, y: 0.5}} >
-           <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',justifyContent:'space-between', paddingHorizontal:20}}>
-          
-               <Text style={{color:'white',flex:1 ,textAlign: 'center',fontSize: 27 ,backgroundColor: 'transparent', fontFamily:'Quicksand-Bold'}}>ColleagueHub</Text>
-               
-           </View>
-          
+         <View style={{flexDirection:'row', alignItems:'center',width: 100 + '%', height: 100 +'%',justifyContent:'center', paddingHorizontal:20}}>
+             <Icon style={{position:"absolute",marginTop:20, left:20, zIndex:100000}} name="chevron-circle-left" size={26} color="#fff" onPress={()=> this.props.navigation.navigate('StoryScreen')}/>
+             <View> 
+             <Text numberOfLines={1} style={{fontSize:27, fontFamily:'Quicksand-Bold',textAlign:'center' ,color:'#fff',}}>ColleagueHub</Text>
+             </View>
+           
+                 
+             </View>
  
          </LinearGradient> 
          </View>
           
        <View style={{marginTop:HEIGHT_MIN/50, }}>
-       <ScrollView>
+       <ScrollView style={{marginBottom:30}} showsVerticalScrollIndicator={false}>
             <View>
               <Text style={{ color:textcolor,
                     fontSize: TEXTSIZE/24,
@@ -257,7 +267,7 @@ class PostScreen extends Component {
                     padding:3,
                     fontFamily:'Quicksand-Medium'}}>Choose post life span :</Text>
                   </View>
-                  <View style={{}}>
+                  <View >
                       
 
                   {
@@ -274,17 +284,18 @@ class PostScreen extends Component {
                                     <TouchableOpacity
                                      style={{flexDirection:'row',justifyContent:'space-between', padding:5}} activeOpacity={0.8}
                                      onPress={async()=>{
-                                       if( data.value ==3 && userInfo.pro ==true){
-                                         ToastAndroid.show('Only PRO user can use this feature!', ToastAndroid.SHORT)
+                                       if( data.value ==3 && userInfo.pro ==false){
+                                        this.setState({showCustomTimeError: true})
+                                        ToastAndroid.show('Only PRO users can use this feature!', ToastAndroid.SHORT)
                                        }
-                                       else if( data.value ==3 && userInfo.pro ==false){
+                                       else if( data.value ==3 && userInfo.pro ==true){
                                         console.log('PRO')
                                          this.setState({lifespan:data.value, showPicker:true})
                                           
                                        }
                                        else {
-                                        this.setState({lifespan:data.value, lifespan2:data.time}, ()=> {
-                                          console.log('selected =', this.state.lifespan2)
+                                        this.setState({lifespan:data.value, lifeSpanforPost:data.time}, ()=> {
+                                          console.log('selected =', this.state.lifeSpanforPost)
                                         })
                                        
                                        }
@@ -298,7 +309,23 @@ class PostScreen extends Component {
                                     </Left>
                                     <Right>
                                         <Radio
-                                            //onPress={()=> this.setState({lifespan:data.value})}
+                                            onPress={async()=>{
+                                              if( data.value ==3 && userInfo.pro ==false){
+                                               this.setState({showCustomTimeError: true})
+                                               ToastAndroid.show('Only PRO users can use this feature!', ToastAndroid.SHORT)
+                                              }
+                                              else if( data.value ==3 && userInfo.pro ==true){
+                                               console.log('PRO')
+                                                this.setState({lifespan:data.value, showPicker:true})
+                                                 
+                                              }
+                                              else {
+                                               this.setState({lifespan:data.value, lifeSpanforPost:data.time}, ()=> {
+                                                 console.log('selected =', this.state.lifeSpanforPost)
+                                               })
+                                              
+                                              }
+                                               }}
                                             color={"#000"}
                                             
                                             selectedColor={"#0073ff"}
@@ -310,6 +337,18 @@ class PostScreen extends Component {
                                   </ListItem>
                                 )
                       })}
+                     {
+                  this.state.showCustomTimeError ? (
+                    <TouchableOpacity activeOpacity={0.88}
+                     style={{marginTop:15, backgroundColor:'rgba(255,0, 0, 0.6)', flexDirection:'row', marginHorizontal:10, borderRadius:10}} 
+                    onPress={()=> alert('Pro')}
+                    >
+                    <Text style={{textAlign:'center', fontSize:17,padding:5, color:'#fff', fontFamily:'Quicksand-Medium'}}>PRO licence is required! Click here to get one.</Text>
+                    
+                   
+                  </TouchableOpacity>
+                  ) : (null)
+                }
 
                       <View style={{marginTop:10,}}>
                       <View style={{}}>
@@ -319,11 +358,11 @@ class PostScreen extends Component {
                     padding:3,
                     fontFamily:'Quicksand-Medium'}}>This will be posted to :</Text>
                   </View>
-              <View style={{marginTop:10, width:95+'%', flex:1,}}>
+              <View style={{marginTop:10, width:100+'%', flex:1,margin:'auto', paddingHorizontal:10}}>
 
               <FlatList
-          data={this.state.selectedGroupsForPost}
-          key={item=> item}
+          data={this.state.myGroups}
+          key={item=> item.institution_name}
           extraData={this.state}
           ListEmptyComponent={()=> {
             return (
@@ -339,33 +378,45 @@ class PostScreen extends Component {
            
                   <TouchableOpacity activeOpacity={0.88}  style={{width:100+'%'}}
                    onPress={
-                    this.state.groupsNames.includes(item)? (
+                    this.state.groupsNames.includes(item.institution_name)? (
                       ()=> {
-                        removeByAttr(this.state.groupsNames, 'institution_name', item);
-                        let index = this.state.groupsNames.indexOf(item);
+                        //removeByAttr(this.state.selectedGroupsForPost, 'institution_name', item.institution_name);
+                        let index = this.state.groupsNames.indexOf(item.institution_name);
+
                         if (index > -1) {
                           this.state.groupsNames.splice(index, 1);
                         }
-  
+                        let index2 = this.state.selectedGroupsForPost.indexOf(item.institution_name);
+                        if (index2 > -1) {
+                          this.state.selectedGroupsForPost.splice(index, 1);
+                        }
+                      console.log('included selected post=', this.state.selectedGroupsForPost)
+                      console.log('included group names post=', this.state.groupsNames)
+
+                        this.setState({selectColor:'#fff'})
                       }
                     ): (
                     ()=> {
-                      //this.state.selectedGroupsForPost.push(item)
-                      this.state.groupsNames.push(item)
-                    console.log('yesh')
+                      this.state.selectedGroupsForPost.push(item.institution_name)
+                      this.state.groupsNames.push(item.institution_name)
+                      console.log('was not included selected post=', this.state.selectedGroupsForPost)
+                      console.log('was not included group names =', this.state.groupsNames)
+
+                      this.setState({selectColor:'#0073ff'})
                     }  
                       
                     )
-                  } >
+                  }
+                  >
                   
                   {
-                    this.state.groupsNames.includes(item)? (
+                    this.state.groupsNames.includes(item.institution_name)? (
                       <View style={{backgroundColor:'#0073ff', width:100+'%', borderRadius:8, flexDirection:'row', alignItems:"center"}}>
                           <View style={{marginLeft:5,marginRight:5, alignItems:'center', justifyContent:'center'}}>
                           <Icon name="check" size={18} color="#fff"/>
                           </View>
   
-                            <Text style={{fontSize:19,color:'#fff', fontFamily:'Quicksand-Bold',paddingLeft:10, padding:2,}}>{item}</Text> 
+                            <Text style={{fontSize:19,color:'#fff', fontFamily:'Quicksand-Bold',paddingLeft:10, padding:2,}}>{item.institution_name}</Text> 
                           
                       </View>
                     
@@ -375,7 +426,7 @@ class PostScreen extends Component {
                           <Icon name="circle" size={18} color={textcolor}/>
                           </View>
                       <View>
-                      <Text style={{fontSize:19,color:textcolor, fontFamily:'Quicksand-Bold',paddingLeft:10, padding:2,}}>{item}</Text>
+                      <Text style={{fontSize:19,color:textcolor, fontFamily:'Quicksand-Bold',paddingLeft:10, padding:2,}}>{item.institution_name}</Text>
                       </View>
                         
                       
@@ -500,6 +551,9 @@ class PostScreen extends Component {
        
         </View>
         </View>  
+        <View style={{marginBottom:30}}>
+
+        </View>
         </ScrollView>
 
 
@@ -623,11 +677,11 @@ class PostScreen extends Component {
                 let day = 86400000*this.state.days
                 let hour = this.state.hours*3600000
                 let minutes = this.state.minutes*60000
-                let lifespan2 =  day+ hour+ minutes
+                let lifeSpanforPost =  day+ hour+ minutes
                 console.log('miliseconds =', day+ hour+ minutes)
 
                 console.log('time =',this.state.days, this.state.hours, this.state.minutes)
-                this.setState({showError1:false, showError2:false,lifespan2 })
+                this.setState({showError1:false, showError2:false,lifeSpanforPost })
                 this.setState({})
                }
               

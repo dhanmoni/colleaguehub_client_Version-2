@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity,ActivityIndicator,ToastAndroid, Image, Dimensions,ImageBackground,StatusBar, ScrollView,TextInput, Button, Alert, AsyncStorage, FlatList, NetInfo, Easing, Animated,TouchableWithoutFeedback, KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux'
@@ -74,6 +73,7 @@ class UserScreen2 extends Component {
         myGroups:[],
         myActiveGroups:[],
         groupsNames:[],
+        setActiveGroup:[],
         selectColor:"#fff",
         suggestions:[],
        insname:[],
@@ -90,9 +90,12 @@ class UserScreen2 extends Component {
      this.props.auth.userInfo.institution.filter(name=> {
       this.state.myGroups.push(name)
     })
+    this.props.auth.userInfo.activeGroup.filter(name=> {
+      this.state.setActiveGroup.push(name)
+    })
 
     await this.props.auth.userInfo.activeGroup.filter(name=> {
-      this.state.myActiveGroups.push(name)
+      this.state.myActiveGroups.push(name.institution_name)
     })
    
      this.props.auth.userInfo.activeGroup.filter(name=> {
@@ -946,10 +949,14 @@ const styles = {
                          onPress={
                           this.state.groupsNames.includes(item.institution_name)? (
                             ()=> {
-                              removeByAttr(this.state.myActiveGroups, 'institution_name', item.institution_name);
+                              removeByAttr(this.state.setActiveGroup, 'institution_name', item.institution_name);
                               let index = this.state.groupsNames.indexOf(item.institution_name);
                               if (index > -1) {
                                 this.state.groupsNames.splice(index, 1);
+                              }
+                              let index2 = this.state.myActiveGroups.indexOf(item.institution_name);
+                              if (index2 > -1) {
+                                this.state.myActiveGroups.splice(index, 1);
                               }
 
                             console.log('1=', this.state.myActiveGroups)
@@ -959,8 +966,9 @@ const styles = {
                             }
                           ): (
                           ()=> {
-                            this.state.myActiveGroups.push(item)
+                            this.state.myActiveGroups.push(item.institution_name)
                             this.state.groupsNames.push(item.institution_name)
+                            this.state.setActiveGroup.push(item)
                             console.log('2=', this.state.myActiveGroups)
                             console.log('22=', this.state.groupsNames)
 
@@ -997,6 +1005,10 @@ const styles = {
                                     if (index > -1) {
                                       this.state.myGroups.splice(index, 1);
                                     }
+                              let index2 = this.state.setActiveGroup.indexOf(item);
+                                    if (index2 > -1) {
+                                      this.state.setActiveGroup.splice(index, 1);
+                                    }
                             }} 
                             style={{marginLeft:5,marginRight:5, alignItems:'center',zIndex:101, position:'absolute', right:8}}>
                               <Icon name="minus-circle" size={18} color="#ff0000"/>
@@ -1019,7 +1031,8 @@ const styles = {
           <View style={{ flexDirection:'row', marginBottom:10,marginTop:10, justifyContent:'space-around'}}>
              
               <TouchableOpacity style={{alignItems:"center",padding:5,width:30+'%', borderRadius:10, justifyContent:'center', backgroundColor:'#0073ff'}} onPress={()=> {
-                this.props.setMyActiveGroups(this.state.myActiveGroups, this.state.token)
+                this.props.setMyActiveGroups(this.state.setActiveGroup, this.state.token)
+                this.props.getposts(this.state.token,this.state.myActiveGroups )
                 this.setState({isModal1Visible:false})}}>
                 <Text style={{fontFamily:'Quicksand-Medium', fontSize:18, color:'#fff'}}>Done</Text>
               </TouchableOpacity>
@@ -1279,6 +1292,3 @@ const mapStateToProps = (state)=> {
 export default connect(mapStateToProps, 
     {deleteAuthUser, deletepost, getposts, addlike, addcomment, getSinglePost,updateProfileImage2, getSingleUser, updateProfileImage, nightmodeoff,setMyActiveGroups, nightmodeon, updateUserBio, setMyGroups, hideBio, hideSkills, showBio, deleteInstitution, addPublicInstitution, setCurrentProfileWithPrivateInstitution, setCurrentProfileWithPublicInstitution
     })(UserScreen2)
-
-
-
